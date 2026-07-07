@@ -27,6 +27,9 @@ execução. Saída: plano que um implementador (você amanhã, ou um Haiku) exec
 2. Grep nos CONSUMIDORES do que vai mudar — a surpresa mora em quem chama.
 3. O que já existe de aproveitável? (utilitário, padrão, teste-modelo a imitar)
 4. Memória institucional: grep `docs/solutions/` por termos da área; `CONCEPTS.md` para vocabulário.
+5. **Trabalho em voo:** branches/PRs abertos tocando os mesmos arquivos (`git fetch` + `gh pr list`).
+   Conflito à vista → declare o sequenciamento no plano ("começar após merge de X" ou "aceito
+   resolver conflito") e anote que âncoras de linha podem deslocar até a execução.
 **Litmus antes de prosseguir:** cada arquivo que o plano vai citar foi visto NESTA sessão (por
 você ou pelo dossiê do pesquisador, com amostra conferida).
 
