@@ -1,0 +1,27 @@
+{
+  "name": "fable-5-start-project",
+  "owner": {
+    "name": "Alexander Cesar"
+  },
+  "metadata": {
+    "description": "Marketplace local do kit de partida — contém o plugin composto",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "composto",
+      "description": "Engenharia composta v2: pipeline brainstorm→plano→trabalho→revisão→compound com enxame opcional (/slfg), apartes (/btw) e verificação adversarial",
+      "author": {
+        "name": "Alexander Cesar + Claude Fable 5"
+      },
+      "tags": [
+        "compound-engineering",
+        "workflow",
+        "code-review",
+        "swarm",
+        "knowledge-management"
+      ],
+      "source": "./composto"
+    }
+  ]
+}

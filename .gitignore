@@ -1,0 +1,24 @@
+# Segredos — nunca no repositório (reforça AUTONOMY.md / guardrails)
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+id_rsa*
+
+# Dependências e artefatos (genérico; ajuste à stack)
+node_modules/
+dist/
+build/
+coverage/
+__pycache__/
+*.pyc
+.venv/
+target/
+
+# Sistema e editores
+.DS_Store
+*.swp
+.idea/
+.vscode/*
+!.vscode/settings.json

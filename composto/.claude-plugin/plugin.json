@@ -1,0 +1,17 @@
+{
+  "name": "composto",
+  "version": "1.0.0",
+  "description": "Engenharia composta v2 — pipeline com contratos verificáveis, enxame opcional e captura de aprendizado enxuta. Sucessor espiritual do compound-engineering, desenhado para Opus/Sonnet/Haiku.",
+  "author": {
+    "name": "Alexander Cesar + Claude Fable 5"
+  },
+  "license": "MIT",
+  "keywords": [
+    "compound-engineering",
+    "pipeline",
+    "swarm",
+    "code-review",
+    "debugging",
+    "knowledge-management"
+  ]
+}
