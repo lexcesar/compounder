@@ -45,7 +45,14 @@ MENORES: <agrupados, 1 linha cada>
 DESCARTADOS NO TRIBUNAL: <N achados refutados — não são problemas>
 COBERTURA: <lentes rodadas + onde se procurou sem achar>
 ```
-Sem token `aplicar`: PARE aqui — o parecer é o entregável; não toque no código.
+Sem token `aplicar`: o parecer é o entregável — não toque no código. Feche com menu roteado:
+```
+Revisão pronta (N confirmados, N menores). Próximo passo?
+1. Aplicar classe segura — só correções mecânicas/cobertas, suite após cada uma
+2. Corrigir item a item — walkthrough dos confirmados comigo
+3. Só registrar — gravo os achados em docs/plans/<contexto>-residuos.md e paro
+```
+Recomende pela severidade ("2 GRAVES confirmados → opção 2; só menores → opção 1").
 
 ## Passo 5 — Aplicação (só com `aplicar`)
 Classifique cada CONFIRMADO:

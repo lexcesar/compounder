@@ -67,6 +67,13 @@ criado: AAAA-MM-DD
 Requisito bom = alguém escreve um teste a partir dele. "Deve ser rápido" não é requisito;
 "p95 < 300ms na busca" é.
 
-## Passo 4 — Handoff
-Mostre o resumo (problema + R's + não-objetivos) e encerre com:
-"Requisitos em `<caminho>`. Próximo passo: `/plano <caminho>` — ou me diga o que ajustar."
+## Passo 4 — Handoff (menu roteado)
+Mostre o resumo (problema + R's + não-objetivos) e encerre com menu numerado:
+```
+Requisitos em <caminho>. Próximo passo?
+1. /plano <caminho> — decidir o COMO agora
+2. Ajustar requisitos — me diga o quê
+3. Estacionar — a ideia não se sustentou (arquivo fica como registro do porquê)
+```
+Recomende UMA opção com o porquê amarrado ao que a rodada revelou ("critérios ficaram checáveis
+e sem questão aberta → opção 1"). Ideia que morreu no brainstorm é sucesso do funil — diga isso.

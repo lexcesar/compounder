@@ -66,7 +66,16 @@ Atualize o frontmatter: `etapa: plano-pronto`.
 - [ ] Nenhum caminho absoluto (sempre relativo ao repo).
 Qualquer ❌ → conserte antes de mostrar.
 
-## Passo 6 — Handoff
-Resumo no chat: objetivo, nº de unidades, U1 (o spike de risco), decisões-chave. Feche com:
-"Plano em `<caminho>`. Próximo: `/trabalhar <caminho>` — ou aponte o que mudar."
-(Em pipeline: retorne o caminho e pare.)
+## Passo 6 — Handoff (menu roteado)
+Resumo no chat: objetivo, nº de unidades, U1 (o spike de risco), decisões-chave. Feche com menu
+numerado onde cada opção é uma AÇÃO executável (quem responde "1" já disparou trabalho):
+```
+Plano pronto em <caminho>. Próximo passo?
+1. /trabalhar <caminho> — implementar agora
+2. /lfg <caminho> — autônomo até o fim (gates preservados: commit/push só com seu go)
+3. Walkthrough — decidir unidade a unidade comigo
+4. Ajustar o plano — me diga o quê
+```
+Recomende UMA opção com o porquê amarrado ao contexto ("fix de 1 arquivo → opção 1 é o caminho
+mais direto"). A opção autônoma sempre declara a cerca junto com o motor.
+(Em pipeline: retorne o caminho e pare — menu é para humanos.)
