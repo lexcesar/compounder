@@ -37,9 +37,12 @@ Invoque a skill `trabalhar` com o caminho do plano (`modo:retornar` — sem caud
 marcadas feitas têm o comportamento? Qualquer REFUTADO → volte a `trabalhar` com a lista de
 refutações (1 retry). Persistindo → PARE, reporte estado real + handoff.
 
-## Fase 3 — Simplificação
-Pule se: diff < 10 linhas OU só docs/config. Senão invoque `simplificar` (preserva comportamento,
-suite verde antes/depois). Não commite aqui.
+## Fase 3 — Simplificação (obrigatória em diff de código)
+Pule SOMENTE se o diff for exclusivamente docs/config (sem código executável). Qualquer código
+tocado → invoque `simplificar` SEMPRE (preserva comportamento, suite verde antes/depois), inclusive
+em diff pequeno. IA tende a deixar andaime — helper novo sem chamador, branch especulativo, import
+órfão: a plaina existe exatamente para isso, e a revisão da Fase 4 deve julgar código já limpo.
+Não commite aqui.
 
 ## Fase 4 — Revisão
 Invoque `revisar` em modo `aplicar` sobre o diff completo. Ela aplica só correções de classe

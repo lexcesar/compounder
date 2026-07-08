@@ -13,11 +13,18 @@ pagar em valor? Simplicidade é sobre CUSTO FUTURO, não sobre gosto.
    diff nem em pedido citado. Prova: mostre que só há um valor/caminho vivo.
 2. **Abstração prematura:** interface com 1 implementação, herança onde função bastava, wrapper
    que só repassa, padrão-de-projeto sem o problema que o justifica.
-3. **Duplicação real:** o diff reinventa utilitário que o projeto JÁ TEM (grep para provar) —
+3. **Código morto / não-usado (o veneno clássico da IA):** símbolo NOVO no diff — função, tipo,
+   componente, export, arquivo inteiro — que NINGUÉM consome. IA gera andaime e esquece de
+   removê-lo. Prova por grep: `grep -rn "<nome>" <src>` só bate na definição (e no próprio teste)
+   → morto. Vale também para import órfão, variável não lida, branch inalcançável, campo de config
+   nunca lido. Corte sugerido: apagar.
+4. **Duplicação real:** o diff reinventa utilitário que o projeto JÁ TEM (grep para provar) —
    ou copia bloco pela 3ª vez (regra de três: 2ª cópia é barata; 3ª pede extração).
-4. **API maior que o uso:** exporta o que ninguém importa; público que podia ser privado;
-   opções que nenhum chamador passa (grep nos chamadores para provar).
-5. **Fluxo enrolado:** aninhamento que early-return achata; negação dupla; estado mutável onde
+5. **API maior que o uso (símbolo USADO, superfície larga demais):** público que podia ser
+   privado; parâmetro/opção que nenhum chamador passa; retorno mais rico que o consumido (grep nos
+   chamadores para provar). Distinto do item 3: aqui o símbolo tem consumidor — o excesso é a
+   superfície, não a existência.
+6. **Fluxo enrolado:** aninhamento que early-return achata; negação dupla; estado mutável onde
    valor direto servia; indireção que obriga o leitor a 4 saltos para achar a lógica.
 
 ## Calibração (o que NÃO reportar)
