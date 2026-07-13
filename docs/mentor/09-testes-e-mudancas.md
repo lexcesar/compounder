@@ -55,6 +55,13 @@ Escala de honestidade (rotule SEMPRE o degrau): rodei e passou (com números) > 
 limpo > revisei por leitura > acho que funciona. Reportar um degrau acima do real é a mentira
 mais cara que um modelo conta.
 
+**Escopo do verificado.** "Rodei e passou" só vale dentro do ambiente onde rodou — declare-o:
+`[verificado em Chromium]` ≠ `[verificado]`. Comportamento dependente de plataforma (foco/DOM
+entre motores de browser, dialeto de SQL, filesystem case-sensitivity, timezone/locale) exige
+verificação em ≥2 representantes da classe — ou a linha "Não testado" nomeando os que faltaram.
+Caso real: fix de foco "verificado" empiricamente passou verde e quebrava no Safari, porque a
+suíte e o teste manual só cobriam um motor. Verde num representante não é verde na classe.
+
 ## Propondo mudanças (quando o pedido não era implementar)
 Deliverable = parecer. Formato:
 1. **Diagnóstico** com evidência (arquivo:linha, comando+saída).

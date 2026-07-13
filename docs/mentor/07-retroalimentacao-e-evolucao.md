@@ -71,6 +71,13 @@ A cada ~5 retros, varra o que está gravado:
 Sistema que só acumula afoga as 5 regras vitais em 50 mortas — e o modelo da sessão 51 não
 distingue quais são as vivas. O tamanho saudável do genoma é ~constante; a QUALIDADE é que sobe.
 
+**Poda estrutural antes de raspagem.** Índice/arquivo de memória estourou o limite? Antes de
+encurtar descrições linha a linha, procure o movimento estrutural: um bloco inteiro que quer ser
+arquivo próprio (com ponteiro no índice) corta mais numa edição do que dez raspagens. Dois cortes
+do mesmo tipo sem resolver = pare e troque de estratégia — é a regra "falhou 2× → hipótese nova"
+(guia 00, regra 9) aplicada à memória. Caso real: 8 edições rasparam 3KB de um índice de 20KB;
+mover a seção de lições para arquivo próprio cortou 51% numa edição só.
+
 ## O contrato mínimo por sessão
 Ao receber correção: (1) acuse na hora — "entendi: <regra destilada em 1 frase>"; (2) aplique
 imediatamente na tarefa corrente; (3) grave no endereço certo (ou marque para o `/retro` se o

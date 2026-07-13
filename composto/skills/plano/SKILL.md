@@ -27,7 +27,10 @@ execução. Saída: plano que um implementador (você amanhã, ou um Haiku) exec
 2. Grep nos CONSUMIDORES do que vai mudar — a surpresa mora em quem chama.
 3. O que já existe de aproveitável? (utilitário, padrão, teste-modelo a imitar)
 4. Memória institucional: grep `docs/solutions/` por termos da área; `CONCEPTS.md` para vocabulário.
-5. **Trabalho em voo:** branches/PRs abertos tocando os mesmos arquivos (`git fetch` + `gh pr list`).
+5. **Conhecimento externo:** opção que introduz atributo/API/lib que o repo nunca usou → leia a
+   doc oficial DELA e cheque suporte de plataforma (caniuse, matriz de versões) ANTES de propor.
+   Teste empírico num ambiente só prova aquele ambiente; é a doc que diz onde a opção quebra.
+6. **Trabalho em voo:** branches/PRs abertos tocando os mesmos arquivos (`git fetch` + `gh pr list`).
    Conflito à vista → declare o sequenciamento no plano ("começar após merge de X" ou "aceito
    resolver conflito") e anote que âncoras de linha podem deslocar até a execução.
 **Litmus antes de prosseguir:** cada arquivo que o plano vai citar foi visto NESTA sessão (por
@@ -79,3 +82,8 @@ Plano pronto em <caminho>. Próximo passo?
 Recomende UMA opção com o porquê amarrado ao contexto ("fix de 1 arquivo → opção 1 é o caminho
 mais direto"). A opção autônoma sempre declara a cerca junto com o motor.
 (Em pipeline: retorne o caminho e pare — menu é para humanos.)
+
+## Registro de evolução
+- 2026-07-13: adicionado recon "Conhecimento externo" (doc oficial + suporte de plataforma).
+  Caso: `hx-preserve` escolhido e validado empiricamente em Chromium; a doc oficial do htmx já
+  dizia que input de texto não é preservável — quebrava no Safari, pego só na revisão adversarial.
