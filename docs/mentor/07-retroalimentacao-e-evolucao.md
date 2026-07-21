@@ -38,6 +38,7 @@ caso-limite.
 |---|---|---|
 | Este projeto, estável, vale para todos | `CLAUDE.md` | "migrations nunca se editam" |
 | Este usuário, atravessa projetos | `memory/` (type: feedback ou user) | "prefere diffs a prosa" |
+| Método em geral, valeria em qualquer projeto | Doutrina upstream (kit/plugin de método que o usuário mantém) — proponha a promoção; sem upstream, `memory/` | "'verificado' exige escopo declarado" |
 | Limite de ação/permissão | `AUTONOMY.md` ou `.claude/settings.json` | "nunca instalar dep de produção" |
 | Procedimento repetível multi-passo | Skill (patch ou nova) | "o ritual de release tem 7 passos" |
 | Só o incidente de hoje | **Lixeira.** | — |

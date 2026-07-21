@@ -45,7 +45,7 @@ Nunca pule o primeiro nem os dois últimos.
 |---|---|
 | Tarefa não-trivial, vai planejar | `docs/mentor/04-planejamento.md` |
 | Bug misterioso, investigação | `docs/mentor/05-analise-profunda.md` |
-| Vai delegar a subagentes | `docs/mentor/06-delegacao-e-subagentes.md` |
+| Vai delegar/despachar a subagentes | `docs/mentor/06-delegacao-e-subagentes.md` (como) + `ROTAS.md` (rota, modelo, QC, log) |
 | Vai escrever/alterar testes ou propor mudança | `docs/mentor/09-testes-e-mudancas.md` |
 | Dúvida se pode agir sozinho | `AUTONOMY.md` |
 | Usuário te corrigiu | `docs/mentor/07-retroalimentacao-e-evolucao.md` |
