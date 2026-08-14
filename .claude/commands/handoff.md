@@ -1,28 +1,28 @@
 ---
-description: Gera documento de passagem para a próxima sessão (estado real, próximos passos, armadilhas)
-argument-hint: [opcional - contexto extra para a passagem]
+description: Generates a handoff document for the next session (actual state, next steps, traps)
+argument-hint: [optional - extra context for the handoff]
 ---
 
-# /handoff — passagem de bastão
+# /handoff — passing the baton
 
-Contexto extra do usuário (se houver): `$ARGUMENTS`
+Extra context from the user (if any): `$ARGUMENTS`
 
-A próxima sessão (você mesmo, amanhã, com contexto zerado) só saberá o que este documento disser.
-Escreva para um colega competente que não viu NADA desta conversa. Use o template
-`docs/templates/handoff.md` e grave em `docs/handoffs/AAAA-MM-DD-HHMM.md` (crie a pasta se preciso).
+The next session (you yourself, tomorrow, with zero context) will only know what this document says.
+Write for a competent colleague who saw NOTHING of this conversation. Use the template
+`docs/templates/handoff.md` and save to `docs/handoffs/YYYY-MM-DD-HHMM.md` (create the folder if needed).
 
-Regras de qualidade — o que separa um handoff útil de um inútil:
-1. **Estado é o que É, não o que deveria ser.** "Testes: 47/49 passando; os 2 que falham são
-   pré-existentes (nomes + evidência)" — nunca "testes ok".
-2. **Feito só com evidência.** Cada item concluído cita a prova (comando rodado, arquivo, saída).
-   Item sem prova vai para "em andamento", não para "feito".
-3. **Próximo passo é executável em 1 minuto.** "Continuar a refatoração" é inútil.
-   "Rodar `pnpm test src/billing` e corrigir o mock de relógio em `tests/helpers.ts:34`" é útil.
-4. **Armadilhas valem ouro.** Tudo que custou tempo para descobrir e não está escrito em lugar
-   nenhum: comando que precisa de env var, ordem de inicialização, teste flaky, API enganosa.
-5. **Decisões pendentes com contexto completo** (formato do AUTONOMY.md §bloqueio): opções,
-   consequências, sua recomendação — para o usuário decidir sem reconstruir a discussão.
-6. **Não copie conteúdo de arquivos** — aponte `caminho:linha`. O documento é mapa, não mala.
+Quality rules — what separates a useful handoff from a useless one:
+1. **State is what IS, not what should be.** "Tests: 47/49 passing; the 2 failing ones are
+   pre-existing (names + evidence)" — never "tests ok".
+2. **Done only with evidence.** Each completed item cites its proof (command run, file, output).
+   An item without proof goes under "in progress", not "done".
+3. **The next step is executable in 1 minute.** "Continue the refactor" is useless.
+   "Run `pnpm test src/billing` and fix the clock mock in `tests/helpers.ts:34`" is useful.
+4. **Traps are worth gold.** Everything that cost time to discover and is written down nowhere:
+   a command that needs an env var, initialization order, a flaky test, a misleading API.
+5. **Pending decisions with full context** (the AUTONOMY.md §Blocked protocol format): options,
+   consequences, your recommendation — so the user can decide without reconstructing the discussion.
+6. **Do not copy file contents** — point to `path:line`. The document is a map, not a suitcase.
 
-Depois de gravar: mostre ao usuário o caminho do arquivo e um resumo de 3 linhas.
-Se houver `docs/goals/ATIVO.md`, atualize o estado dos critérios nele também.
+After saving: show the user the file path and a 3-line summary.
+If `docs/goals/ACTIVE.md` exists, update the state of its criteria there too.

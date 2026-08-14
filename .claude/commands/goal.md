@@ -1,65 +1,66 @@
 ---
-description: Transforma um pedido em contrato de objetivo verificável (docs/goals/ATIVO.md)
-argument-hint: [objetivo em linguagem natural] | status | done
+description: Turns a request into a verifiable goal contract (docs/goals/ACTIVE.md)
+argument-hint: [goal in natural language] | status | done
 ---
 
-# /goal — contrato de objetivo
+# /goal — goal contract
 
-Entrada do usuário: `$ARGUMENTS`
+User input: `$ARGUMENTS`
 
-Um objetivo sem critério de aceite é um desejo. Este comando transforma desejo em contrato.
-O contrato vive em `docs/goals/ATIVO.md` e é a âncora de TODAS as decisões até ser fechado.
+A goal without acceptance criteria is a wish. This command turns wish into contract.
+The contract lives in `docs/goals/ACTIVE.md` and is the anchor for ALL decisions until it is closed.
 
-## Se a entrada for vazia ou `status`
-Leia `docs/goals/ATIVO.md`. Reporte: objetivo em 1 frase, critérios de aceite com estado
-(✅ atingido com evidência / ⬜ pendente / ⚠️ em risco), próximo passo concreto. Se não existir
-arquivo, diga que não há objetivo ativo e peça um.
+## If the input is empty or `status`
+Read `docs/goals/ACTIVE.md`. Report: the goal in 1 sentence, acceptance criteria with state
+(✅ met with evidence / ⬜ pending / ⚠️ at risk), the next concrete step. If the file does not
+exist, say there is no active goal and ask for one.
 
-## Se a entrada for `done`
-1. Releia `docs/goals/ATIVO.md` e verifique CADA critério de aceite de verdade (rode o teste,
-   abra o arquivo, execute o comando). Nada de marcar ✅ de memória.
-2. Critério não atingido → reporte quais e pergunte: encerrar mesmo assim (registrando como
-   "não atingido") ou continuar trabalhando?
-3. Tudo atingido → mova o arquivo para `docs/goals/arquivo/AAAA-MM-DD-<slug>.md` (crie a pasta
-   se preciso), acrescente seção final `## Resultado` com evidências, e sugira rodar `/retro`.
+## If the input is `done`
+1. Re-read `docs/goals/ACTIVE.md` and verify EACH acceptance criterion for real (run the test,
+   open the file, execute the command). No checking ✅ from memory.
+2. Criterion not met → report which ones and ask: close anyway (recording it as
+   "not met") or keep working?
+3. All met → move the file to `docs/goals/archive/YYYY-MM-DD-<slug>.md` (create the folder
+   if needed), append a final `## Outcome` section with the evidence, and suggest running `/retro`.
 
-## Caso geral: a entrada é um objetivo novo
-1. Se já existe `docs/goals/ATIVO.md` não arquivado, avise e pergunte: substituir ou arquivar antes.
-2. Faça o reconhecimento MÍNIMO necessário para escrever critérios reais (olhe o código citado,
-   confirme que os alvos existem). Não comece a implementar.
-3. Se houver ambiguidade que muda o resultado, pergunte — no máximo 3 perguntas, todas de uma vez,
-   cada uma com sua recomendação. Ambiguidade que não muda o resultado: assuma o razoável e declare.
-4. Escreva `docs/goals/ATIVO.md` neste formato:
+## General case: the input is a new goal
+1. If a non-archived `docs/goals/ACTIVE.md` already exists, warn and ask: replace it or archive first.
+2. Do the MINIMUM reconnaissance needed to write real criteria (look at the cited code,
+   confirm the targets exist). Do not start implementing.
+3. If there is ambiguity that changes the outcome, ask — at most 3 questions, all at once,
+   each with your recommendation. Ambiguity that does not change the outcome: assume the
+   reasonable thing and declare it.
+4. Write `docs/goals/ACTIVE.md` in this format:
 
 ```markdown
-# Objetivo: <1 frase, verbo no infinitivo, resultado observável>
-Criado: <AAAA-MM-DD> | Pedido original: "<verbatim do usuário>"
+# Goal: <1 sentence, verb-first, observable outcome>
+Created: <YYYY-MM-DD> | Original request: "<user's verbatim words>"
 
-## Por quê (valor)
-<1–2 frases: que problema resolve, para quem>
+## Why (value)
+<1–2 sentences: what problem it solves, for whom>
 
-## Critérios de aceite
-<!-- Cada um CHECÁVEL: um comando que roda, um comportamento que se observa, um arquivo que existe.
-     Proibido critério vago tipo "código limpo", "funcionar bem". -->
-- [ ] <critério> — verificação: <como provar>
-- [ ] <critério> — verificação: <como provar>
+## Acceptance criteria
+<!-- Each one CHECKABLE: a command that runs, a behavior that can be observed, a file that exists.
+     Vague criteria like "clean code" or "works well" are forbidden. -->
+- [ ] <criterion> — verification: <how to prove it>
+- [ ] <criterion> — verification: <how to prove it>
 
-## Não-objetivos (fora de escopo desta rodada)
-- <o que NÃO será feito, para conter deriva de escopo>
+## Non-goals (out of scope for this round)
+- <what will NOT be done, to contain scope drift>
 
-## Restrições
-- <limites técnicos, de tempo, de compatibilidade>
+## Constraints
+- <technical, time, compatibility limits>
 
-## Suposições declaradas
-- <o que foi assumido sem confirmação do usuário>
+## Declared assumptions
+- <what was assumed without user confirmation>
 
-## Riscos conhecidos
-- <risco> → <mitigação ou "aceito">
+## Known risks
+- <risk> → <mitigation or "accepted">
 ```
 
-5. Mostre o contrato ao usuário em resumo (objetivo + critérios) e comece o trabalho.
+5. Show the user the contract in summary (goal + criteria) and start the work.
 
-## Regra permanente enquanto houver ATIVO.md
-Antes de qualquer decisão significativa, pergunte-se: **"isto serve ao contrato?"**
-Trabalho que não serve a nenhum critério de aceite nem é pré-requisito de um → não faça,
-ou proponha como adição explícita ao contrato.
+## Standing rule while ACTIVE.md exists
+Before any significant decision, ask yourself: **"does this serve the contract?"**
+Work that serves no acceptance criterion and is not a prerequisite of one → don't do it,
+or propose it as an explicit addition to the contract.

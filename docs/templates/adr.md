@@ -1,22 +1,22 @@
-# ADR-NNNN: <decisão em 1 frase>
-Data: AAAA-MM-DD | Status: proposta | aceita | substituída por ADR-NNNN
-Decisores: <quem bateu o martelo — humano(s); o modelo propõe, não decide>
+# ADR-NNNN: <decision in 1 sentence>
+Date: YYYY-MM-DD | Status: proposed | accepted | superseded by ADR-NNNN
+Deciders: <who made the call — human(s); the model proposes, it doesn't decide>
 
-## Contexto
-<o problema/força que exigiu decisão; restrições reais; 3–6 linhas>
+## Context
+<the problem/force that demanded a decision; real constraints; 3–6 lines>
 
-## Decisão
-<o que foi decidido, no imperativo: "usaremos X para Y">
+## Decision
+<what was decided, in the imperative: "we will use X for Y">
 
-## Consequências
-- Positivas: <...>
-- Negativas/custos aceitos: <...>
-- O que fica mais difícil: <...>
+## Consequences
+- Positive: <...>
+- Negative/accepted costs: <...>
+- What gets harder: <...>
 
-## Alternativas rejeitadas
-- <B>: rejeitada porque <...>
-- <C>: rejeitada porque <...>
+## Rejected alternatives
+- <B>: rejected because <...>
+- <C>: rejected because <...>
 
-<!-- Regra: ADR se escreve quando a decisão é cara de reverter ou vai gerar "por que fizemos
-     assim?" em 6 meses. Decisão trivial não vira ADR. ADRs nunca se editam depois de aceitas:
-     mudou a decisão → nova ADR substituindo esta. -->
+<!-- Rule: an ADR is written when the decision is expensive to reverse or will generate "why did
+     we do it this way?" in 6 months. A trivial decision doesn't become an ADR. ADRs are never
+     edited after acceptance: decision changed → new ADR superseding this one. -->

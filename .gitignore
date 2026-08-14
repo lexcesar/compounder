@@ -1,4 +1,4 @@
-# Segredos — nunca no repositório (reforça AUTONOMY.md / guardrails)
+# Secrets — never in the repository (reinforces AUTONOMY.md / guardrails)
 .env
 .env.*
 !.env.example
@@ -6,7 +6,7 @@ secrets/
 *.pem
 id_rsa*
 
-# Dependências e artefatos (genérico; ajuste à stack)
+# Dependencies and artifacts (generic; adjust to your stack)
 node_modules/
 dist/
 build/
@@ -16,7 +16,7 @@ __pycache__/
 .venv/
 target/
 
-# Sistema e editores
+# System and editors
 .DS_Store
 *.swp
 .idea/

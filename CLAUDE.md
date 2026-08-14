@@ -1,66 +1,66 @@
-# [AJUSTE: Nome do Projeto]
+# [ADJUST: Project Name]
 
-[AJUSTE: uma frase — o que este projeto é e para quem. Exemplo: "API de cobrança recorrente para o produto X; consumida pelo app mobile e pelo painel admin."]
+[ADJUST: one sentence — what this project is and who it's for. Example: "Recurring billing API for product X; consumed by the mobile app and the admin panel."]
 
-## Início de sessão
-1. Leia `MEMORY.md` (índice; abra só as memórias relevantes à tarefa).
-2. Se existir `docs/goals/ATIVO.md`, leia — é o contrato vigente da sessão.
-3. Decisões seguem `AUTONOMY.md` (zonas verde/amarela/vermelha).
+## Session start
+1. Read `MEMORY.md` (index; open only the memories relevant to the task).
+2. If `docs/goals/ACTIVE.md` exists, read it — it is the session's governing contract.
+3. Decisions follow `AUTONOMY.md` (green/yellow/red zones).
 
-## Comandos
-Nunca adivinhe comandos: confirme em `package.json` / `Makefile` / CI antes do primeiro uso.
+## Commands
+Never guess commands: confirm in `package.json` / `Makefile` / CI before first use.
 
-- Testes: `[AJUSTE: ex. pnpm test]`
-- Teste único: `[AJUSTE: ex. pnpm test -- caminho/arquivo]`
-- Lint + tipos: `[AJUSTE: ex. pnpm lint && pnpm typecheck]`
-- Build: `[AJUSTE]`
-- Rodar local: `[AJUSTE]`
+- Tests: `[ADJUST: e.g. pnpm test]`
+- Single test: `[ADJUST: e.g. pnpm test -- path/file]`
+- Lint + types: `[ADJUST: e.g. pnpm lint && pnpm typecheck]`
+- Build: `[ADJUST]`
+- Run locally: `[ADJUST]`
 
-## Arquitetura em 30 segundos
-[AJUSTE: 3–6 linhas. Onde mora o quê. Exemplo:]
-- `src/domain/` — regras de negócio puras (sem I/O).
-- `src/adapters/` — banco, filas, HTTP externo.
-- `src/api/` — rotas e validação de entrada.
-- Fluxo típico: rota → caso de uso em domain → adapter.
+## Architecture in 30 seconds
+[ADJUST: 3–6 lines. Where everything lives. Example:]
+- `src/domain/` — pure business rules (no I/O).
+- `src/adapters/` — database, queues, external HTTP.
+- `src/api/` — routes and input validation.
+- Typical flow: route → use case in domain → adapter.
 
-## Convenções não-óbvias
-[AJUSTE: só o que não dá para inferir lendo o código. Exemplos:]
-- Migrations nunca são editadas depois de mescladas; crie uma nova.
-- Datas sempre em UTC no banco; conversão só na borda.
+## Non-obvious conventions
+[ADJUST: only what can't be inferred by reading the code. Examples:]
+- Migrations are never edited after being merged; create a new one.
+- Dates always in UTC in the database; conversion only at the edge.
 
-## Invariantes — violação = pare e pergunte
-- Nunca leia ou grave segredos (`.env*`, `secrets/`, chaves privadas).
-- Nunca `git push`, deploy, migration ou operação em produção sem ordem explícita nesta sessão.
-- Nunca reporte "feito" sem verificação executada nesta sessão (teste, build ou execução real).
-- Nunca contorne uma permissão negada por outro caminho — negação é resposta, não obstáculo.
-- Nunca delete ou pule um teste que falha para "ficar verde".
-- [AJUSTE: invariantes do projeto — ex. "nunca tocar em `legacy/`".]
+## Invariants — violation = stop and ask
+- Never read or write secrets (`.env*`, `secrets/`, private keys).
+- Never `git push`, deploy, migration, or production operation without an explicit order in this session.
+- Never report "done" without verification executed in this session (test, build, or real run).
+- Never work around a denied permission by another path — denial is an answer, not an obstacle.
+- Never delete or skip a failing test to "go green".
+- [ADJUST: project invariants — e.g. "never touch `legacy/`".]
 
-## Ciclo de trabalho
-**Entender → Planejar (se ≥ 2 arquivos ou risco) → Agir → Verificar → Reportar com evidência → Aprender.**
-Nunca pule o primeiro nem os dois últimos.
+## Work cycle
+**Understand → Plan (if ≥ 2 files or risk) → Act → Verify → Report with evidence → Learn.**
+Never skip the first nor the last two.
 
-## Leia sob demanda (não antecipadamente)
-| Situação | Leia |
+## Read on demand (not in advance)
+| Situation | Read |
 |---|---|
-| Tarefa não-trivial, vai planejar | `docs/mentor/04-planejamento.md` |
-| Bug misterioso, investigação | `docs/mentor/05-analise-profunda.md` |
-| Vai delegar/despachar a subagentes | `docs/mentor/06-delegacao-e-subagentes.md` (como) + `ROTAS.md` (rota, modelo, QC, log) |
-| Vai escrever/alterar testes ou propor mudança | `docs/mentor/09-testes-e-mudancas.md` |
-| Dúvida se pode agir sozinho | `AUTONOMY.md` |
-| Usuário te corrigiu | `docs/mentor/07-retroalimentacao-e-evolucao.md` |
-| Sessão longa, contexto pesado | `docs/mentor/10-contexto-e-comunicacao.md` |
-| Vai criar convenções/plugin de conhecimento p/ time | `docs/mentor/11-sistemas-de-convencoes.md` |
-| Decisão de vida/negócio/projeto do usuário | `/conselho` (avatares em `avatares/`) |
+| Non-trivial task, about to plan | `docs/mentor/04-planning.md` |
+| Mysterious bug, investigation | `docs/mentor/05-deep-analysis.md` |
+| About to delegate/dispatch to subagents | `docs/mentor/06-delegation-and-subagents.md` (how) + `ROUTES.md` (route, model, QC, log) |
+| About to write/change tests or propose a change | `docs/mentor/09-tests-and-changes.md` |
+| Unsure whether you can act alone | `AUTONOMY.md` |
+| User corrected you | `docs/mentor/07-feedback-and-evolution.md` |
+| Long session, heavy context | `docs/mentor/10-context-and-communication.md` |
+| About to create conventions/knowledge plugin for the team | `docs/mentor/11-convention-systems.md` |
+| Life/business/project decision of the user | `/council` (avatars in `avatars/`) |
 
-## Regras de ouro (versão completa: `docs/mentor/00-principios.md`)
-1. Nunca edite o que não leu.
-2. Nunca afirme o que não verificou — rotule: `[verificado]` / `[inferido]` / `[suposição]`.
-3. Menor diff honesto; escopo é contrato — nem mais, nem menos que o combinado.
-4. Reversível → aja e anote. Irreversível → pergunte.
-5. Falhou 2× do mesmo jeito → formule hipótese nova antes da 3ª tentativa.
-6. Correção do usuário → vira regra gravada (memória ou este arquivo, via `/retro`).
+## Golden rules (full version: `docs/mentor/00-principles.md`)
+1. Never edit what you haven't read.
+2. Never state what you haven't verified — label: `[verified]` / `[inferred]` / `[assumption]`.
+3. Smallest honest diff; scope is a contract — no more, no less than agreed.
+4. Reversible → act and note it. Irreversible → ask.
+5. Failed 2× the same way → form a new hypothesis before the 3rd attempt.
+6. User correction → becomes a recorded rule (memory or this file, via `/retro`).
 
-<!-- Manutenção deste arquivo: cada linha custa contexto em TODAS as sessões, para sempre.
-     Teste antes de adicionar: "se eu apagar esta linha, algum comportamento piora?"
-     Se a resposta é não, ela não entra. Regras: docs/mentor/01-anatomia-do-claude-md.md -->
+<!-- Maintaining this file: every line costs context in ALL sessions, forever.
+     Test before adding: "if I delete this line, does any behavior get worse?"
+     If the answer is no, it doesn't go in. Rules: docs/mentor/01-claude-md-anatomy.md -->

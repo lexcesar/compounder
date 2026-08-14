@@ -4,13 +4,13 @@
     "name": "Alexander Cesar"
   },
   "metadata": {
-    "description": "Marketplace local do kit de partida — contém o plugin composto",
-    "version": "1.0.0"
+    "description": "Local marketplace for the starter kit — contains the compounder plugin",
+    "version": "2.0.0"
   },
   "plugins": [
     {
-      "name": "composto",
-      "description": "Engenharia composta v2: pipeline brainstorm→plano→trabalho→revisão→compound com enxame opcional (/slfg), apartes (/btw) e verificação adversarial",
+      "name": "compounder",
+      "description": "Compound engineering v2: brainstorm→plan→work→review→compound pipeline with optional swarm (/slfg), asides (/btw) and adversarial verification",
       "author": {
         "name": "Alexander Cesar + Claude Fable 5"
       },
@@ -21,7 +21,7 @@
         "swarm",
         "knowledge-management"
       ],
-      "source": "./composto"
+      "source": "./compounder"
     }
   ]
 }

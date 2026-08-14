@@ -1,24 +1,24 @@
-# Handoff: <tarefa> — AAAA-MM-DD HH:MM
-Objetivo/contrato: <link docs/goals/ATIVO.md ou pedido em 1 frase>
+# Handoff: <task> — YYYY-MM-DD HH:MM
+Goal/contract: <link docs/goals/ACTIVE.md or the request in 1 sentence>
 
-## Estado real agora
-<o que É, não o que deveria ser: "testes 47/49 (falhas X, Y pré-existentes — evidência)",
-"branch tal", "serviço sobe com `comando`">
+## Actual state now
+<what IS, not what should be: "tests 47/49 (failures X, Y pre-existing — evidence)",
+"branch such-and-such", "service starts with `command`">
 
-## Feito (só com evidência)
-- <item> — prova: <comando+saída | arquivo:linha | commit>
+## Done (only with evidence)
+- <item> — proof: <command+output | file:line | commit>
 
-## Em andamento (meio-feito declarado)
-- <item> — parou em: <exatamente onde> — falta: <...>
+## In progress (declared half-done)
+- <item> — stopped at: <exactly where> — missing: <...>
 
-## Próximo passo (executável em 1 minuto)
-<comando ou ação concreta, com caminho — nada de "continuar a refatoração">
+## Next step (executable in 1 minute)
+<command or concrete action, with path — no "continue the refactor">
 
-## Armadilhas descobertas (o que custou tempo)
-- <ex.: "teste T é flaky quando rodado sozinho", "script S exige VAR=x", "a API Y mente no campo Z">
+## Traps discovered (what cost time)
+- <e.g.: "test T is flaky when run alone", "script S requires VAR=x", "API Y lies in field Z">
 
-## Decisões pendentes (para o usuário)
-- Situação: <...> | Opções: A) ... B) ... | Recomendo: <...> porque <...>
+## Pending decisions (for the user)
+- Situation: <...> | Options: A) ... B) ... | I recommend: <...> because <...>
 
-## Arquivos-chave
-- `caminho:linha` — <por que importa>
+## Key files
+- `path:line` — <why it matters>

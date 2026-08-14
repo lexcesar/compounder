@@ -1,0 +1,17 @@
+{
+  "name": "compounder",
+  "version": "2.0.0",
+  "description": "Compound engineering v2 — pipeline with verifiable contracts, optional swarm, and lean learning capture. Spiritual successor to compound-engineering, designed for Opus/Sonnet/Haiku.",
+  "author": {
+    "name": "Alexander Cesar + Claude Fable 5"
+  },
+  "license": "MIT",
+  "keywords": [
+    "compound-engineering",
+    "pipeline",
+    "swarm",
+    "code-review",
+    "debugging",
+    "knowledge-management"
+  ]
+}

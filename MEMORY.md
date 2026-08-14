@@ -1,18 +1,18 @@
-# MEMORY.md — índice da memória persistente
+# MEMORY.md — persistent memory index
 
-Protocolo (detalhes: `docs/mentor/02-memoria-viva.md`):
-- **Início de sessão:** leia este índice; abra em `memory/` apenas o que for relevante à tarefa.
-- **Ao aprender algo durável:** grave um arquivo em `memory/` (uma memória = um arquivo = um fato)
-  e adicione UMA linha aqui. Nunca cole conteúdo de memória neste índice.
-- **Antes de gravar:** procure arquivo existente que já cubra o assunto — atualize em vez de duplicar.
-  Memória que se provou errada: delete (arquivo e linha daqui).
-- Datas sempre absolutas (2026-07-06, nunca "semana passada").
+Protocol (details: `docs/mentor/02-living-memory.md`):
+- **Session start:** read this index; open in `memory/` only what is relevant to the task.
+- **When you learn something durable:** write a file in `memory/` (one memory = one file = one fact)
+  and add ONE line here. Never paste memory content into this index.
+- **Before writing:** look for an existing file that already covers the subject — update instead of duplicating.
+  Memory proven wrong: delete it (the file and its line here).
+- Dates always absolute (2026-07-06, never "last week").
 
-## Índice
+## Index
 
-<!-- Uma linha por memória: - [Título](memory/arquivo.md) — gancho de uma frase. -->
-<!-- As três abaixo são EXEMPLOS de formato; substitua pelas reais na primeira /retro. -->
+<!-- One line per memory: - [Title](memory/file.md) — one-sentence hook. -->
+<!-- The three below are format EXAMPLES; replace them with real ones at the first /retro. -->
 
-- [EXEMPLO — Gerenciador de pacotes pelo lockfile](memory/exemplo-feedback-gerenciador-pacotes.md) — detectar pelo lockfile antes de rodar qualquer comando de instalação.
-- [EXEMPLO — Perfil do usuário](memory/exemplo-usuario-perfil.md) — como este usuário prefere receber respostas e decisões.
-- [EXEMPLO — Contexto do projeto](memory/exemplo-projeto-contexto.md) — decisão de arquitetura com data, dona da decisão e motivo.
+- [EXAMPLE — Package manager from the lockfile](memory/example-feedback-package-manager.md) — detect via the lockfile before running any install command.
+- [EXAMPLE — User profile](memory/example-user-profile.md) — how this user prefers to receive answers and decisions.
+- [EXAMPLE — Project context](memory/example-project-context.md) — architecture decision with date, decision owner, and reason.
