@@ -1,6 +1,6 @@
 ---
 name: compound
-description: Capture the session's learning and file each lesson at the right address (docs/solutions/, CLAUDE.md, memory, CONCEPTS.md). Use after solving something that cost time. Refresh mode to prune the library.
+description: Capture the session's learning and file each lesson at the right address (docs/solutions/, CLAUDE.md, memory, CONCEPTS.md). Use after solving something that cost time. Refresh mode to prune the library; explainer mode to turn it into an onboarding artifact.
 argument-hint: "[learning context | refresh]"
 ---
 
@@ -19,6 +19,18 @@ Sweep `docs/solutions/**/*.md`: for each doc, do the cited paths/symbols still e
 (diff) / retire (move to `docs/solutions/archive/` with a reason note). Apply after ok.
 A library that lies is worse than an empty one. Done.
 
+## `explainer` mode (input = "explainer")
+The library records; it doesn't teach — a new dev or agent internalizes nothing by knowing the
+files exist. Build an inoculation artifact: harvest the lessons that carry a REAL incident
+(`docs/solutions/` Symptom/Cause, CLAUDE.md rules with dated incidents) and pick at most the ~7
+most expensive — an explainer that lists everything teaches nothing. Each lesson, in order:
+1. **The rule** as a headline → 2. **the incident** that birthed it (date, what it cost) →
+3. **why the obvious path fails** → 4. **simulation**: 1–2 questions with hidden answers that
+test whether the reader would catch it fresh ("what happens at build time?" — never trivia recall).
+Output: self-contained HTML at `docs/onboarding/explainer.html` (no external deps; `<details>`
+hides the quiz answers) — markdown if the user prefers. Close with "you are inoculated when you
+can answer every simulation" + pointers to the full library. Done.
+
 ## Step 1 — Harvest (with `$ARGUMENTS` as a hint; otherwise, sweep the session)
 What in this session: took > 15 min to figure out? surprised you (the system wasn't what it
 seemed)? was a user correction? will recur if not written down? List candidates, 1 line each.
@@ -32,7 +44,7 @@ derivable from the code/git AND (c) you can write "when X, do Y because Z". Fail
 | The lesson is... | Address | Form |
 |---|---|---|
 | Reusable technical solution (solved bug, library gotcha, pattern that worked) | `docs/solutions/<category>/<slug>.md` | Solution doc (below) |
-| Stable project rule ("never X here") | `CLAUDE.md` | 1 line, line-test: only goes in if it changes behavior |
+| Stable project rule ("never X here") | `CLAUDE.md` | 1 line: rule + the incident that birthed it (≤1 sentence, dated) when one exists — an anchored rule survives renegotiation; line-test: only goes in if it changes behavior |
 | User preference/style | Memory (`memory/` + index) | Distilled rule + Why + How to apply |
 | Domain term with local meaning | `CONCEPTS.md` (create it if missing) | Term + definition in 1–3 sentences |
 | Repeatable multi-step procedure | Patch to an existing skill/command, or proposal for a new one | Proposed diff |

@@ -42,7 +42,7 @@ is done in the phase that needs it and flows into the next.
 | `/simplify` | Take the plane to the freshly written diff (preserving behavior) |
 | `/review [scope] [ultra]` | Panel of 4 reviewers in parallel + adversarial verification of the findings; `ultra` = swarm engine (finder rounds until dry, 3-vote tribunal) |
 | `/debug <bug>` | Root-cause investigation (uses the kit's `deep-analysis` skill, if present) |
-| `/compound [context]` | Distill learnings and record each one at the right address; `refresh` to prune |
+| `/compound [context]` | Distill learnings and record each one at the right address; `refresh` to prune; `explainer` to generate an onboarding inoculation doc |
 | `/lfg <feature>` | The entire pipeline, autonomous, with adversarial gates — local delivery |
 | `/slfg <feature>` | The same, as a SWARM: research, review, and verification in parallel |
 | `/btw <message>` | Mid-work aside: recorded, classified, without derailing |

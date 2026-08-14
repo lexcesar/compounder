@@ -24,6 +24,9 @@ execution. Output: a plan an implementer (you tomorrow, or a Haiku) executes wit
 
 ## Step 1 — Reconnaissance (the step that separates a plan from fiction)
 1. OPEN the files that will be touched (small area) or dispatch 1 `researcher` (broad area).
+   Researcher ran → persist its dossier verbatim at `docs/plans/research/<same-slug>-brief.md`
+   and cite it in the plan: the executor reads the brief instead of re-exploring, and the
+   dossier survives the session that produced it.
 2. Grep the CONSUMERS of what will change — the surprise lives in the callers.
 3. What already exists worth reusing? (a utility, a pattern, a model test to imitate)
 4. Institutional memory: grep `docs/solutions/` for terms from the area; `CONCEPTS.md` for vocabulary.
@@ -49,7 +52,8 @@ Break it into U1..Un, each one deliverable and verifiable on its own:
 - Files: `path`, `path` (real, seen during reconnaissance)
 - Change: <2–4 lines of intent — decisions, not finished code>
 - Tests: <enumerated scenarios — the implementer does not invent coverage>
-- Verification: <command/observation that proves THIS unit>
+- Verification: <command/observation that proves THIS unit; unit creates a check (test/gate/
+  probe) → name its red-proof: which mutation must make it fail>
 - Risk: <what can go wrong here, if relevant>
 - Depends on: <U<M> | nothing>
 ```
@@ -63,6 +67,22 @@ At the end of the file:
 - **Deferred to execution:** questions only running code can answer — named, not hidden.
 - **Done:** final checkable criteria + "suite and typecheck green against the baseline".
 Update the frontmatter: `stage: ready-made-plan`.
+
+## Step 4b — Multi-session? Add a STEERING channel
+Execution will span sessions, another agent, or a supervised external executor → create
+`docs/plans/<same-slug>-STEERING.md` next to the plan and cite it in the plan header:
+```markdown
+# STEERING — <plan>
+Async supervisor↔executor channel. Executor: re-read before EVERY unit and EVERY commit.
+Concurrency: `git pull --rebase` before editing this file; each side touches only its own
+sections — a stale-copy commit deletes the other side's newest lines.
+## Active directives    <!-- supervisor writes, newest on top, binding -->
+## Questions for supervisor    <!-- executor appends the blocker, takes the next independent unit — never waits -->
+## Execution log    <!-- executor appends, in the same commit as the unit; a unit without its line counts as not done -->
+Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
+The note carries what the diff doesn't show: deviation from a directive (allowed — silent
+deviation is not), findings outside the unit, what was deliberately left open, next unit.
+```
 
 ## Step 5 — Quality gate (self-applied before delivering)
 - [ ] Every unit has its own verification and real files.
@@ -87,6 +107,14 @@ path"). The autonomous option always declares the fence along with the engine.
 (In a pipeline: return the path and stop — menus are for humans.)
 
 ## Evolution log
+- 2026-08-13: persisted research brief (`docs/plans/research/`) and STEERING channel for
+  multi-session plans, adopted from an audited external assembly line (client): the dossier
+  died with the planning session, and cross-session execution had no directive/question/log
+  channel — blockers meant waiting instead of taking the next independent unit.
+- 2026-08-13: units that create checks must name their red-proof (with /work's prove-it-can-fail
+  rule). Case: a parity gate in another project ran green while measuring nothing — dark-theme
+  screenshots silently rendered light, caught only because light and dark baselines had identical
+  checksums.
 - 2026-07-13: added the "External knowledge" recon (official docs + platform support).
   Case: `hx-preserve` chosen and validated empirically in Chromium; the official htmx docs already
   said text input is not preservable — it broke on Safari, caught only in adversarial review.

@@ -25,6 +25,14 @@ ends at the structured envelope).
    U1..Un.
 4. Read from the plan: "Deferred to execution" (your questions to resolve) and "Out of scope"
    (your fence).
+5. **Research brief** cited by the plan (`docs/plans/research/`) → read it BEFORE opening code;
+   no independent broad exploration — the brief is the map. A cited fact looks stale → verify
+   that specific fact and record the deviation.
+6. **STEERING** cited by the plan (or `<plan-slug>-STEERING.md` beside it) → re-read before
+   EVERY unit and EVERY commit; active directives override plan order. Blocked → write the
+   question there and take the next independent unit, never wait. Each finished unit gets its
+   log line (format in the file) in the same commit — without commits, at unit close. A unit
+   without its line counts as not done.
 
 ## Step 2 — Per-unit loop (U1 → Un, plan order)
 For each unit: mark in progress → reread section U<N> → implement the SMALLEST honest diff
@@ -32,6 +40,10 @@ following the local dialect → the unit's test scenarios become real tests (new
 the test FAIL before the implementation when the cost allows) → run the unit's VERIFICATION (the
 plan's) → passed: mark done with 1-line evidence; narrate in the chat
 ("U2 ✅ — 3 files, test X green").
+- **The unit CREATES a check (test, gate, probe, verification script) → prove it can go RED
+  before trusting its green:** mutate the reference or break the input, watch it fail with a
+  meaningful diff, revert. A check that cannot fail is decoration — the most dangerous kind of
+  green is one that measures nothing.
 - **Plan doesn't match reality** (file changed, premise fell): small deviation → note it in your
   execution note and continue; STRUCTURAL deviation → stop the unit and report "the plan expected
   X, reality is Y, I propose Z" (in a pipeline: record it and choose the reasonable path if
