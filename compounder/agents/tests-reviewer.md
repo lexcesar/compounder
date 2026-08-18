@@ -23,7 +23,14 @@ presented tests REAL (capable of failing when the code breaks)?
    No → that's the finding (say WHICH break would slip through unnoticed).
 3. **Tests touched in the diff:** assert loosened / deleted / skipped to get green? SEVERE, no
    question.
-4. **Run the suite** for the affected files if the command is discoverable (CLAUDE.md,
+4. **Ghost gate:** a new/changed check, gate, or verification script that exits 0 when its own
+   tool, API, or reference input is missing (browser off PATH, token absent, fixture gone) —
+   absence must be red or loud, never a silent skip. Same family: a guard that is defined but
+   never called, or called without its result blocking anything.
+5. **Config-as-data without a pinning test:** the diff turns configuration into data (a registry,
+   a desk/menu model, a type→component map) and no test ties the data to its registry — an
+   omission there raises no error, the entry is just invisible.
+6. **Run the suite** for the affected files if the command is discoverable (CLAUDE.md,
    package.json). Paste the real summary. Observed flakiness: run 2×, report the instability.
 
 ## Return format (mandatory)

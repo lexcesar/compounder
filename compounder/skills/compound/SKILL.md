@@ -17,7 +17,14 @@ distills and routes. Cheap enough to run EVERY time something cost time.
 Sweep `docs/solutions/**/*.md`: for each doc, do the cited paths/symbols still exist
 (quick grep)? Is the solution still how the project does it? → Propose per doc: keep / update
 (diff) / retire (move to `docs/solutions/archive/` with a reason note). Apply after ok.
-A library that lies is worse than an empty one. Done.
+A library that lies is worse than an empty one.
+Then the **enforcement audit** — rules, not just docs, go stale: sweep the rule surface
+(CLAUDE.md "never/always" lines, settings, gates in CI and scripts) and classify each rule that
+matters: HARD (a deny rule, hook, or CI check blocks on its own) or instruction-only. For each
+gate found: can it go red, and does it fail closed when its own tool is absent? Report the
+ghosts. A rule whose only enforcement is text is a leak waiting for a default to exploit it
+(2026-08-18: a harness default beat a written attribution rule in a client repo; only a settings
+key plus a CI gate closed it). Done.
 
 ## `explainer` mode (input = "explainer")
 The library records; it doesn't teach — a new dev or agent internalizes nothing by knowing the

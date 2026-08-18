@@ -33,6 +33,11 @@ ends at the structured envelope).
    question there and take the next independent unit, never wait. Each finished unit gets its
    log line (format in the file) in the same commit — without commits, at unit close. A unit
    without its line counts as not done.
+7. **Human-input file** (`human-input.md` / `HUMAN-INPUT.md` at the repo root) → the human's
+   inbound backlog: claim an item before working it (the file's own convention), and when a
+   unit resolves one, mark it `[X]` in the same commit with a deep link to the evidence (commit
+   SHA, file, preview URL). Never delete or reword the human's text; an item outside the plan's
+   scope stays unchecked — note it as a residual instead of absorbing it.
 
 ## Step 2 — Per-unit loop (U1 → Un, plan order)
 For each unit: mark in progress → reread section U<N> → implement the SMALLEST honest diff
@@ -43,7 +48,9 @@ plan's) → passed: mark done with 1-line evidence; narrate in the chat
 - **The unit CREATES a check (test, gate, probe, verification script) → prove it can go RED
   before trusting its green:** mutate the reference or break the input, watch it fail with a
   meaningful diff, revert. A check that cannot fail is decoration — the most dangerous kind of
-  green is one that measures nothing.
+  green is one that measures nothing. Prove it fails CLOSED too: run it with its own tool/API/
+  input absent (browser off PATH, token missing, fixture gone) — absence must be red or loud,
+  never exit 0. A gate that skips silently when its dependency vanishes is a ghost gate.
 - **Plan doesn't match reality** (file changed, premise fell): small deviation → note it in your
   execution note and continue; STRUCTURAL deviation → stop the unit and report "the plan expected
   X, reality is Y, I propose Z" (in a pipeline: record it and choose the reasonable path if
@@ -69,5 +76,9 @@ Plan deviations: <or "none">
 ```
 Normal mode: envelope + "next: `/simplify` and `/review`". `mode:return`: envelope and STOP
 (no commit, no menu — the tail belongs to the caller).
+Plan fully done AND a human gate exists (STEERING supervisor, PM, client) → offer the acceptance
+report: `docs/plans/<slug>-acceptance.md`, distilled FROM the execution log — per-unit evidence,
+deviations named (a deviation declared is allowed; a silent one is not), decisions left open for
+the gatekeeper. The human accepts against evidence, not against a chat scroll.
 Honesty rule above all: STATUS `complete` requires every unit with verification executed IN THIS
 session. A well-reported partial > a false complete — no exception.

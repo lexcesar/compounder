@@ -53,12 +53,21 @@ Break it into U1..Un, each one deliverable and verifiable on its own:
 - Change: <2–4 lines of intent — decisions, not finished code>
 - Tests: <enumerated scenarios — the implementer does not invent coverage>
 - Verification: <command/observation that proves THIS unit; unit creates a check (test/gate/
-  probe) → name its red-proof: which mutation must make it fail>
+  probe) → name its red-proof (which mutation must make it fail) AND its fail-closed proof
+  (what happens when the check's own tool/API/reference is absent — absence must be red or
+  loud, never a silent pass)>
 - Risk: <what can go wrong here, if relevant>
 - Depends on: <U<M> | nothing>
 ```
 Order by RISK: the most dangerous assumption becomes U1 (a cheap spike that can invalidate the rest).
 Irreversible step (migration, public contract): as late as possible, with a checkpoint before it.
+Two unit shapes carry an obligatory extra:
+- Unit changes a CONTRACT the repo derives artifacts from (schema → spec/types/docs) → the unit
+  regenerates the derived copy AND keeps/adds a CI no-diff gate (`regenerate && git diff
+  --exit-code <path>`). Derived documentation cannot lie; hand-written documentation drifts.
+- Unit turns configuration into DATA (a registry, a desk/menu model, a type→component map) → it
+  includes a pinning test tying data ⟷ registry, because an omission there raises no error —
+  the entry is just invisible.
 
 ## Step 4 — Armor
 At the end of the file:
@@ -82,6 +91,7 @@ sections — a stale-copy commit deletes the other side's newest lines.
 Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
 The note carries what the diff doesn't show: deviation from a directive (allowed — silent
 deviation is not), findings outside the unit, what was deliberately left open, next unit.
+## Start prompt for the fresh session    <!-- supervisor maintains; a new/replacement session bootstraps from HERE (plan path, this file, current unit, standing rules) — never from a human recap -->
 ```
 
 ## Step 5 — Quality gate (self-applied before delivering)
@@ -107,6 +117,12 @@ path"). The autonomous option always declares the fence along with the engine.
 (In a pipeline: return the path and stop — menus are for humans.)
 
 ## Evolution log
+- 2026-08-18: contract units carry a derived-spec no-diff gate; config-as-data units carry a
+  pinning test; red-proof extended with fail-closed proof; STEERING gains a "Start prompt for
+  the fresh session" section. Distilled from a second audit of the same external assembly line
+  (client): a viewport gate exited 0 when its browser was missing (ghost), desk-model
+  omissions were invisible without pinning tests, and fresh sessions bootstrapped from human
+  recaps instead of the channel.
 - 2026-08-13: persisted research brief (`docs/plans/research/`) and STEERING channel for
   multi-session plans, adopted from an audited external assembly line (client): the dossier
   died with the planning session, and cross-session execution had no directive/question/log
