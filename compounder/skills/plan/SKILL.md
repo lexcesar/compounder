@@ -68,9 +68,22 @@ Two unit shapes carry an obligatory extra:
 - Unit turns configuration into DATA (a registry, a desk/menu model, a type→component map) → it
   includes a pinning test tying data ⟷ registry, because an omission there raises no error —
   the entry is just invisible.
+- Unit WRITES to a shared mutable resource (live dataset, database, CMS, bucket) → the unit names
+  its snapshot/backup step, its concurrent-writer check (last-writer/`_updatedAt`/mtime since the
+  baseline — a resource that moved belongs to someone else right now), and the id shape that
+  scopes its writes to what the unit itself owns. Origin (client, 2026-08): a seed re-run on
+  the production dataset while another session's `_updatedAt` moved three times — backup taken,
+  collision never checked.
 
 ## Step 4 — Armor
 At the end of the file:
+- **Regression checklist:** one line per OUTPUT TARGET the project ships (static build,
+  SSR/preview function, CI workflow, deployed URL, feed/sitemap endpoints) with the command or
+  request that proves it still answers — per target, never per feature. A gate that exercises
+  one build mode is blind to the other. Origin (client, 2026-08): a catch-all route passed a
+  22/22 static parity gate and returned 500 on every SSR preview address for three waves —
+  `getStaticPaths()` is ignored under `output: 'server'`, and the earlier acceptance had checked
+  that the function FILE existed, never issued a request.
 - **Pre-mortem:** "if this fails, it will have been because: 1) 2) 3)" + mitigation or "accepted".
 - **Out of scope:** what does NOT go in (inherit the non-goals from the requirements).
 - **Deferred to execution:** questions only running code can answer — named, not hidden.

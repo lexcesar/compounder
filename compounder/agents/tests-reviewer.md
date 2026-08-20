@@ -30,7 +30,12 @@ presented tests REAL (capable of failing when the code breaks)?
 5. **Config-as-data without a pinning test:** the diff turns configuration into data (a registry,
    a desk/menu model, a type→component map) and no test ties the data to its registry — an
    omission there raises no error, the entry is just invisible.
-6. **Run the suite** for the affected files if the command is discoverable (CLAUDE.md,
+6. **Reference re-frozen:** the diff updates a gate's snapshot/golden/reference/extract. SEVERE
+   unless it sits in its own commit with the reason AND every changed reference line maps to an
+   intended change of the same unit — bundled with code, it is a gate silenced to pass until
+   proven otherwise. Same family: a tolerance (pixel, numeric) that a known visible change
+   passed under — name it; that gate measures less than it claims.
+7. **Run the suite** for the affected files if the command is discoverable (CLAUDE.md,
    package.json). Paste the real summary. Observed flakiness: run 2×, report the instability.
 
 ## Return format (mandatory)

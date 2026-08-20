@@ -25,6 +25,12 @@ If this plan fails, it will have been because:
 2. <...> → <...>
 3. <...> → I accept the risk.
 
+## Regression checklist
+<!-- One line per OUTPUT TARGET the project ships (static build, SSR/preview function, CI
+     workflow, deployed URL, feed/sitemap endpoints) — per target, never per feature. A gate
+     that exercises one build mode is blind to the other. -->
+- [ ] <target> — still answers: <command or request → expected result>
+
 ## Out of scope
 - <what will NOT be done; note it if encountered>
 

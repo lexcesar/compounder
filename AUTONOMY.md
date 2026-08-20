@@ -28,7 +28,13 @@ Reversible, but with effect beyond the edited spot — the user needs to know, n
 ### 🔴 Red — stop and ask, always
 Irreversible, external, destructive, or outside the contract:
 - `git push`, deploy, publishing a package, anything that leaves the machine.
-- Migrations or any database write that isn't disposable/local.
+- Merging a PR into the default branch — your own included, CI green included — without a
+  written standing order (plan, STEERING, CLAUDE.md) naming that class of PR. CI green is a
+  precondition, never the authorization; a PR no second reader opens is a branch with ceremony.
+  (Incident 2026-08, client: 21 PRs self-merged in one day, one of them carrying a regression
+  that surfaced three waves later.)
+- Migrations or any write to a datastore that isn't disposable/local (database, CMS dataset,
+  bucket) — and never over a resource another writer is moving right now.
 - Deleting or overwriting files you didn't create (and the request didn't explicitly order it).
 - `git reset --hard`, `push --force`, rewriting history.
 - Reading/writing secrets; sending project data to external services.
