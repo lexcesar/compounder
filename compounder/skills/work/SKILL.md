@@ -55,6 +55,12 @@ plan's) → passed: mark done with 1-line evidence; narrate in the chat
   execution note and continue; STRUCTURAL deviation → stop the unit and report "the plan expected
   X, reality is Y, I propose Z" (in a pipeline: record it and choose the reasonable path if
   reversible; otherwise stop).
+- **An instruction (supervisor, STEERING, plan) collides with what a gate measures → the gate
+  outranks the instruction.** Legitimate refusal has a strict shape, all four required: run the
+  check instead of arguing; produce evidence anyone can re-verify; refuse LOUDLY (the evidence
+  written where the instruction came from, never a silent swerve); deliver the instruction's
+  INTENT by the path that doesn't lie. Never comply into a red — obeying a directive past a
+  failing gate is the same failure as a silent deviation, wearing obedience.
 - **Failed 2× the same way → new hypothesis.** 3 dead hypotheses in the same unit → the unit
   becomes a BLOCKER in the envelope; move on to the next independent unit, if any.
 - **NEVER:** edit the plan as if it were state; delete/skip a test to pass; "seize the moment"
