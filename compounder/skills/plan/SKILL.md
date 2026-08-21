@@ -37,6 +37,13 @@ execution. Output: a plan an implementer (you tomorrow, or a Haiku) executes wit
 6. **Work in flight:** open branches/PRs touching the same files (`git fetch` + `gh pr list`).
    Conflict in sight → declare the sequencing in the plan ("start after X merges" or "I accept
    resolving the conflict") and note that line anchors may shift by execution time.
+7. **Constraints inherited from documents** (STEERING directives, older plans, decisions, CLAUDE.md)
+   → into the plan VERBATIM with `path:line`, never paraphrased — and re-read against the current
+   default branch the day the plan is written, because a doc states the world as of ITS date. A
+   paraphrase is where a note becomes a rule: "set git tag `v1-design` before V1's removal" came
+   out as "v1 must not change — frozen for case-study screenshots", grew an acceptance criterion,
+   four measurement runs, a false flag to the PM and a relayed message; the same plan called v1
+   the default three days after v2 had become it (client 2026-08-21, PR #73).
 **Litmus before proceeding:** every file the plan will cite was seen THIS session (by you or via
 the researcher's dossier, with a sample checked).
 

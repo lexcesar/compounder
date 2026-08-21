@@ -9,6 +9,7 @@ Date: YYYY-MM-DD | Goal/contract: docs/goals/ACTIVE.md (or the verbatim request)
 - Files opened: `path`, `path` ...
 - What already exists and will be reused: <...>
 - Who consumes what will change (callers): <...>
+- Constraints inherited from docs (STEERING, older plans, CLAUDE.md): quoted verbatim, `path:line`, re-checked against the current default branch: <...>
 
 ## Options considered
 - **Chosen:** <A — 1 sentence> because <...>
