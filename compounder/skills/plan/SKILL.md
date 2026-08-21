@@ -74,6 +74,15 @@ Two unit shapes carry an obligatory extra:
   scopes its writes to what the unit itself owns. Origin (client, 2026-08): a seed re-run on
   the production dataset while another session's `_updatedAt` moved three times — backup taken,
   collision never checked.
+- Unit CHANGES THE SHAPE of data in a shared resource that deployed code also reads (a field's
+  type, an enum's vocabulary, a key's name) → the unit states how the code already on the default
+  branch survives the migrated data: expand/contract (the old contract tolerates both shapes
+  first, the write comes second) or a write scheduled at merge time — and names "default-branch
+  build against the migrated data" as a verification step. Snapshot and concurrent-writer check
+  guard the WRITER; they say nothing about the READER. Origin (client, 2026-08-21, PR #73):
+  two migrations landed on the live dataset from a feature branch; `main` still parsed `depth`
+  as a number and `kind: video` as required, and every build of `main` failed until the branch
+  merged — prod frozen, editor publishes dead.
 
 ## Step 4 — Armor
 At the end of the file:

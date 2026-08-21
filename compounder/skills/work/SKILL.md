@@ -21,6 +21,9 @@ ends at the structured envelope).
    guess) and RUN the area's suite + typecheck. Record: "baseline: X/Y, pre-existing failures: ...".
 2. **Branch:** on the default branch and commits authorized → create a branch with a meaningful
    name. Commits not authorized → work in the working tree and say so.
+   Read the repo's PR convention before the first commit (CLAUDE.md, onboarding docs): one PR
+   per unit where the repo says so — granularity is the repo's rule, not the executor's, and
+   nine units in one PR is a review nobody can give (client PR #73, 80 files).
 3. **Tracking:** create one task (TaskCreate; without the tool, a checklist in the chat) per unit
    U1..Un.
 4. Read from the plan: "Deferred to execution" (your questions to resolve) and "Out of scope"
@@ -43,6 +46,19 @@ ends at the structured envelope).
    mtime since your baseline). Resource moving under you → STEERING question, next independent
    unit; never seed over someone's in-flight edits. Writes stay scoped to the id shape the unit
    owns — another person's document is not yours to replace or delete.
+   A write that changes the SHAPE of data the default branch also reads (type, vocabulary, key)
+   → before it, build the default branch against the data as it will look; red there means
+   expand/contract first, or the write waits for the merge (client 2026-08-21, PR #73: `main`
+   unbuildable for a day after two branch-side migrations).
+9. **The human answers by number; chat is the channel** → before acting on "do it", "ok",
+   "8. yes": echo your reading in one line ("8 = split `kind` into `source` + `kind`, 12 objects
+   in the dataset — going"). Lists renumber between turns; a number answers the list the human
+   saw, not the one you wrote last. A red-zone action (datastore write, merge, push) never rides
+   on a bare "do it" — it needs the noun, and each write is its own ask: the go for U8's two
+   documents was not a go for U9's twelve. Record decisions under the name of the person who
+   typed them; the chat user is the supervisor, not the PM, unless they say so (client
+   2026-08-21: the plan credited the PM with decisions the supervisor made in chat, and with a
+   list he never wrote).
 
 ## Step 2 — Per-unit loop (U1 → Un, plan order)
 For each unit: mark in progress → reread section U<N> → implement the SMALLEST honest diff

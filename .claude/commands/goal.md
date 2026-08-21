@@ -58,7 +58,12 @@ Created: <YYYY-MM-DD> | Original request: "<user's verbatim words>"
 - <risk> → <mitigation or "accepted">
 ```
 
-5. Show the user the contract in summary (goal + criteria) and start the work.
+5. Show the user the contract in summary (goal + criteria). Then HAND OFF, never freestyle:
+   a plan exists (`docs/plans/`) → `/compounder:work <plan>`; no plan and ≥2 files or risk →
+   `/compounder:plan` first; only a single-file task starts here. The contract is the WHAT; the
+   work skill carries the baseline, the gates and the red zones (client 2026-08-21: goal +
+   plan written, then eight units executed outside /work — no PR-granularity rule, no per-write
+   ask, no review before the PR).
 
 ## Standing rule while ACTIVE.md exists
 Before any significant decision, ask yourself: **"does this serve the contract?"**

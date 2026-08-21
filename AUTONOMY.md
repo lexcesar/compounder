@@ -34,7 +34,10 @@ Irreversible, external, destructive, or outside the contract:
   (Incident 2026-08, client: 21 PRs self-merged in one day, one of them carrying a regression
   that surfaced three waves later.)
 - Migrations or any write to a datastore that isn't disposable/local (database, CMS dataset,
-  bucket) — and never over a resource another writer is moving right now.
+  bucket) — and never over a resource another writer is moving right now. Changing the SHAPE of
+  shared data the default branch still reads is red twice: the write, and the reader it breaks —
+  expand/contract or migrate at merge (client 2026-08-21: `main` unbuildable after two
+  branch-side migrations).
 - Deleting or overwriting files you didn't create (and the request didn't explicitly order it).
 - `git reset --hard`, `push --force`, rewriting history.
 - Reading/writing secrets; sending project data to external services.
