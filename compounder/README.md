@@ -8,7 +8,7 @@ engineering underneath.
 ## Installation
 
 ```
-/plugin marketplace add lexcesar/fable-5-start-project
+/plugin marketplace add lexcesar/compounder
 /plugin install compounder
 ```
 

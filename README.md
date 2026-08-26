@@ -90,7 +90,7 @@ Claude Code and for Opus/Sonnet/Haiku:
 `/slfg` (swarm) and `/btw` (asides without derailing). Direct install:
 
 ```
-/plugin marketplace add lexcesar/fable-5-start-project
+/plugin marketplace add lexcesar/compounder
 /plugin install compounder
 ```
 
