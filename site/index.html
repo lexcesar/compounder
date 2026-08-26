@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compounder — compound engineering for Claude Code, with adversarial gates</title>
+<meta name="description" content="A Claude Code plugin: the brainstorm → plan → work → simplify → review → compound pipeline where every “done” is cross-examined by a verifier agent that runs the code instead of reading it. Local by default. MIT.">
+<link rel="canonical" href="https://lexcesar.github.io/compounder/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="compounder">
+<meta property="og:title" content="compounder — don’t take the model’s word for it">
+<meta property="og:description" content="Compound engineering for Claude Code with adversarial gates. 11 lean skills, 7 fenced agents, local delivery by default.">
+<meta property="og:image" content="https://lexcesar.github.io/compounder/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://lexcesar.github.io/compounder/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E3B2C">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+	<div class="nav__inner">
+		<a class="nav__brand" href="#top">compounder<span class="nav__version">v2.4.1</span></a>
+		<nav class="nav__links" aria-label="Sections">
+			<a href="#gates">Gates</a>
+			<a href="#pipeline">Pipeline</a>
+			<a href="#agents">Agents</a>
+			<a href="#compare">vs the original</a>
+			<a href="#provenance">Provenance</a>
+		</nav>
+		<div class="nav__actions">
+			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub</a>
+			<a class="btn btn--small" href="#install">Install</a>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top">
+	<div class="hero__inner">
+		<p class="eyebrow">A plugin for Claude Code · runs on Opus, Sonnet and Haiku · MIT</p>
+		<h1 class="hero__title">Don’t take the model’s word for it.</h1>
+		<p class="hero__lede">compounder is compound engineering for Claude Code with adversarial gates. Every “done” goes to a verifier agent whose only job is to refute it — by running the code, not reading it. What survives, ships. Locally. The push stays yours.</p>
+		<div class="hero__actions">
+			<a class="btn" href="#install">Install in Claude Code</a>
+			<a class="btn btn--ghost" href="https://github.com/lexcesar/compounder/tree/main/compounder/skills">Read the skills</a>
+		</div>
+	</div>
+
+	<figure class="plate">
+		<figcaption class="plate__bar">
+			<span class="plate__title">adversarial-verifier · Gate 2 · <span class="plate__cmd">/lfg "refund flow"</span></span>
+			<span class="plate__meta">sonnet · Read Grep Glob Bash</span>
+		</figcaption>
+		<div class="tx" id="transcript">
+			<p class="tx__line tx__line--dim">Phase 2 closed — /work returned 3 claims. Opening Gate 2 → adversarial-verifier</p>
+
+			<div class="tx__item">
+				<p class="tx__line tx__claim"><span class="tx__n">1.</span><span class="tx__text">“U1 done — refund rejects negative amounts”</span><span class="tx__verdict tx__verdict--refuted">Refuted</span></p>
+				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_refund.py -q → 4 passed</p>
+				<p class="tx__line tx__proof"><span class="tx__key">Why it died</span>removed the guard, ran again → still 4 passed. test_refund_negative asserts on an empty list. It cannot fail.</p>
+			</div>
+
+			<div class="tx__item">
+				<p class="tx__line tx__claim"><span class="tx__n">2.</span><span class="tx__text">“U2 done — receipt e-mail sent on success”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
+				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_receipt.py -q → 3 passed</p>
+				<p class="tx__line tx__proof"><span class="tx__key">Sabotage</span>stubbed send() to a no-op → 2 failed. The test bites.</p>
+			</div>
+
+			<div class="tx__item">
+				<p class="tx__line tx__claim"><span class="tx__n">3.</span><span class="tx__text">“No callers of legacy_refund() remain”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
+				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>rg -n 'legacy_refund\(' src tests → 1 hit, the definition</p>
+			</div>
+
+			<p class="tx__line tx__summary">SUMMARY: 2 confirmed, 1 refuted</p>
+			<p class="tx__line tx__summary tx__line--dim">→ back to /work with the refutation list (retry 1 of 1)</p>
+		</div>
+		<button class="plate__replay" type="button" id="replay" hidden>Replay</button>
+	</figure>
+	<p class="plate__note">Illustrative run. The verdict format is the agent’s real return contract — <a href="https://github.com/lexcesar/compounder/blob/main/compounder/agents/adversarial-verifier.md">agents/adversarial-verifier.md</a>.</p>
+
+	<dl class="stats">
+		<div class="stats__cell"><dt>11</dt><dd>skills, one happy path each</dd></div>
+		<div class="stats__cell"><dt>7</dt><dd>agents, fenced by tools</dd></div>
+		<div class="stats__cell"><dt>~85</dt><dd>lines per skill</dd></div>
+		<div class="stats__cell"><dt>0</dt><dd>config files to write</dd></div>
+	</dl>
+</section>
+
+<section class="section" id="gates">
+	<div class="section__inner">
+		<p class="eyebrow">Why gates</p>
+		<h2 class="section__title">Self-attestation is the number-one failure mode of an autonomous pipeline.</h2>
+		<p class="section__lede">A gate is an executed command or a verifier agent. Never “I trust it’s ok”. Four places where that changes what reaches you.</p>
+
+		<dl class="ledger">
+			<div class="ledger__row">
+				<dt class="ledger__claim">The model says the suite passes.</dt>
+				<dd class="ledger__answer">The verifier runs the suite and pastes the summary. Then it sabotages the unit: would this test fail if the code were wrong, or does it pass empty?</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">A reviewer finds a plausible bug.</dt>
+				<dd class="ledger__answer">The tribunal builds the input and runs it. Most plausible bugs die on a guard three lines up. Only confirmed findings reach you — with the command that confirmed them.</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">The instruction says “merge on green”. The gate says red.</dt>
+				<dd class="ledger__answer">The gate outranks the instruction. The executor runs the check, refuses loudly where the order came from, and delivers the intent by a green path. It never obeys into a red.</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">The autopilot finishes.</dt>
+				<dd class="ledger__answer">Delivery is local. Commit only if you authorized commits; push and PR only with <code>send:pr</code> or an explicit order in the session. An autopilot that publishes on its own is a bug, not a feature.</dd>
+			</div>
+		</dl>
+
+		<blockquote class="quote">
+			<p>Taking the claimant’s word for it — not even when it was a bigger model, not even when it was you in another round.</p>
+			<cite>Prohibitions · <a href="https://github.com/lexcesar/compounder/blob/main/compounder/agents/adversarial-verifier.md">adversarial-verifier.md</a></cite>
+		</blockquote>
+	</div>
+</section>
+
+<section class="section section--ledger" id="pipeline">
+	<div class="section__inner">
+		<p class="eyebrow">The pipeline</p>
+		<h2 class="section__title">One rail. Three gates. Six skills you can also run by hand.</h2>
+
+		<ol class="rail">
+			<li class="rail__phase"><code class="rail__cmd">/brainstorm</code><span class="rail__role">Discover the WHAT. The right questions, one round, a requirements doc.</span></li>
+			<li class="rail__phase"><code class="rail__cmd">/plan</code><span class="rail__role">Decide the HOW. Real reconnaissance, compared options, units that carry their own verification.</span></li>
+			<li class="rail__gate"><span class="rail__gatelabel">Gate 1</span></li>
+			<li class="rail__phase"><code class="rail__cmd">/work</code><span class="rail__role">Execute with a baseline, per-unit tracking, evidence you can re-run.</span></li>
+			<li class="rail__gate"><span class="rail__gatelabel">Gate 2</span></li>
+			<li class="rail__phase"><code class="rail__cmd">/simplify</code><span class="rail__role">Take the plane to the fresh diff. Behavior preserved, scaffolding gone.</span></li>
+			<li class="rail__phase"><code class="rail__cmd">/review</code><span class="rail__role">Four lenses in parallel, then the tribunal on every finding.</span></li>
+			<li class="rail__gate"><span class="rail__gatelabel">Gate 3</span></li>
+			<li class="rail__phase"><code class="rail__cmd">/compound</code><span class="rail__role">Distill the session’s lessons and file each at its address.</span></li>
+		</ol>
+
+		<dl class="gates">
+			<div class="gates__cell">
+				<dt class="gates__name">Gate 1 · the plan</dt>
+				<dd class="gates__rule">The plan file exists, every unit has its own verification, every cited path exists — <code>ls</code> says so. Fails twice → stop. No improvised implementation without a plan.</dd>
+			</div>
+			<div class="gates__cell">
+				<dt class="gates__name">Gate 2 · adversarial</dt>
+				<dd class="gates__rule">The verifier receives the “done” claims and tries to refute each one by execution. Any refuted → one retry with the list. Persists → stop, real state reported, handoff written.</dd>
+			</div>
+			<div class="gates__cell">
+				<dt class="gates__name">Gate 3 · the review</dt>
+				<dd class="gates__rule">Safe fixes applied, suite re-run. A confirmed severe finding that can’t be auto-applied → stop, residuals recorded. The decision is yours, not the pipeline’s.</dd>
+			</div>
+		</dl>
+
+		<div class="autopilot">
+			<div class="autopilot__cell">
+				<code class="autopilot__cmd">/lfg &lt;feature&gt;</code>
+				<p class="autopilot__role">The whole rail, autonomous, gates included. Local delivery.</p>
+			</div>
+			<div class="autopilot__cell">
+				<code class="autopilot__cmd">/slfg &lt;feature&gt;</code>
+				<p class="autopilot__role">The same rail as a swarm: three researchers, the review panel and one verifier per finding, in parallel. Costs 3–10× — it asks before firing.</p>
+			</div>
+			<div class="autopilot__cell">
+				<code class="autopilot__cmd">/debug &lt;bug&gt;</code>
+				<p class="autopilot__role">Reproduce, competing hypotheses, bisection, fix with a red-green test.</p>
+			</div>
+			<div class="autopilot__cell">
+				<code class="autopilot__cmd">/btw &lt;message&gt;</code>
+				<p class="autopilot__role">Talk mid-run without derailing it. A hook intercepts the aside, classifies it, schedules it.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="agents">
+	<div class="section__inner">
+		<p class="eyebrow">The agents</p>
+		<h2 class="section__title">Seven agents. Fenced by tools, not by instruction.</h2>
+		<p class="section__lede">A reviewer that can’t edit can’t “fix” its way out of a finding. An executor that can’t fetch can’t be talked into it by a plan it read. The fence lives in the manifest, where the model can’t argue with it.</p>
+
+		<div class="roster-wrap">
+			<table class="roster">
+				<thead>
+					<tr><th scope="col">Agent</th><th scope="col">Job</th><th scope="col">Tools</th><th scope="col">Model</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row"><code>adversarial-verifier</code></th>
+						<td>The tribunal. Receives a finding or a “done” and tries to refute it by execution. Measures, never operates.</td>
+						<td class="roster__tools">Read · Grep · Glob · Bash</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>correctness-reviewer</code></th>
+						<td>Inputs that produce wrong results, broken contracts, state, error paths.</td>
+						<td class="roster__tools">Read · Grep · Glob · Bash</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>security-reviewer</code></th>
+						<td>Untrusted input, secrets, authorization, data exposure.</td>
+						<td class="roster__tools">Read · Grep · Glob · Bash</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>tests-reviewer</code></th>
+						<td>Coverage of new behavior, tests that cannot fail, ghost gates, re-frozen references. Runs the suite.</td>
+						<td class="roster__tools">Read · Grep · Glob · Bash</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>simplicity-reviewer</code></th>
+						<td>Speculative complexity, premature abstraction, duplication. Read-only: it cannot touch the diff it judges.</td>
+						<td class="roster__tools">Read · Grep · Glob</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>researcher</code></th>
+						<td>Grounding before brainstorm and plan: codebase patterns, institutional memory, contracts and consumers. Returns a dossier with citations.</td>
+						<td class="roster__tools">Read · Grep · Glob · Bash</td>
+						<td class="roster__model">haiku</td>
+					</tr>
+					<tr>
+						<th scope="row"><code>fork-executor</code></th>
+						<td>The assembly line’s cheap route: implements a ready plan in an isolated context. No fetch, no subagents — it obeys plan text, and plan text is not a trusted source.</td>
+						<td class="roster__tools">Read · Edit · Write · Grep · Glob · Bash</td>
+						<td class="roster__model">sonnet</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+<section class="section section--tint" id="compare">
+	<div class="section__inner">
+		<p class="eyebrow">vs the original</p>
+		<h2 class="section__title">Spiritual successor to Every’s compound-engineering. Rebuilt, not forked.</h2>
+		<p class="section__lede">Same philosophy — each unit of work should make the next one easier. Different engineering underneath, because the original targets the lowest common denominator across platforms and assumes the biggest model is doing the work. Most of the work is done by Sonnet.</p>
+
+		<div class="compare-wrap">
+			<table class="compare">
+				<thead>
+					<tr><th scope="col">compound-engineering</th><th scope="col">compounder</th><th scope="col">Why</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>400–800-line skills; dozens of modes, flags and menus</td>
+						<td>~100-line skills, one happy path, decisions left to the model</td>
+						<td>A small model drowns in a flag tree. Lean, concrete instruction is what Sonnet and Haiku execute well.</td>
+					</tr>
+					<tr>
+						<td>Gates in prose: “check the structured return”</td>
+						<td>Gates executed by an agent that tries to refute the evidence</td>
+						<td>Self-attestation is the #1 failure mode of an autonomous pipeline. A real gate is adversarial.</td>
+					</tr>
+					<tr>
+						<td>Orchestration described in text; zero standalone agents, for portability</td>
+						<td>Seven real agents and native Claude Code parallelism</td>
+						<td>One target lets you use the platform for real instead of its lowest common denominator.</td>
+					</tr>
+					<tr>
+						<td><code>/slfg</code> removed</td>
+						<td><code>/slfg</code> resurrected as a swarm; degrades gracefully to sequential</td>
+						<td>It was the feature worth the price. Today’s platform can take it.</td>
+					</tr>
+					<tr>
+						<td>Push and PR by default on autopilot</td>
+						<td>Local by default. Push and PR only with <code>send:pr</code> or an explicit order</td>
+						<td>An autopilot that publishes on its own breaks the reversible/irreversible rule.</td>
+					</tr>
+					<tr>
+						<td>727-line capture skill; multi-agent to write one doc</td>
+						<td><code>/compound</code> distills and routes: solution → <code>docs/solutions/</code>, rule → <code>CLAUDE.md</code>, preference → memory, term → <code>CONCEPTS.md</code>, noise → trash</td>
+						<td>The value is the distillation and the right address. Expensive capture is capture that gets skipped.</td>
+					</tr>
+					<tr>
+						<td>No aside mechanism</td>
+						<td><code>/btw</code> plus a hook that intercepts “btw …” mid-run</td>
+						<td>Talking during execution is how humans work. Formalizing the aside unlocks real parallelism.</td>
+					</tr>
+					<tr>
+						<td>Its own YAML config; headless modes by flag</td>
+						<td>Convention over configuration: <code>docs/plans/</code>, <code>docs/solutions/</code>, <code>BTW.md</code>, <code>CONCEPTS.md</code></td>
+						<td>Less surface to break, fewer tokens to load.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="kept">
+			<h3 class="kept__title">Kept, because it is excellent</h3>
+			<p class="kept__body">The brainstorm → plan → work → simplify → review → compound loop. The WHAT/HOW split between requirements and plan. Learnings as searchable artifacts with frontmatter. <code>CONCEPTS.md</code> as living vocabulary. Research done in the phase that needs it, flowing into the next.</p>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="provenance">
+	<div class="section__inner">
+		<p class="eyebrow">Provenance</p>
+		<h2 class="section__title">Every rule since v2.0 was born from a dated incident on a production assembly line.</h2>
+		<p class="section__lede">Four audits of an autonomous build pipeline running on client work. Each miss became one sentence in an existing skill — quoted, dated, filed. No new machinery.</p>
+
+		<dl class="ledger">
+			<div class="ledger__row">
+				<dt class="ledger__claim">A gate passed 22/22 on the static build and returned 500 on the SSR preview for three waves.</dt>
+				<dd class="ledger__answer">Regression checklists are now written per output target — static, SSR, preview, URL, feeds — in the plan template, in <code>/plan</code>, in <code>/work</code>.</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">The steering file said “merge on green”. The executor measured red, refused with 28,420 px of screenshot evidence, and shipped the intent through the right PR.</dt>
+				<dd class="ledger__answer">Became the rule: the gate outranks the instruction. Never obey into a red.</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">A data-shape change merged clean and left <code>main</code> unbuildable for a day — a concurrent reader nobody had listed.</dt>
+				<dd class="ledger__answer">Shared data now demands the concurrent-reader check, expand/contract, and the proof “main builds against the migrated data” before the write.</dd>
+			</div>
+			<div class="ledger__row">
+				<dt class="ledger__claim">A plan paraphrased “tag v1-design before removing” into “v1 frozen”.</dt>
+				<dd class="ledger__answer">Constraints inherited from documents are quoted, never paraphrased. v2.4.1.</dd>
+			</div>
+		</dl>
+	</div>
+</section>
+
+<section class="section section--ledger" id="install">
+	<div class="section__inner">
+		<p class="eyebrow">Install</p>
+		<h2 class="section__title">Two lines in Claude Code. Nothing to configure.</h2>
+
+		<div class="cmd">
+			<code class="cmd__text" id="cmd-1">/plugin marketplace add lexcesar/compounder</code>
+			<button class="cmd__copy" type="button" data-copy="cmd-1">Copy</button>
+		</div>
+		<div class="cmd">
+			<code class="cmd__text" id="cmd-2">/plugin install compounder</code>
+			<button class="cmd__copy" type="button" data-copy="cmd-2">Copy</button>
+		</div>
+
+		<p class="install__then">Then, in any project: <code>/brainstorm</code> when the scope is fuzzy, <code>/plan</code> when it isn’t, <code>/work</code> to build, <code>/simplify</code> and <code>/review</code> before the commit, <code>/compound</code> after. In a hurry and confident: <code>/lfg</code>. In a hurry, confident, and with budget: <code>/slfg</code>.</p>
+
+		<div class="install__aside">
+			<h3 class="install__asidetitle">Pairs with the starter kit</h3>
+			<p class="install__asidebody">The same repository carries a method kit — <code>CLAUDE.md</code>, <code>AUTONOMY.md</code>, <code>/goal</code>, <code>/retro</code>, twelve mentor guides. The kit teaches how to think; the plugin is the execution rail. When the kit’s files exist, the skills obey them: <code>/lfg</code> respects the AUTONOMY.md zones, <code>/compound</code> uses <code>/retro</code>’s routing table. Without them, the plugin runs on its own with safe defaults.</p>
+			<a class="install__asidelink" href="https://github.com/lexcesar/compounder#readme">Read the kit →</a>
+		</div>
+	</div>
+</section>
+
+</main>
+
+<footer class="footer">
+	<div class="footer__inner">
+		<p class="footer__line">compounder · MIT · Alexander Cesar + Claude Fable 5</p>
+		<nav class="footer__links" aria-label="Footer">
+			<a href="https://github.com/lexcesar/compounder">GitHub</a>
+			<a href="https://github.com/lexcesar/compounder/commits/main">Changelog</a>
+			<a href="https://github.com/lexcesar/compounder/blob/main/LICENSE">License</a>
+			<a href="https://alexcesar.com">alexcesar.com</a>
+		</nav>
+	</div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>

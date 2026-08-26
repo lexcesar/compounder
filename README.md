@@ -87,7 +87,7 @@ Beyond the kit (base method), this repository carries the **compounder** plugin 
 to Every's compound-engineering-plugin, redesigned from scratch by Claude Fable 5 for modern
 Claude Code and for Opus/Sonnet/Haiku:
 `/brainstorm → /plan → /work → /simplify → /review → /compound`, with `/lfg` (autopilot),
-`/slfg` (swarm) and `/btw` (asides without derailing). Direct install:
+`/slfg` (swarm) and `/btw` (asides without derailing). Site: https://lexcesar.github.io/compounder/ — direct install:
 
 ```
 /plugin marketplace add lexcesar/compounder

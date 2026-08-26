@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+	html, body { margin: 0; }
+	body { width: 1200px; height: 630px; background: #0E3B2C; color: #EAF2EC; font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; overflow: hidden; position: relative; }
+	.gate { position: absolute; top: 0; bottom: 0; width: 6px; background: #9BE3B0; }
+	.gate--l { left: 72px; }
+	.gate--r { right: 72px; }
+	.inner { position: absolute; left: 120px; right: 120px; top: 84px; }
+	.brand { font-weight: 800; font-stretch: 112%; letter-spacing: -0.03em; font-size: 30px; display: flex; align-items: baseline; gap: 12px; }
+	.brand span { font-family: "JetBrains Mono", monospace; font-weight: 400; font-stretch: 100%; letter-spacing: 0; font-size: 15px; color: #8FB39E; border: 1px solid rgba(234,242,236,0.25); border-radius: 999px; padding: 3px 10px; }
+	h1 { margin: 40px 0 0; font-weight: 800; font-stretch: 112%; font-size: 84px; line-height: 0.98; letter-spacing: -0.035em; max-width: 12ch; }
+	.sub { margin-top: 30px; font-size: 24px; line-height: 1.35; color: #8FB39E; max-width: 34ch; }
+	.tx { position: absolute; left: 120px; right: 120px; bottom: 60px; font-family: "JetBrains Mono", monospace; font-size: 17px; display: flex; align-items: baseline; gap: 14px; }
+	.tx .n { color: #8FB39E; }
+	.v { display: inline-block; font-weight: 600; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px 2px; border-radius: 4px; border: 2px solid currentColor; transform: rotate(-2deg); color: #E2452F; }
+</style>
+</head>
+<body>
+	<div class="gate gate--l"></div>
+	<div class="gate gate--r"></div>
+	<div class="inner">
+		<div class="brand">compounder <span>v2.4.1 · Claude Code plugin</span></div>
+		<h1>Don’t take the model’s word for it.</h1>
+		<p class="sub">Compound engineering with adversarial gates. Every “done” is refuted by execution before it reaches you.</p>
+	</div>
+	<div class="tx"><span class="n">1.</span> “U1 done — suite passes” <span class="v">Refuted</span> <span class="n">removed the guard → still 4 passed</span></div>
+</body>
+</html>
