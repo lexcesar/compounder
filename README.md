@@ -85,7 +85,7 @@ smarter; it points the model's intelligence at the right place — and compounds
 
 Beyond the kit (base method), this repository carries the **compounder** plugin — spiritual successor
 to Every's compound-engineering-plugin, redesigned from scratch by Claude Fable 5 for modern
-Claude Code and for Opus/Sonnet/Haiku:
+Claude Code and for Fable/Opus/Sonnet/Haiku:
 `/brainstorm → /plan → /work → /simplify → /review → /compound`, with `/lfg` (autopilot),
 `/slfg` (swarm) and `/btw` (asides without derailing). Site: https://lexcesar.github.io/compounder/ — direct install:
 

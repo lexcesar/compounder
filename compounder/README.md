@@ -1,8 +1,8 @@
 # compounder — compound engineering, version 2
 
 Spiritual successor to Every's [compound-engineering-plugin](https://github.com/everyinc/compound-engineering-plugin),
-redesigned from scratch by Claude Fable 5 for modern Claude Code and to run well on **Opus, Sonnet,
-and Haiku**. Same philosophy — *each unit of work should make the next one easier* — with different
+redesigned from scratch by Claude Fable 5 for modern Claude Code and to run well on **Fable, Opus,
+Sonnet, and Haiku**. Same philosophy — *each unit of work should make the next one easier* — with different
 engineering underneath.
 
 ## Installation
