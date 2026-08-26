@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://lexcesar.github.io/compounder/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0E3B2C">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,16 +27,19 @@
 
 <header class="nav">
 	<div class="nav__inner">
-		<a class="nav__brand" href="#top">compounder<span class="nav__version">v2.4.1</span></a>
+		<a class="nav__brand" href="#top">
+			<svg class="nav__mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="3" height="18"/><rect x="18" y="3" width="3" height="18"/><path d="M8 12h8M13 9l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			compounder<span class="nav__version">v2.4.1</span>
+		</a>
 		<nav class="nav__links" aria-label="Sections">
 			<a href="#gates">Gates</a>
 			<a href="#pipeline">Pipeline</a>
 			<a href="#agents">Agents</a>
-			<a href="#compare">vs the original</a>
+			<a href="#compare">vs original</a>
 			<a href="#provenance">Provenance</a>
 		</nav>
 		<div class="nav__actions">
-			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub</a>
+			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub ↗</a>
 			<a class="btn btn--small" href="#install">Install</a>
 		</div>
 	</div>
@@ -46,62 +49,81 @@
 
 <section class="hero" id="top">
 	<div class="hero__inner">
-		<p class="eyebrow">A plugin for Claude Code · runs on Fable, Opus, Sonnet and Haiku · MIT</p>
+		<p class="eyebrow eyebrow--gold">A plugin for Claude Code · runs on Fable, Opus, Sonnet and Haiku · MIT</p>
 		<h1 class="hero__title">Don’t take the model’s word for it.</h1>
 		<p class="hero__lede">compounder is compound engineering for Claude Code with adversarial gates. Every “done” goes to a verifier agent whose only job is to refute it — by running the code, not reading it. What survives, ships. Locally. The push stays yours.</p>
 		<div class="hero__actions">
-			<a class="btn" href="#install">Install in Claude Code</a>
-			<a class="btn btn--ghost" href="https://github.com/lexcesar/compounder/tree/main/compounder/skills">Read the skills</a>
+			<a class="btn btn--gold" href="#install">Install in Claude Code</a>
+			<a class="btn btn--outline" href="https://github.com/lexcesar/compounder/tree/main/compounder/skills">Read the skills ↗</a>
 		</div>
 	</div>
 
-	<figure class="plate">
-		<figcaption class="plate__bar">
-			<span class="plate__title">adversarial-verifier · Gate 2 · <span class="plate__cmd">/lfg "refund flow"</span></span>
-			<span class="plate__meta">sonnet · Read Grep Glob Bash</span>
-		</figcaption>
-		<div class="tx" id="transcript">
-			<p class="tx__line tx__line--dim">Phase 2 closed — /work returned 3 claims. Opening Gate 2 → adversarial-verifier</p>
+	<figure class="rail-wrap">
+		<div class="rail-scroll">
+			<svg class="rail" id="rail" viewBox="0 0 1200 440" role="img" aria-label="The /lfg rail: brainstorm, plan, gate 1, work, gate 2, simplify, review, gate 3, compound. A feature token is refuted at gate 2, sent back to work with the refutation list, confirmed on the second pass, and delivered as a local commit.">
+				<defs>
+					<path id="rail-track" d="M40,220 L578,220 C578,340 412,340 412,220 L1140,220"/>
+				</defs>
 
-			<div class="tx__item">
-				<p class="tx__line tx__claim"><span class="tx__n">1.</span><span class="tx__text">“U1 done — refund rejects negative amounts”</span><span class="tx__verdict tx__verdict--refuted">Refuted</span></p>
-				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_refund.py -q → 4 passed</p>
-				<p class="tx__line tx__proof"><span class="tx__key">Why it died</span>removed the guard, ran again → still 4 passed. test_refund_negative asserts on an empty list. It cannot fail.</p>
-			</div>
+				<text class="rail__cmd" x="40" y="128">/lfg "refund flow"</text>
+				<text class="rail__legend" x="1140" y="128" text-anchor="end">ONE FEATURE THROUGH THE RAIL</text>
 
-			<div class="tx__item">
-				<p class="tx__line tx__claim"><span class="tx__n">2.</span><span class="tx__text">“U2 done — receipt e-mail sent on success”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
-				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_receipt.py -q → 3 passed</p>
-				<p class="tx__line tx__proof"><span class="tx__key">Sabotage</span>stubbed send() to a no-op → 2 failed. The test bites.</p>
-			</div>
+				<path class="rail__line" d="M40,220 L1140,220"/>
+				<path class="rail__loop" d="M578,220 C578,340 412,340 412,220"/>
+				<text class="rail__note rail__note--loop" x="495" y="372" text-anchor="middle">BACK TO /WORK WITH THE REFUTATION LIST · RETRY 1 OF 1</text>
 
-			<div class="tx__item">
-				<p class="tx__line tx__claim"><span class="tx__n">3.</span><span class="tx__text">“No callers of legacy_refund() remain”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
-				<p class="tx__line tx__proof"><span class="tx__key">Proof</span>rg -n 'legacy_refund\(' src tests → 1 hit, the definition</p>
-			</div>
+				<g class="rail__phase" data-x="60"><rect x="60" y="192" width="140" height="56"/><text x="130" y="225" text-anchor="middle">/brainstorm</text></g>
+				<g class="rail__phase" data-x="220"><rect x="220" y="192" width="140" height="56"/><text x="290" y="225" text-anchor="middle">/plan</text></g>
+				<g class="rail__phase" data-x="412"><rect x="412" y="192" width="140" height="56"/><text x="482" y="225" text-anchor="middle">/work</text></g>
+				<g class="rail__phase" data-x="604"><rect x="604" y="192" width="140" height="56"/><text x="674" y="225" text-anchor="middle">/simplify</text></g>
+				<g class="rail__phase" data-x="764"><rect x="764" y="192" width="140" height="56"/><text x="834" y="225" text-anchor="middle">/review</text></g>
+				<g class="rail__phase" data-x="956"><rect x="956" y="192" width="140" height="56"/><text x="1026" y="225" text-anchor="middle">/compound</text></g>
 
-			<p class="tx__line tx__summary">SUMMARY: 2 confirmed, 1 refuted</p>
-			<p class="tx__line tx__summary tx__line--dim">→ back to /work with the refutation list (retry 1 of 1)</p>
+				<g class="rail__gate" data-gate="g1">
+					<rect class="rail__bar" x="383" y="168" width="6" height="104"/>
+					<text class="rail__gatelabel" x="386" y="154" text-anchor="middle">GATE 1</text>
+					<g class="rail__stamp rail__stamp--ok" transform="translate(386,300) rotate(-4)"><rect x="-46" y="-11" width="92" height="22"/><text y="4" text-anchor="middle">CONFIRMED</text></g>
+				</g>
+				<g class="rail__gate" data-gate="g2">
+					<rect class="rail__bar" x="575" y="168" width="6" height="104"/>
+					<text class="rail__gatelabel" x="578" y="154" text-anchor="middle">GATE 2 · ADVERSARIAL</text>
+					<g class="rail__stamp rail__stamp--refuted" transform="translate(578,300) rotate(-4)"><rect x="-40" y="-11" width="80" height="22"/><text y="4" text-anchor="middle">REFUTED</text></g>
+					<g class="rail__stamp rail__stamp--ok" transform="translate(578,300) rotate(-4)"><rect x="-46" y="-11" width="92" height="22"/><text y="4" text-anchor="middle">CONFIRMED</text></g>
+				</g>
+				<g class="rail__gate" data-gate="g3">
+					<rect class="rail__bar" x="927" y="168" width="6" height="104"/>
+					<text class="rail__gatelabel" x="930" y="154" text-anchor="middle">GATE 3</text>
+					<g class="rail__stamp rail__stamp--ok" transform="translate(930,300) rotate(-4)"><rect x="-46" y="-11" width="92" height="22"/><text y="4" text-anchor="middle">CONFIRMED</text></g>
+				</g>
+
+				<g class="rail__end">
+					<path d="M1128,212 L1140,220 L1128,228"/>
+					<text x="1140" y="300" text-anchor="end">LOCAL COMMIT · THE PUSH IS YOURS</text>
+				</g>
+
+				<g class="rail__dot" transform="translate(40,220)"><circle class="rail__glow" r="18"/><circle class="rail__core" r="6"/></g>
+			</svg>
 		</div>
-		<button class="plate__replay" type="button" id="replay" hidden>Replay</button>
+		<figcaption class="rail__caption">What <code>/lfg</code> does with one feature. Gate 2 is an agent trying to refute the “done” — here it wins once, the work goes back with the list, the second pass survives.</figcaption>
 	</figure>
-	<p class="plate__note">Illustrative run. The verdict format is the agent’s real return contract — <a href="https://github.com/lexcesar/compounder/blob/main/compounder/agents/adversarial-verifier.md">agents/adversarial-verifier.md</a>.</p>
+</section>
 
+<section class="strip">
 	<dl class="stats">
 		<div class="stats__cell"><dt>11</dt><dd>skills, one happy path each</dd></div>
 		<div class="stats__cell"><dt>7</dt><dd>agents, fenced by tools</dd></div>
-		<div class="stats__cell"><dt>~85</dt><dd>lines per skill</dd></div>
+		<div class="stats__cell"><dt>84</dt><dd>lines per skill, on average</dd></div>
 		<div class="stats__cell"><dt>0</dt><dd>config files to write</dd></div>
 	</dl>
 </section>
 
 <section class="section" id="gates">
 	<div class="section__inner">
-		<p class="eyebrow">Why gates</p>
-		<h2 class="section__title">Self-attestation is the number-one failure mode of an autonomous pipeline.</h2>
-		<p class="section__lede">A gate is an executed command or a verifier agent. Never “I trust it’s ok”. Four places where that changes what reaches you.</p>
+		<p class="eyebrow" data-reveal>Why gates</p>
+		<h2 class="section__title" data-reveal>Self-attestation is the number-one failure mode of an autonomous pipeline.</h2>
+		<p class="section__lede" data-reveal>A gate is an executed command or a verifier agent. Never “I trust it’s ok”. Four places where that changes what reaches you.</p>
 
-		<dl class="ledger">
+		<dl class="ledger" data-reveal>
 			<div class="ledger__row">
 				<dt class="ledger__claim">The model says the suite passes.</dt>
 				<dd class="ledger__answer">The verifier runs the suite and pastes the summary. Then it sabotages the unit: would this test fail if the code were wrong, or does it pass empty?</dd>
@@ -120,143 +142,211 @@
 			</div>
 		</dl>
 
-		<blockquote class="quote">
+		<figure class="plate" data-reveal>
+			<figcaption class="plate__bar">
+				<span class="plate__title">adversarial-verifier · Gate 2 · <span class="plate__cmd">/lfg "refund flow"</span></span>
+				<span class="plate__meta">sonnet · Read Grep Glob Bash</span>
+			</figcaption>
+			<div class="tx" id="transcript">
+				<p class="tx__line tx__line--dim">Phase 2 closed — /work returned 3 claims. Opening Gate 2 → adversarial-verifier</p>
+				<div class="tx__item">
+					<p class="tx__line tx__claim"><span class="tx__n">1.</span><span class="tx__text">“U1 done — refund rejects negative amounts”</span><span class="tx__verdict tx__verdict--refuted">Refuted</span></p>
+					<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_refund.py -q → 4 passed</p>
+					<p class="tx__line tx__proof"><span class="tx__key">Why it died</span>removed the guard, ran again → still 4 passed. test_refund_negative asserts on an empty list. It cannot fail.</p>
+				</div>
+				<div class="tx__item">
+					<p class="tx__line tx__claim"><span class="tx__n">2.</span><span class="tx__text">“U2 done — receipt e-mail sent on success”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
+					<p class="tx__line tx__proof"><span class="tx__key">Proof</span>pytest tests/test_receipt.py -q → 3 passed</p>
+					<p class="tx__line tx__proof"><span class="tx__key">Sabotage</span>stubbed send() to a no-op → 2 failed. The test bites.</p>
+				</div>
+				<div class="tx__item">
+					<p class="tx__line tx__claim"><span class="tx__n">3.</span><span class="tx__text">“No callers of legacy_refund() remain”</span><span class="tx__verdict tx__verdict--confirmed">Confirmed</span></p>
+					<p class="tx__line tx__proof"><span class="tx__key">Proof</span>rg -n 'legacy_refund\(' src tests → 1 hit, the definition</p>
+				</div>
+				<p class="tx__line tx__summary">SUMMARY: 2 confirmed, 1 refuted</p>
+				<p class="tx__line tx__summary tx__line--dim">→ back to /work with the refutation list (retry 1 of 1)</p>
+			</div>
+			<button class="plate__replay" type="button" id="replay" hidden>Replay</button>
+		</figure>
+		<p class="plate__note" data-reveal>Illustrative run. The verdict format is the agent’s real return contract — <a href="https://github.com/lexcesar/compounder/blob/main/compounder/agents/adversarial-verifier.md">agents/adversarial-verifier.md</a>.</p>
+
+		<blockquote class="quote" data-reveal>
 			<p>Taking the claimant’s word for it — not even when it was a bigger model, not even when it was you in another round.</p>
 			<cite>Prohibitions · <a href="https://github.com/lexcesar/compounder/blob/main/compounder/agents/adversarial-verifier.md">adversarial-verifier.md</a></cite>
 		</blockquote>
 	</div>
 </section>
 
-<section class="section section--ledger" id="pipeline">
+<section class="section section--tint" id="pipeline">
 	<div class="section__inner">
-		<p class="eyebrow">The pipeline</p>
-		<h2 class="section__title">One rail. Three gates. Six skills you can also run by hand.</h2>
+		<p class="eyebrow" data-reveal>The skills</p>
+		<h2 class="section__title" data-reveal>Six on the rail. Five around it. Eleven in total.</h2>
+		<p class="section__lede" data-reveal>Run them by hand, one at a time. Or hand the whole rail to <code>/lfg</code> and let the gates decide.</p>
 
-		<ol class="rail">
-			<li class="rail__phase"><code class="rail__cmd">/brainstorm</code><span class="rail__role">Discover the WHAT. The right questions, one round, a requirements doc.</span></li>
-			<li class="rail__phase"><code class="rail__cmd">/plan</code><span class="rail__role">Decide the HOW. Real reconnaissance, compared options, units that carry their own verification.</span></li>
-			<li class="rail__gate"><span class="rail__gatelabel">Gate 1</span></li>
-			<li class="rail__phase"><code class="rail__cmd">/work</code><span class="rail__role">Execute with a baseline, per-unit tracking, evidence you can re-run.</span></li>
-			<li class="rail__gate"><span class="rail__gatelabel">Gate 2</span></li>
-			<li class="rail__phase"><code class="rail__cmd">/simplify</code><span class="rail__role">Take the plane to the fresh diff. Behavior preserved, scaffolding gone.</span></li>
-			<li class="rail__phase"><code class="rail__cmd">/review</code><span class="rail__role">Four lenses in parallel, then the tribunal on every finding.</span></li>
-			<li class="rail__gate"><span class="rail__gatelabel">Gate 3</span></li>
-			<li class="rail__phase"><code class="rail__cmd">/compound</code><span class="rail__role">Distill the session’s lessons and file each at its address.</span></li>
+		<ol class="grid" data-reveal>
+			<li class="grid__cell"><span class="grid__step">01</span><code class="grid__cmd">/brainstorm</code><p class="grid__role">Discover the WHAT. The right questions in one round, out as a requirements doc.</p></li>
+			<li class="grid__cell"><span class="grid__step">02</span><code class="grid__cmd">/plan</code><p class="grid__role">Decide the HOW. Real reconnaissance, compared options, units that carry their own verification.</p><span class="grid__gate">Gate 1 · plan file exists, every unit verifiable, every cited path real</span></li>
+			<li class="grid__cell"><span class="grid__step">03</span><code class="grid__cmd">/work</code><p class="grid__role">Execute with a baseline, per-unit tracking, evidence you can re-run.</p><span class="grid__gate">Gate 2 · the verifier tries to refute every “done” by execution</span></li>
+			<li class="grid__cell"><span class="grid__step">04</span><code class="grid__cmd">/simplify</code><p class="grid__role">Take the plane to the fresh diff. Behavior preserved, scaffolding gone.</p></li>
+			<li class="grid__cell"><span class="grid__step">05</span><code class="grid__cmd">/review</code><p class="grid__role">Four lenses in parallel — correctness, security, tests, simplicity — then the tribunal on every finding.</p><span class="grid__gate">Gate 3 · a confirmed severe finding left unapplied stops the rail</span></li>
+			<li class="grid__cell"><span class="grid__step">06</span><code class="grid__cmd">/compound</code><p class="grid__role">Distill the session’s lessons and file each at its address: solution, rule, preference, term.</p></li>
 		</ol>
 
-		<dl class="gates">
-			<div class="gates__cell">
-				<dt class="gates__name">Gate 1 · the plan</dt>
-				<dd class="gates__rule">The plan file exists, every unit has its own verification, every cited path exists — <code>ls</code> says so. Fails twice → stop. No improvised implementation without a plan.</dd>
-			</div>
-			<div class="gates__cell">
-				<dt class="gates__name">Gate 2 · adversarial</dt>
-				<dd class="gates__rule">The verifier receives the “done” claims and tries to refute each one by execution. Any refuted → one retry with the list. Persists → stop, real state reported, handoff written.</dd>
-			</div>
-			<div class="gates__cell">
-				<dt class="gates__name">Gate 3 · the review</dt>
-				<dd class="gates__rule">Safe fixes applied, suite re-run. A confirmed severe finding that can’t be auto-applied → stop, residuals recorded. The decision is yours, not the pipeline’s.</dd>
-			</div>
-		</dl>
-
-		<div class="autopilot">
-			<div class="autopilot__cell">
-				<code class="autopilot__cmd">/lfg &lt;feature&gt;</code>
-				<p class="autopilot__role">The whole rail, autonomous, gates included. Local delivery.</p>
-			</div>
-			<div class="autopilot__cell">
-				<code class="autopilot__cmd">/slfg &lt;feature&gt;</code>
-				<p class="autopilot__role">The same rail as a swarm: three researchers, the review panel and one verifier per finding, in parallel. Costs 3–10× — it asks before firing.</p>
-			</div>
-			<div class="autopilot__cell">
-				<code class="autopilot__cmd">/debug &lt;bug&gt;</code>
-				<p class="autopilot__role">Reproduce, competing hypotheses, bisection, fix with a red-green test.</p>
-			</div>
-			<div class="autopilot__cell">
-				<code class="autopilot__cmd">/btw &lt;message&gt;</code>
-				<p class="autopilot__role">Talk mid-run without derailing it. A hook intercepts the aside, classifies it, schedules it.</p>
-			</div>
-		</div>
+		<ul class="grid grid--aside" data-reveal>
+			<li class="grid__cell"><code class="grid__cmd">/lfg &lt;feature&gt;</code><p class="grid__role">The whole rail, autonomous, gates included. Local delivery.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/slfg &lt;feature&gt;</code><p class="grid__role">The rail as a swarm: three researchers, the review panel, one verifier per finding — in parallel. Costs 3–10×. Asks before firing.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/debug &lt;bug&gt;</code><p class="grid__role">Reproduce, competing hypotheses, bisection, fix with a red-green test.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/btw &lt;message&gt;</code><p class="grid__role">Talk mid-run without derailing it. A hook intercepts the aside, classifies it, schedules it.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/work-fork &lt;plan&gt;</code><p class="grid__role">The cheap route: a ready plan executed by a fenced subagent on a smaller model.</p></li>
+		</ul>
 	</div>
 </section>
 
-<section class="section" id="agents">
+<section class="section section--panel" id="agents">
 	<div class="section__inner">
-		<p class="eyebrow">The agents</p>
-		<h2 class="section__title">Seven agents. Fenced by tools, not by instruction.</h2>
-		<p class="section__lede">A reviewer that can’t edit can’t “fix” its way out of a finding. An executor that can’t fetch can’t be talked into it by a plan it read. The fence lives in the manifest, where the model can’t argue with it.</p>
+		<p class="eyebrow eyebrow--gold" data-reveal>The agents</p>
+		<h2 class="section__title" data-reveal>Seven agents. Fenced by tools, not by instruction.</h2>
+		<p class="section__lede" data-reveal>A reviewer that can’t edit can’t “fix” its way out of a finding. An executor that can’t fetch can’t be talked into it by a plan it read. The fence lives in the manifest, where the model can’t argue with it.</p>
 
-		<div class="roster-wrap">
-			<table class="roster">
-				<thead>
-					<tr><th scope="col">Agent</th><th scope="col">Job</th><th scope="col">Tools</th><th scope="col">Model</th></tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row"><code>adversarial-verifier</code></th>
-						<td>The tribunal. Receives a finding or a “done” and tries to refute it by execution. Measures, never operates.</td>
-						<td class="roster__tools">Read · Grep · Glob · Bash</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>correctness-reviewer</code></th>
-						<td>Inputs that produce wrong results, broken contracts, state, error paths.</td>
-						<td class="roster__tools">Read · Grep · Glob · Bash</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>security-reviewer</code></th>
-						<td>Untrusted input, secrets, authorization, data exposure.</td>
-						<td class="roster__tools">Read · Grep · Glob · Bash</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>tests-reviewer</code></th>
-						<td>Coverage of new behavior, tests that cannot fail, ghost gates, re-frozen references. Runs the suite.</td>
-						<td class="roster__tools">Read · Grep · Glob · Bash</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>simplicity-reviewer</code></th>
-						<td>Speculative complexity, premature abstraction, duplication. Read-only: it cannot touch the diff it judges.</td>
-						<td class="roster__tools">Read · Grep · Glob</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>researcher</code></th>
-						<td>Grounding before brainstorm and plan: codebase patterns, institutional memory, contracts and consumers. Returns a dossier with citations.</td>
-						<td class="roster__tools">Read · Grep · Glob · Bash</td>
-						<td class="roster__model">haiku</td>
-					</tr>
-					<tr>
-						<th scope="row"><code>fork-executor</code></th>
-						<td>The assembly line’s cheap route: implements a ready plan in an isolated context. No fetch, no subagents — it obeys plan text, and plan text is not a trusted source.</td>
-						<td class="roster__tools">Read · Edit · Write · Grep · Glob · Bash</td>
-						<td class="roster__model">sonnet</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<figure class="diagram" data-anim>
+			<div class="diagram__scroll">
+				<svg class="roster" viewBox="0 0 1120 410" role="img" aria-label="Your session dispatches to seven agents and owns the integration. Each agent carries a tool fence: the four reviewers and the verifier can read, grep, glob and run but not edit; the simplicity reviewer cannot run; the researcher runs on haiku; the fork-executor can edit and write but cannot fetch or spawn subagents.">
+					<g class="roster__hub">
+						<rect x="460" y="24" width="200" height="60"/>
+						<text class="roster__hubname" x="560" y="50" text-anchor="middle">YOUR SESSION</text>
+						<text class="roster__hubsub" x="560" y="70" text-anchor="middle">DISPATCHES · OWNS INTEGRATION · VERIFIES</text>
+					</g>
+
+					<path class="roster__wire" d="M560,84 L92,250" pathLength="1" style="--i:0"/>
+					<path class="roster__wire" d="M560,84 L248,250" pathLength="1" style="--i:1"/>
+					<path class="roster__wire" d="M560,84 L404,250" pathLength="1" style="--i:2"/>
+					<path class="roster__wire" d="M560,84 L560,250" pathLength="1" style="--i:3"/>
+					<path class="roster__wire" d="M560,84 L716,250" pathLength="1" style="--i:4"/>
+					<path class="roster__wire" d="M560,84 L872,250" pathLength="1" style="--i:5"/>
+					<path class="roster__wire" d="M560,84 L1028,250" pathLength="1" style="--i:6"/>
+
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L92,250');--i:0"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L248,250');--i:1"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L404,250');--i:2"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L560,250');--i:3"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L716,250');--i:4"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L872,250');--i:5"/>
+					<circle class="roster__pulse" r="4" style="offset-path:path('M560,84 L1028,250');--i:6"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L92,250');--i:0"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L248,250');--i:1"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L404,250');--i:2"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L560,250');--i:3"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L716,250');--i:4"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L872,250');--i:5"/>
+					<circle class="roster__pulse roster__pulse--back" r="3" style="offset-path:path('M560,84 L1028,250');--i:6"/>
+
+					<g class="roster__agent roster__agent--lead" style="--i:0">
+						<rect x="20" y="250" width="144" height="126"/>
+						<text class="roster__name" x="30" y="272">adversarial-</text>
+						<text class="roster__name" x="30" y="286">verifier</text>
+						<text class="roster__role" x="30" y="306">THE TRIBUNAL</text>
+						<text class="roster__tools" x="30" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__fence" x="30" y="342">NO EDIT · NO WRITE</text>
+						<text class="roster__model" x="30" y="368">SONNET</text>
+					</g>
+					<g class="roster__agent" style="--i:1">
+						<rect x="176" y="250" width="144" height="126"/>
+						<text class="roster__name" x="186" y="272">correctness-</text>
+						<text class="roster__name" x="186" y="286">reviewer</text>
+						<text class="roster__role" x="186" y="306">WRONG RESULTS</text>
+						<text class="roster__tools" x="186" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__fence" x="186" y="342">NO EDIT · NO WRITE</text>
+						<text class="roster__model" x="186" y="368">SONNET</text>
+					</g>
+					<g class="roster__agent" style="--i:2">
+						<rect x="332" y="250" width="144" height="126"/>
+						<text class="roster__name" x="342" y="272">security-</text>
+						<text class="roster__name" x="342" y="286">reviewer</text>
+						<text class="roster__role" x="342" y="306">UNTRUSTED INPUT</text>
+						<text class="roster__tools" x="342" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__fence" x="342" y="342">NO EDIT · NO WRITE</text>
+						<text class="roster__model" x="342" y="368">SONNET</text>
+					</g>
+					<g class="roster__agent" style="--i:3">
+						<rect x="488" y="250" width="144" height="126"/>
+						<text class="roster__name" x="498" y="272">tests-</text>
+						<text class="roster__name" x="498" y="286">reviewer</text>
+						<text class="roster__role" x="498" y="306">COVERAGE</text>
+						<text class="roster__tools" x="498" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__fence" x="498" y="342">NO EDIT · NO WRITE</text>
+						<text class="roster__model" x="498" y="368">SONNET</text>
+					</g>
+					<g class="roster__agent" style="--i:4">
+						<rect x="644" y="250" width="144" height="126"/>
+						<text class="roster__name" x="654" y="272">simplicity-</text>
+						<text class="roster__name" x="654" y="286">reviewer</text>
+						<text class="roster__role" x="654" y="306">YAGNI</text>
+						<text class="roster__tools" x="654" y="328">READ · GREP · GLOB</text>
+						<text class="roster__fence" x="654" y="342">NO BASH · NO WRITE</text>
+						<text class="roster__model" x="654" y="368">SONNET</text>
+					</g>
+					<g class="roster__agent" style="--i:5">
+						<rect x="800" y="250" width="144" height="126"/>
+						<text class="roster__name" x="810" y="272">researcher</text>
+						<text class="roster__role" x="810" y="306">GROUNDING</text>
+						<text class="roster__tools" x="810" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__fence" x="810" y="342">NO EDIT · NO WRITE</text>
+						<text class="roster__model" x="810" y="368">HAIKU</text>
+					</g>
+					<g class="roster__agent roster__agent--writer" style="--i:6">
+						<rect x="956" y="250" width="144" height="126"/>
+						<text class="roster__name" x="966" y="272">fork-</text>
+						<text class="roster__name" x="966" y="286">executor</text>
+						<text class="roster__role" x="966" y="306">THE CHEAP ROUTE</text>
+						<text class="roster__tools" x="966" y="328">READ · GREP · GLOB · BASH</text>
+						<text class="roster__tools" x="966" y="340">EDIT · WRITE</text>
+						<text class="roster__fence" x="966" y="354">NO FETCH · NO SUBAGENTS</text>
+						<text class="roster__model" x="966" y="368">SONNET</text>
+					</g>
+
+					<text class="roster__foot" x="20" y="402">FENCE = THE TOOLS LINE IN EACH AGENT’S MANIFEST</text>
+					<text class="roster__foot" x="1100" y="402" text-anchor="end">GOLD = CAN CHANGE FILES</text>
+				</svg>
+			</div>
+			<figcaption class="diagram__caption">Every dispatch goes down a wire and comes back as evidence. The reviewers and the tribunal cannot touch the diff they judge; the executor can write, but cannot fetch or spawn — plan text is not a trusted source.</figcaption>
+		</figure>
 	</div>
 </section>
 
-<section class="section section--tint" id="compare">
+<section class="section" id="compare">
 	<div class="section__inner">
-		<p class="eyebrow">vs the original</p>
-		<h2 class="section__title">Spiritual successor to Every’s compound-engineering. Rebuilt, not forked.</h2>
-		<p class="section__lede">Same philosophy — each unit of work should make the next one easier. Different engineering underneath, because the original targets the lowest common denominator across platforms and assumes the biggest model is doing the work. Most of the work is done by Sonnet.</p>
+		<p class="eyebrow" data-reveal>vs the original</p>
+		<h2 class="section__title" data-reveal>Spiritual successor to Every’s compound-engineering. Rebuilt, not forked.</h2>
+		<p class="section__lede" data-reveal>Same philosophy — each unit of work should make the next one easier. Different engineering underneath, because the original targets the lowest common denominator across platforms and assumes the biggest model is doing the work. Most of the work is done by Sonnet.</p>
 
-		<div class="compare-wrap">
+		<figure class="diagram diagram--paper" data-anim>
+			<svg class="bars" viewBox="0 0 960 250" role="img" aria-label="Skill length in lines. A compound-engineering skill: 400 to 800 lines. A compounder skill: 84 lines on average, 165 at most. The original learning-capture skill: 727 lines. compounder's /compound: 94 lines.">
+				<text class="bars__label" x="0" y="44">A SKILL IN COMPOUND-ENGINEERING</text>
+				<rect class="bars__bar bars__bar--range" x="330" y="30" width="620" height="18" style="--i:0"/>
+				<rect class="bars__bar bars__bar--ink" x="330" y="30" width="310" height="18" style="--i:0"/>
+				<text class="bars__value" x="640" y="65">400 – 800 LINES</text>
+
+				<text class="bars__label" x="0" y="106">A SKILL IN COMPOUNDER</text>
+				<rect class="bars__bar bars__bar--gold" x="330" y="92" width="65" height="18" style="--i:1"/>
+				<text class="bars__value" x="404" y="106">84 LINES ON AVERAGE · 165 AT MOST</text>
+
+				<text class="bars__label" x="0" y="176">CE-COMPOUND · LEARNING CAPTURE</text>
+				<rect class="bars__bar bars__bar--ink" x="330" y="162" width="563" height="18" style="--i:2"/>
+				<text class="bars__value" x="902" y="176">727</text>
+
+				<text class="bars__label" x="0" y="238">/COMPOUND</text>
+				<rect class="bars__bar bars__bar--gold" x="330" y="224" width="73" height="18" style="--i:3"/>
+				<text class="bars__value" x="412" y="238">94 LINES — DISTILL, THEN ROUTE TO THE RIGHT ADDRESS</text>
+			</svg>
+			<figcaption class="diagram__caption">Lines per skill, measured on the current tree. A small model drowns in a flag tree; lean, concrete instruction is what Sonnet and Haiku execute well.</figcaption>
+		</figure>
+
+		<div class="compare-wrap" data-reveal>
 			<table class="compare">
 				<thead>
 					<tr><th scope="col">compound-engineering</th><th scope="col">compounder</th><th scope="col">Why</th></tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>400–800-line skills; dozens of modes, flags and menus</td>
-						<td>~100-line skills, one happy path, decisions left to the model</td>
-						<td>A small model drowns in a flag tree. Lean, concrete instruction is what Sonnet and Haiku execute well.</td>
-					</tr>
 					<tr>
 						<td>Gates in prose: “check the structured return”</td>
 						<td>Gates executed by an agent that tries to refute the evidence</td>
@@ -278,7 +368,7 @@
 						<td>An autopilot that publishes on its own breaks the reversible/irreversible rule.</td>
 					</tr>
 					<tr>
-						<td>727-line capture skill; multi-agent to write one doc</td>
+						<td>Multi-agent ceremony to write one learning doc</td>
 						<td><code>/compound</code> distills and routes: solution → <code>docs/solutions/</code>, rule → <code>CLAUDE.md</code>, preference → memory, term → <code>CONCEPTS.md</code>, noise → trash</td>
 						<td>The value is the distillation and the right address. Expensive capture is capture that gets skipped.</td>
 					</tr>
@@ -296,60 +386,83 @@
 			</table>
 		</div>
 
-		<div class="kept">
+		<div class="kept" data-reveal>
 			<h3 class="kept__title">Kept, because it is excellent</h3>
 			<p class="kept__body">The brainstorm → plan → work → simplify → review → compound loop. The WHAT/HOW split between requirements and plan. Learnings as searchable artifacts with frontmatter. <code>CONCEPTS.md</code> as living vocabulary. Research done in the phase that needs it, flowing into the next.</p>
 		</div>
 	</div>
 </section>
 
-<section class="section" id="provenance">
+<section class="section section--panel" id="provenance">
 	<div class="section__inner">
-		<p class="eyebrow">Provenance</p>
-		<h2 class="section__title">Every rule since v2.0 was born from a dated incident on a production assembly line.</h2>
-		<p class="section__lede">Four audits of an autonomous build pipeline running on client work. Each miss became one sentence in an existing skill — quoted, dated, filed. No new machinery.</p>
+		<p class="eyebrow eyebrow--gold" data-reveal>Provenance</p>
+		<h2 class="section__title" data-reveal>Every rule since v2.0 was born from a dated incident on a production assembly line.</h2>
+		<p class="section__lede" data-reveal>Four audits of an autonomous build pipeline running on client work. Each miss became one sentence in an existing skill — quoted, dated, filed. No new machinery.</p>
 
-		<dl class="ledger">
-			<div class="ledger__row">
-				<dt class="ledger__claim">A gate passed 22/22 on the static build and returned 500 on the SSR preview for three waves.</dt>
-				<dd class="ledger__answer">Regression checklists are now written per output target — static, SSR, preview, URL, feeds — in the plan template, in <code>/plan</code>, in <code>/work</code>.</dd>
-			</div>
-			<div class="ledger__row">
-				<dt class="ledger__claim">The steering file said “merge on green”. The executor measured red, refused with 28,420 px of screenshot evidence, and shipped the intent through the right PR.</dt>
-				<dd class="ledger__answer">Became the rule: the gate outranks the instruction. Never obey into a red.</dd>
-			</div>
-			<div class="ledger__row">
-				<dt class="ledger__claim">A data-shape change merged clean and left <code>main</code> unbuildable for a day — a concurrent reader nobody had listed.</dt>
-				<dd class="ledger__answer">Shared data now demands the concurrent-reader check, expand/contract, and the proof “main builds against the migrated data” before the write.</dd>
-			</div>
-			<div class="ledger__row">
-				<dt class="ledger__claim">A plan paraphrased “tag v1-design before removing” into “v1 frozen”.</dt>
-				<dd class="ledger__answer">Constraints inherited from documents are quoted, never paraphrased. v2.4.1.</dd>
-			</div>
-		</dl>
+		<div class="prov">
+			<figure class="diagram diagram--loop" data-anim>
+				<svg class="loop" viewBox="0 0 960 440" role="img" aria-label="The loop: an incident in production, an audit, one sentence added to an existing skill, and the next run — which misses less. Without the sentence, the same miss comes back.">
+					<path class="loop__track" d="M480,80 C700,80 812,150 812,220 C812,290 700,360 480,360 C260,360 148,290 148,220 C148,150 260,80 480,80 Z"/>
+					<path class="loop__dash" d="M480,80 C700,80 812,150 812,220 C812,290 700,360 480,360 C260,360 148,290 148,220 C148,150 260,80 480,80 Z"/>
+					<circle class="loop__dot" r="5" style="offset-path:path('M480,80 C700,80 812,150 812,220 C812,290 700,360 480,360 C260,360 148,290 148,220 C148,150 260,80 480,80 Z')"/>
+
+					<path class="loop__exit" d="M790,300 L900,392"/>
+					<path class="loop__exithead" d="M906,398 L890,394 L897,384 Z"/>
+					<text class="loop__exitlabel" x="940" y="422" text-anchor="end">WITHOUT THE SENTENCE, THE SAME MISS COMES BACK</text>
+
+					<g class="loop__station" style="--i:0"><rect x="410" y="64" width="140" height="32"/><text x="480" y="85" text-anchor="middle">INCIDENT</text></g>
+					<g class="loop__station" style="--i:1"><rect x="742" y="204" width="140" height="32"/><text x="812" y="225" text-anchor="middle">AUDIT</text></g>
+					<g class="loop__station loop__station--key" style="--i:2"><rect x="400" y="344" width="160" height="32"/><text x="480" y="365" text-anchor="middle">ONE SENTENCE</text></g>
+					<g class="loop__station" style="--i:3"><rect x="78" y="204" width="140" height="32"/><text x="148" y="225" text-anchor="middle">NEXT RUN</text></g>
+
+					<text class="loop__center" x="480" y="212" text-anchor="middle">THE MISS BECOMES A RULE</text>
+					<text class="loop__centersub" x="480" y="236" text-anchor="middle">QUOTED · DATED · FILED IN THE SKILL THAT SHOULD HAVE CAUGHT IT</text>
+					<text class="loop__keynote" x="480" y="400" text-anchor="middle">THE STEP THAT COMPOUNDS</text>
+				</svg>
+			</figure>
+
+			<dl class="ledger ledger--panel" data-reveal>
+				<div class="ledger__row">
+					<dt class="ledger__claim">A gate passed 22/22 on the static build and returned 500 on the SSR preview for three waves.</dt>
+					<dd class="ledger__answer">Regression checklists are now written per output target — static, SSR, preview, URL, feeds — in the plan template, in <code>/plan</code>, in <code>/work</code>.</dd>
+				</div>
+				<div class="ledger__row">
+					<dt class="ledger__claim">The steering file said “merge on green”. The executor measured red, refused with 28,420 px of screenshot evidence, and shipped the intent through the right PR.</dt>
+					<dd class="ledger__answer">Became the rule: the gate outranks the instruction. Never obey into a red.</dd>
+				</div>
+				<div class="ledger__row">
+					<dt class="ledger__claim">A data-shape change merged clean and left <code>main</code> unbuildable for a day — a concurrent reader nobody had listed.</dt>
+					<dd class="ledger__answer">Shared data now demands the concurrent-reader check, expand/contract, and the proof “main builds against the migrated data” before the write.</dd>
+				</div>
+				<div class="ledger__row">
+					<dt class="ledger__claim">A plan paraphrased “tag v1-design before removing” into “v1 frozen”.</dt>
+					<dd class="ledger__answer">Constraints inherited from documents are quoted, never paraphrased. v2.4.1.</dd>
+				</div>
+			</dl>
+		</div>
 	</div>
 </section>
 
-<section class="section section--ledger" id="install">
+<section class="section" id="install">
 	<div class="section__inner">
-		<p class="eyebrow">Install</p>
-		<h2 class="section__title">Two lines in Claude Code. Nothing to configure.</h2>
+		<p class="eyebrow" data-reveal>Install</p>
+		<h2 class="section__title" data-reveal>Two lines in Claude Code. Nothing to configure.</h2>
 
-		<div class="cmd">
+		<div class="cmd" data-reveal>
 			<code class="cmd__text" id="cmd-1">/plugin marketplace add lexcesar/compounder</code>
 			<button class="cmd__copy" type="button" data-copy="cmd-1">Copy</button>
 		</div>
-		<div class="cmd">
+		<div class="cmd" data-reveal>
 			<code class="cmd__text" id="cmd-2">/plugin install compounder</code>
 			<button class="cmd__copy" type="button" data-copy="cmd-2">Copy</button>
 		</div>
 
-		<p class="install__then">Then, in any project: <code>/brainstorm</code> when the scope is fuzzy, <code>/plan</code> when it isn’t, <code>/work</code> to build, <code>/simplify</code> and <code>/review</code> before the commit, <code>/compound</code> after. In a hurry and confident: <code>/lfg</code>. In a hurry, confident, and with budget: <code>/slfg</code>.</p>
+		<p class="install__then" data-reveal>Then, in any project: <code>/brainstorm</code> when the scope is fuzzy, <code>/plan</code> when it isn’t, <code>/work</code> to build, <code>/simplify</code> and <code>/review</code> before the commit, <code>/compound</code> after. In a hurry and confident: <code>/lfg</code>. In a hurry, confident, and with budget: <code>/slfg</code>.</p>
 
-		<div class="install__aside">
+		<div class="install__aside" data-reveal>
 			<h3 class="install__asidetitle">Pairs with the starter kit</h3>
 			<p class="install__asidebody">The same repository carries a method kit — <code>CLAUDE.md</code>, <code>AUTONOMY.md</code>, <code>/goal</code>, <code>/retro</code>, twelve mentor guides. The kit teaches how to think; the plugin is the execution rail. When the kit’s files exist, the skills obey them: <code>/lfg</code> respects the AUTONOMY.md zones, <code>/compound</code> uses <code>/retro</code>’s routing table. Without them, the plugin runs on its own with safe defaults.</p>
-			<a class="install__asidelink" href="https://github.com/lexcesar/compounder#readme">Read the kit →</a>
+			<a class="install__asidelink" href="https://github.com/lexcesar/compounder#readme">Read the kit ↗</a>
 		</div>
 	</div>
 </section>
@@ -358,12 +471,12 @@
 
 <footer class="footer">
 	<div class="footer__inner">
-		<p class="footer__line">compounder · MIT · Alexander Cesar + Claude Fable 5</p>
+		<p class="footer__line">compounder · MIT · Alexander Cesar + Claude Fable 5 · designed &amp; built by hand, verified by a tribunal</p>
 		<nav class="footer__links" aria-label="Footer">
-			<a href="https://github.com/lexcesar/compounder">GitHub</a>
-			<a href="https://github.com/lexcesar/compounder/commits/main">Changelog</a>
-			<a href="https://github.com/lexcesar/compounder/blob/main/LICENSE">License</a>
-			<a href="https://alexcesar.com">alexcesar.com</a>
+			<a href="https://github.com/lexcesar/compounder">GitHub ↗</a>
+			<a href="https://github.com/lexcesar/compounder/commits/main">Changelog ↗</a>
+			<a href="https://github.com/lexcesar/compounder/blob/main/LICENSE">License ↗</a>
+			<a href="https://alexcesar.com">alexcesar.com ↗</a>
 		</nav>
 	</div>
 </footer>
