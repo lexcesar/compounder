@@ -194,13 +194,14 @@
 			ring.style.transform = "translate3d(" + rx.toFixed(2) + "px," + ry.toFixed(2) + "px,0)";
 			mags.forEach(function (el, i) {
 				var r = el.getBoundingClientRect();
-				var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-				var dx = mx - cx, dy = my - cy;
-				var reach = Math.max(r.width, r.height) / 2 + 28;
 				var s = magState[i];
+				var cx = r.left + r.width / 2 - s.x, cy = r.top + r.height / 2 - s.y;
+				var dx = mx - cx, dy = my - cy;
+				var reach = Math.max(r.width, r.height) / 2 + 18;
+				var force = parseFloat(el.getAttribute("data-mag")) || 0.08;
 				var tx = 0, ty = 0;
-				if (Math.abs(dx) < reach && Math.abs(dy) < reach) { tx = dx * 0.28; ty = dy * 0.28; }
-				s.x += (tx - s.x) * 0.2; s.y += (ty - s.y) * 0.2;
+				if (Math.hypot(dx, dy) < reach) { tx = dx * force; ty = dy * force; }
+				s.x += (tx - s.x) * 0.16; s.y += (ty - s.y) * 0.16;
 				if (Math.abs(s.x) > 0.05 || Math.abs(s.y) > 0.05) el.style.transform = "translate3d(" + s.x.toFixed(2) + "px," + s.y.toFixed(2) + "px,0)";
 				else if (el.style.transform) el.style.transform = "";
 			});
