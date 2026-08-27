@@ -522,6 +522,30 @@ svg text { font-family: var(--font-body); }
 .footer__links a { color: var(--panel-text); text-decoration: none; }
 .footer__links a:hover { color: var(--accent-bright); }
 
+/* ---------- cursor (fine pointers only, armed by JS) ---------- */
+
+.cur-dot, .cur-ring { position: fixed; left: 0; top: 0; display: none; pointer-events: none; border-radius: 50%; will-change: transform; }
+html.has-cursor .cur-dot, html.has-cursor .cur-ring { display: block; }
+.cur-dot { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; background: var(--accent-bright); z-index: 100; transition: opacity 0.3s ease, width 0.3s var(--ease), height 0.3s var(--ease), margin 0.3s var(--ease); }
+.cur-ring {
+	width: 40px; height: 40px; margin: -20px 0 0 -20px; z-index: 99;
+	border: 1.5px solid #fff; mix-blend-mode: difference;
+	transition: opacity 0.3s ease, width 0.4s var(--ease), height 0.4s var(--ease), margin 0.4s var(--ease), border-color 0.3s ease, background 0.3s ease;
+}
+.cur-ring.is-hov { width: 60px; height: 60px; margin: -30px 0 0 -30px; }
+.cur-dot.is-hov { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; }
+.cur-ring.is-gold { border-color: var(--accent-bright); mix-blend-mode: normal; background: rgba(232, 178, 58, 0.12); }
+.cur-dot.is-out, .cur-ring.is-out { opacity: 0; }
+html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor [data-mag] { cursor: none; }
+html.has-cursor .btn:hover { transform: none; }
+html.has-cursor [data-mag] { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+
+/* hover states the ring answers to */
+.rail__phase:hover rect { stroke: var(--accent-bright); }
+.rail__phase:hover text { fill: var(--panel-text); }
+.roster__agent:hover rect { stroke: var(--accent-bright); fill: #1a1a1a; }
+.loop__station:hover rect { stroke: var(--accent-bright); }
+
 ::selection { background: var(--accent-bright); color: var(--ink); }
 
 /* ---------- motion preferences ---------- */

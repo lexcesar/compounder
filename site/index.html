@@ -40,7 +40,7 @@
 		</nav>
 		<div class="nav__actions">
 			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub ↗</a>
-			<a class="btn btn--small" href="#install">Install</a>
+			<a class="btn btn--small" data-mag href="#install">Install</a>
 		</div>
 	</div>
 </header>
@@ -53,8 +53,8 @@
 		<h1 class="hero__title">Don’t take the model’s word for it.</h1>
 		<p class="hero__lede">compounder is compound engineering for Claude Code with adversarial gates. Every “done” goes to a verifier agent whose only job is to refute it — by running the code, not reading it. What survives, ships. Locally. The push stays yours.</p>
 		<div class="hero__actions">
-			<a class="btn btn--gold" href="#install">Install in Claude Code</a>
-			<a class="btn btn--outline" href="https://github.com/lexcesar/compounder/tree/main/compounder/skills">Read the skills ↗</a>
+			<a class="btn btn--gold" data-mag href="#install">Install in Claude Code</a>
+			<a class="btn btn--outline" data-mag href="https://github.com/lexcesar/compounder/tree/main/compounder/skills">Read the skills ↗</a>
 		</div>
 	</div>
 
@@ -212,7 +212,7 @@
 			<div class="diagram__scroll">
 				<svg class="roster" viewBox="0 0 1120 410" role="img" aria-label="Your session dispatches to seven agents and owns the integration. Each agent carries a tool fence: the four reviewers and the verifier can read, grep, glob and run but not edit; the simplicity reviewer cannot run; the researcher runs on haiku; the fork-executor can edit and write but cannot fetch or spawn subagents.">
 					<g class="roster__hub">
-						<rect x="460" y="24" width="200" height="60"/>
+						<rect x="410" y="24" width="300" height="60"/>
 						<text class="roster__hubname" x="560" y="50" text-anchor="middle">YOUR SESSION</text>
 						<text class="roster__hubsub" x="560" y="70" text-anchor="middle">DISPATCHES · OWNS INTEGRATION · VERIFIES</text>
 					</g>
@@ -450,11 +450,11 @@
 
 		<div class="cmd" data-reveal>
 			<code class="cmd__text" id="cmd-1">/plugin marketplace add lexcesar/compounder</code>
-			<button class="cmd__copy" type="button" data-copy="cmd-1">Copy</button>
+			<button class="cmd__copy" type="button" data-mag data-copy="cmd-1">Copy</button>
 		</div>
 		<div class="cmd" data-reveal>
 			<code class="cmd__text" id="cmd-2">/plugin install compounder</code>
-			<button class="cmd__copy" type="button" data-copy="cmd-2">Copy</button>
+			<button class="cmd__copy" type="button" data-mag data-copy="cmd-2">Copy</button>
 		</div>
 
 		<p class="install__then" data-reveal>Then, in any project: <code>/brainstorm</code> when the scope is fuzzy, <code>/plan</code> when it isn’t, <code>/work</code> to build, <code>/simplify</code> and <code>/review</code> before the commit, <code>/compound</code> after. In a hurry and confident: <code>/lfg</code>. In a hurry, confident, and with budget: <code>/slfg</code>.</p>
@@ -480,6 +480,9 @@
 		</nav>
 	</div>
 </footer>
+
+<div class="cur-ring" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
 
 <script src="main.js" defer></script>
 </body>
