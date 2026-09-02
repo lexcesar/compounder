@@ -59,7 +59,7 @@ Defense in depth: the same critical risk appears in ≥ 2 layers. Secrets: deny 
 settings (hard) + invariant in CLAUDE.md (doctrine) + `.gitignore` (out of git's reach).
 If the thin layer fails, the hard one holds.
 
-## How to lead the build (the `/guardrails` process)
+## How to lead the build (the `/compounder:guardrails` process)
 1. **Deduce before asking.** The repository answers half: is there `migrations/`? `infra/`?
    `.env`? CI with deploy? Asking what is in plain sight wastes the interview's patience.
 2. **Ask by RISK, not by tool.** "What would give you a bad night if I did it?"

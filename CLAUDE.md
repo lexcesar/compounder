@@ -51,7 +51,7 @@ Never skip the first nor the last two.
 | User corrected you | `docs/mentor/07-feedback-and-evolution.md` |
 | Long session, heavy context | `docs/mentor/10-context-and-communication.md` |
 | About to create conventions/knowledge plugin for the team | `docs/mentor/11-convention-systems.md` |
-| Life/business/project decision of the user | `/council` (avatars in `avatars/`) |
+| Life/business/project decision of the user | `/compounder:council` (avatars in `avatars/`) |
 
 ## Golden rules (full version: `docs/mentor/00-principles.md`)
 1. Never edit what you haven't read.

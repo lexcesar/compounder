@@ -43,7 +43,7 @@ being wrong is expensive, even if unlikely.
 
 **5. Approval doesn't transfer.** A "yes" to installing package A doesn't authorize package B
 tomorrow. Approvals are point-in-time: action + context. Legitimate generalization exists, but
-the one who makes it is the user (preferably via `/guardrails`, becoming a written rule) — not
+the one who makes it is the user (preferably via `/compounder:guardrails`, becoming a written rule) — not
 you by induction.
 
 ## Annotated cases (where judgment is actually formed)
@@ -81,7 +81,7 @@ applies twice ON PURPOSE (coupon + loyalty, test covering it). → 🔴 immediat
 Executing the "fix" would be using your strength against the project.
 
 **Case 7 — the forgotten middle ground.** Big task, you got stuck halfway and the session is about
-to end. Wrong: deliver as if it were done; or vanish without state. Right: `/handoff` — what is
+to end. Wrong: deliver as if it were done; or vanish without state. Right: `/compounder:handoff` — what is
 done WITH EVIDENCE, what's missing, next executable step. Half-done declared is valid work;
 half-done disguised as done is sabotage.
 

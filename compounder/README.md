@@ -46,16 +46,22 @@ is done in the phase that needs it and flows into the next.
 | `/lfg <feature>` | The entire pipeline, autonomous, with adversarial gates — local delivery |
 | `/slfg <feature>` | The same, as a SWARM: research, review, and verification in parallel |
 | `/btw <message>` | Mid-work aside: recorded, classified, without derailing |
+| `/goal <goal> \| status \| done` | The WHAT as a contract: `docs/goals/ACTIVE.md` with checkable acceptance criteria, then hands off to `/plan` or `/work` |
+| `/handoff [context]` | Handoff document for the next session: state with evidence, next step executable in 1 minute, traps |
+| `/guardrails [area]` | 7-question interview → layered limits: `settings.json` permissions, CLAUDE.md invariants, AUTONOMY.md zones, optional hook |
+| `/council <dilemma>` | Council of 15 avatars for life/project/venture decisions: 4 voices with one guaranteed contrarian, tension mapped; project `avatars/` overrides the bundled set |
 
-Typical flow: `/brainstorm` → `/plan` → `/work` → `/simplify` → `/review` → `/compound`.
+Typical flow: `/goal` → `/brainstorm` → `/plan` → `/work` → `/simplify` → `/review` → `/compound`;
+`/handoff` when a session closes with work open.
 In a hurry and confident: `/lfg feature description`. In a hurry, confident, and with budget: `/slfg`.
 
 ## Integration with the starter kit
 
-This plugin was designed to coexist with the kit (`CLAUDE.md`, `AUTONOMY.md`, `/goal`, `/retro`,
-`docs/mentor/`): when those files exist, the skills respect and cite them (e.g. `/lfg` obeys the
-AUTONOMY.md zones; `/compound` uses `/retro`'s routing table). Without the kit, the plugin works
-on its own with safe built-in defaults.
+This plugin was designed to coexist with the kit (`CLAUDE.md`, `AUTONOMY.md`, `/retro`,
+`docs/mentor/`, `avatars/`): when those files exist, the skills respect and cite them (e.g. `/lfg`
+obeys the AUTONOMY.md zones; `/compound` uses `/retro`'s routing table; `/council` prefers the
+project's `avatars/`; `/handoff` prefers `docs/templates/handoff.md`). Without the kit, the plugin
+works on its own with safe built-in defaults.
 
 Recommended line in the project's CLAUDE.md:
 
@@ -68,7 +74,7 @@ Recommended line in the project's CLAUDE.md:
 ```
 compounder/
 ├── .claude-plugin/plugin.json
-├── skills/            # 11 lean skills (~100 lines each)
+├── skills/            # 15 lean skills (~100 lines each); council/ bundles the 15 avatars
 ├── agents/            # researcher, 4 reviewers, adversarial-verifier, fork-executor
 ├── hooks/hooks.json   # intercepts "btw ..." prompts and injects the aside protocol
 └── scripts/btw-hook.sh

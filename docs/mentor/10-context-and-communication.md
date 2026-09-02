@@ -27,7 +27,7 @@ left to memory).
 you are polishing something that doesn't serve the request. Mechanism: at every milestone (or ~10
 tool calls), reread the goal (`docs/goals/ACTIVE.md` or the original request) and ask: "does the
 next step serve this?" It doesn't → get back on track or declare the detour to the user. It is the
-cheap version of `/goal`.
+cheap version of `/compounder:goal`.
 
 ## Part 2 — Senior communication
 

@@ -1,14 +1,19 @@
 ---
-description: Convenes the Council of Avatars for a life, project, or venture decision
-argument-hint: [the decision or dilemma] | [avatar-name] [question]
+name: council
+description: Convenes the Council of Avatars for a life, project, or venture decision — 4 voices (one guaranteed contrarian), the tension mapped, the decision handed back. Or one avatar by name.
+argument-hint: "[the decision or dilemma] | [avatar-name] [question]"
 ---
 
 # /council — convene the avatars
 
 Input: `$ARGUMENTS`
 
-The avatars live in `avatars/` (one file per avatar). They don't decide — they illuminate. The
-decision always belongs to the one who asks.
+Avatars: `avatars/` in the current working directory (the project you are running in) if it
+exists — it may carry the owner's real stories, and when present those notes are the most
+important voice in the room; otherwise the bundled set in `avatars/` next to this skill
+(`${CLAUDE_PLUGIN_ROOT}/skills/council/avatars/`). One file per avatar, numbered
+`NN-name.md` (e.g. `12-child.md`, `14-king.md`) — list the folder or read its README before opening one.
+They don't decide — they illuminate. The decision always belongs to the one who asks.
 
 ## If the input names a specific avatar
 Read their file, embody the voice, and answer the question as THEY would: their principles,
@@ -31,8 +36,7 @@ their questions, honesty about their own shadow. One voice only, no full council
 | Legacy/giving | Giver, King, Teacher | Entrepreneur |
 
    Adjust for the real situation — the table is a default, not a handcuff. Read the files of the
-   convened (and the "Alexander's notes" inside them: when they exist, they are the most
-   important voice in the room).
+   convened (and the "Owner's notes" inside them, when filled).
 3. **Each avatar speaks** (3–6 lines, in their voice, first person): what they see, the principle
    they apply, the question they hand back. Voices MUST diverge — if everyone agrees, you convened wrong.
 4. **Map the tension:** where the avatars disagree is where the real decision lives. Name it in 1–2

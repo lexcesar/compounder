@@ -12,8 +12,9 @@ voice lives, in the stories and lessons he recorded. And you can (and should) ke
 them: a family knowledge base grows with every generation.
 
 ## How to use
-- **With Claude Code:** `/council <your decision>` convenes 4 avatars (always with one dissenting
-  voice) and maps the tension. `/council king how do I lead this transition?` hears just one.
+- **With Claude Code:** `/compounder:council <your decision>` convenes 4 avatars (always with one
+  dissenting voice) and maps the tension. `/compounder:council king how do I lead this transition?`
+  hears just one. The plugin ships a generic copy of these files; this folder overrides it.
 - **With no tool at all:** open the file, read "The questions I ask you," and answer them in
   writing. The avatar works on paper just as well as in chat.
 - **To grow the base:** every avatar has an empty "Alexander's notes" section waiting for real

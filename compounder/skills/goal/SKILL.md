@@ -1,13 +1,14 @@
 ---
-description: Turns a request into a verifiable goal contract (docs/goals/ACTIVE.md)
-argument-hint: [goal in natural language] | status | done
+name: goal
+description: Turns a request into a verifiable goal contract (docs/goals/ACTIVE.md) — the WHAT with checkable acceptance criteria, then hands off to /compounder:plan or /compounder:work. Also `status` and `done`.
+argument-hint: "[goal in natural language | status | done]"
 ---
 
 # /goal — goal contract
 
 User input: `$ARGUMENTS`
 
-A goal without acceptance criteria is a wish. This command turns wish into contract.
+A goal without acceptance criteria is a wish. This skill turns wish into contract.
 The contract lives in `docs/goals/ACTIVE.md` and is the anchor for ALL decisions until it is closed.
 
 ## If the input is empty or `status`
@@ -21,7 +22,8 @@ exist, say there is no active goal and ask for one.
 2. Criterion not met → report which ones and ask: close anyway (recording it as
    "not met") or keep working?
 3. All met → move the file to `docs/goals/archive/YYYY-MM-DD-<slug>.md` (create the folder
-   if needed), append a final `## Outcome` section with the evidence, and suggest running `/retro`.
+   if needed), append a final `## Outcome` section with the evidence, and suggest running
+   `/compounder:compound` (or the kit's `/retro`, if the project has it).
 
 ## General case: the input is a new goal
 1. If a non-archived `docs/goals/ACTIVE.md` already exists, warn and ask: replace it or archive first.

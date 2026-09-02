@@ -28,7 +28,7 @@ done.
 
 **1. Verifiable objective.** Not "improve login", but "p95 of POST /login < 300ms, measured by
 X". If there's no way to know when it's finished, it's not an objective, it's a direction.
-(`/goal` already does this.)
+(`/compounder:goal` already does this.)
 
 **2. Options considered — at least 2 for any non-obvious decision.** One sentence per option +
 why the chosen one won + why the others lost. That costs 3 lines and buys: (a) you actually

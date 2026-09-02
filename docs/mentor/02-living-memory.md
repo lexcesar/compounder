@@ -41,7 +41,7 @@ Vague description = invisible memory.
 ## What NEVER to record
 - **What the repository already records** — code structure, fixes made (git log), CLAUDE.md
   content. Duplicated memory GOES STALE and starts to lie.
-- **Task ephemera** — "test X is failing today". Tomorrow it's a lie; that's `/handoff`
+- **Task ephemera** — "test X is failing today". Tomorrow it's a lie; that's `/compounder:handoff`
   business, not memory.
 - **Secrets** — never, in any form.
 - **Trivia** — "user said hi in Portuguese". The temptation to record too much is failure

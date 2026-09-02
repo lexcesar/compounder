@@ -1,6 +1,6 @@
 {
   "name": "compounder",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Compound engineering v2 — pipeline with verifiable contracts, optional swarm, and lean learning capture. Spiritual successor to compound-engineering, designed for Fable/Opus/Sonnet/Haiku.",
   "author": {
     "name": "Alexander Cesar + Claude Fable 5"
