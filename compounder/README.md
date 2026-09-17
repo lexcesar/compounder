@@ -77,5 +77,8 @@ compounder/
 ├── skills/            # 15 lean skills (~100 lines each); council/ bundles the 15 avatars
 ├── agents/            # researcher, 4 reviewers, adversarial-verifier, fork-executor
 ├── hooks/hooks.json   # intercepts "btw ..." prompts and injects the aside protocol
-└── scripts/btw-hook.sh
+└── scripts/
+    ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
+    ├── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
+    └── count-tokens.sh    # size a plan/brief with /v1/messages/count_tokens (free, model-specific)
 ```

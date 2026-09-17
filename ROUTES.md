@@ -39,6 +39,13 @@ explorer if the caveman plugin is installed.]
 {"date":"YYYY-MM-DD","session":"<short session id>","task":"1 sentence","type":"<from the table>","route":"<agent/skill>","model":"<used>","result":"complete|partial|blocked|refuted","rework":false,"notes":"optional"}
 ```
 
+- Optional cost keys, taken from `compounder/scripts/dispatch-cost.py <session>` (reads the
+  transcripts' `usage`; never estimates): `"tokens_in"`, `"tokens_cache_write"`,
+  `"tokens_cache_read"`, `"tokens_out"`, `"usd_est"` (API list price; on a subscription it is the
+  equivalent, not the bill). Its `turn1` column tells the route's true shape: `fresh` (system +
+  brief), `fork:same-model` (parent cache re-read every turn), `fork:cross-model` (parent context
+  rewritten at cache-write price — the expensive one). Size a brief or plan before dispatch with
+  `compounder/scripts/count-tokens.sh --model <executor model> <file>`.
 - `result` comes from the dispatchee's envelope/return; `refuted` = QC struck down the delivery.
 - `rework: true` = the orchestrator (or a more expensive route) had to redo/complete it.
 - Dispatch with no envelope/return = broken route: log it with `result:"blocked"` and say so in `notes`.
