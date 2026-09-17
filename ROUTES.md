@@ -14,9 +14,14 @@ This file is the policy; it is alive — `/retro` corrects it with evidence from
    text — trust in it comes from tool fencing, not faith in its report.
    Forensic fork audit: the transcript lives at
    `~/.claude/projects/<project>/<session-id>/subagents/agent-*.jsonl` and proves the model used,
-   the prompt received (variables already expanded), and whether the return arrived verbatim. Agent
-   type leaves NO record — to prove the fence, include a tool probe in the plan (e.g. "try
-   WebFetch and report"): nonexistent = fence active.
+   the prompt received (variables already expanded), and whether the return arrived verbatim. The
+   sibling `agent-*.meta.json` records `agentType`, `model` and `description` (`isFork` only on a
+   real fork) — but a name is not a fence: to prove the tool fence, include a tool probe in the
+   plan (e.g. "try WebFetch and report"): nonexistent = fence active.
+5. **Frozen tree during a dispatch.** An executor that runs a regression checklist on the shared
+   working tree sees every orchestrator edit as its own noise (2026-09-17: `git status` 5→6 lines
+   mid-run, flagged as red by the executor — correctly). While a dispatch is out, the orchestrator
+   edits no tracked file; edits wait for the envelope, or the executor gets its own worktree.
 
 ## Route table
 
