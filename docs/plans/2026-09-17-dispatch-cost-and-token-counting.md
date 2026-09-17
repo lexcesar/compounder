@@ -49,6 +49,22 @@ ROUTES.md evolution record with numbers.
 Add `tokens_in`, `tokens_cache_read`, `tokens_cache_write`, `tokens_out`, `usd_est` as optional
 keys in the logging-duty schema; one line naming `dispatch-cost.py` as the source.
 
+## Result (2026-09-17, session 1896c022 — premise refuted)
+Same toy plan, same session, parent context ≈195k at dispatch time:
+
+| Route | turn 1 | API turns | cache write | cache read | output | USD est. |
+|---|---|---|---|---|---|---|
+| A — `Agent(compounder:fork-executor)` + brief | 17.6k write / 0 read | 8 | 26k | 162k | 4k | 0.138 |
+| B — `/compounder:work-fork` (`context: fork`, `model: sonnet`) | 10.9k write / 6.9k read | 7 | 18k | 134k | 2k | 0.087 |
+
+Route B's transcript starts with the skill body ("Base directory for this skill: …") and
+carries no trace of the parent conversation; its meta has no `isFork`. A real fork
+(`subagent_type: fork`, model inherited — site-axia `ff1a490e`) starts with `<fork-boilerplate>`
+plus the history and re-reads 138k–216k of cache per turn. So `context: fork` + `agent:` +
+a different `model` spawns a fresh subagent: the route already is the brief-only "sidekick".
+The Problem statement's cross-model rewrite never happens on this route. Nothing to change in
+the route; the two scripts stay as the measuring instruments.
+
 ## Out of scope
 - API cache diagnostics on Claude Code traffic (needs a local proxy that threads
   `previous_message_id`; decision pending — see plan notes).

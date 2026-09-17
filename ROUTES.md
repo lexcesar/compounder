@@ -69,3 +69,12 @@ explorer if the caveman plugin is installed.]
 - 2026-07-21 (retro, session 45ed8dec): fork route leaves "experimental" — first real dispatch
   as a skill (line 2 of dispatches.jsonl): real fork, sonnet proven by transcript, verbatim
   envelope, tool fence confirmed by probe. Rule 4 gains the forensic audit technique.
+- 2026-09-17 (session 1896c022): cost instruments added — `compounder/scripts/dispatch-cost.py`
+  (per-dispatch tokens/USD from the transcripts' `usage`, turn-1 shape, cache-miss flags) and
+  `count-tokens.sh`. First measurement, same toy plan, same session, parent at ~195k:
+  `/compounder:work-fork` = 7 API turns, 18k cache write, 134k read, ~$0.09; the same plan as a
+  fresh `Agent(compounder:fork-executor)` brief = 8 turns, 26k write, 162k read, ~$0.14.
+  Finding: `context: fork` + `agent:` + `model: sonnet` does NOT inherit the parent conversation
+  (transcript opens with the skill body, no `isFork` in meta) — the route is already brief-only;
+  a real fork (model inherited) re-reads 138k–216k of parent cache every turn. Rule 4's forensic
+  audit now includes the `turn1` column. Plan: `docs/plans/2026-09-17-dispatch-cost-and-token-counting.md`.
