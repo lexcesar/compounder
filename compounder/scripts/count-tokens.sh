@@ -26,13 +26,15 @@ for f in "${files[@]}"; do
   if [ ! -r "$f" ]; then
     echo "unreadable: $f" >&2; status=1; continue
   fi
-  body=$(jq -n --arg model "$model" --rawfile text "$f" \
-    '{model: $model, messages: [{role: "user", content: $text}]}')
-  resp=$(curl -sS --fail-with-body https://api.anthropic.com/v1/messages/count_tokens \
-    -H "x-api-key: $key" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "content-type: application/json" \
-    -d "$body") || { echo "request failed for $f: $resp" >&2; status=1; continue; }
+  # Key via `-H @file` (process substitution) and body via stdin: neither reaches curl's argv,
+  # which `ps` exposes to every local user, and the body no longer hits ARG_MAX (1 MiB).
+  resp=$(jq -n --arg model "$model" --rawfile text "$f" \
+      '{model: $model, messages: [{role: "user", content: $text}]}' |
+    curl -sS --fail-with-body https://api.anthropic.com/v1/messages/count_tokens \
+      -H @<(printf 'x-api-key: %s' "$key") \
+      -H "anthropic-version: 2023-06-01" \
+      -H "content-type: application/json" \
+      --data-binary @-) || { echo "request failed for $f: $resp" >&2; status=1; continue; }
   printf '%s\t%s\n' "$(jq -r '.input_tokens' <<<"$resp")" "$f"
 done
 exit $status

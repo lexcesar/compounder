@@ -14,28 +14,41 @@ Usage:
 import glob
 import json
 import os
+import re
 import sys
 
-# USD per million tokens: input, cache write (1.25x), cache read, output. API list prices.
+# USD per million tokens: input, cache read, output. API list prices. Cache writes are a
+# multiple of input on every model: 5m TTL = 1.25x, 1h TTL = 2x (Claude Code writes 1h).
 PRICES = {
-    "claude-fable-5-1": (10.0, 12.5, 0.25, 50.0),
-    "claude-fable-5": (10.0, 12.5, 0.25, 50.0),
-    "claude-opus-5": (5.0, 6.25, 0.5, 25.0),
-    "claude-opus-4-8": (5.0, 6.25, 0.5, 25.0),
-    "claude-opus-4-7": (5.0, 6.25, 0.5, 25.0),
-    "claude-sonnet-5": (2.0, 2.5, 0.2, 10.0),
-    "claude-sonnet-4-6": (3.0, 3.75, 0.3, 15.0),
-    "claude-haiku-4-5": (1.0, 1.25, 0.1, 5.0),
+    "claude-fable-5": (10.0, 0.25, 50.0),
+    "claude-opus-5-5": (4.0, 0.2, 20.0),
+    "claude-opus-5": (5.0, 0.5, 25.0),
+    "claude-opus-4-8": (5.0, 0.5, 25.0),
+    "claude-opus-4-7": (5.0, 0.5, 25.0),
+    "claude-sonnet-5": (2.0, 0.2, 10.0),
+    "claude-sonnet-4-6": (3.0, 0.3, 15.0),
+    "claude-haiku-4-5": (1.0, 0.1, 5.0),
 }
-FRESH_CEILING = 60_000      # tokens: a system prompt + brief rarely exceeds this
+WRITE_5M, WRITE_1H = 1.25, 2.0
+FRESH_CEILING = 60_000      # tokens: a subagent's system prompt + brief rarely exceeds this
 MISS_DROP = 0.20            # cache_read falling by more than this between turns = miss
 
 
 def price_for(model):
-    for key, p in PRICES.items():
+    for key in sorted(PRICES, key=len, reverse=True):   # longest prefix wins: opus-5-5 before opus-5
         if model.startswith(key):
-            return p
+            return PRICES[key]
     return None
+
+
+def usd_of(t):
+    """Price one turn at its own model, or None when the model is unknown and had tokens."""
+    p = price_for(t["model"])
+    if p is None:
+        return None if any(t[k] for k in ("input", "write", "read", "output")) else 0.0
+    inp, read, out = p
+    return (t["input"] * inp + t["write_5m"] * inp * WRITE_5M + t["write_1h"] * inp * WRITE_1H
+            + t["read"] * read + t["output"] * out) / 1e6
 
 
 def turns_of(path):
@@ -50,17 +63,24 @@ def turns_of(path):
                 rec = json.loads(line)
             except ValueError:
                 continue
-            if rec.get("type") != "assistant":
+            if not isinstance(rec, dict) or rec.get("type") != "assistant":
                 continue
             msg = rec.get("message") or {}
             u = msg.get("usage") or {}
             mid = msg.get("id") or rec.get("uuid")
             if mid not in by_id:
                 order.append(mid)
+            write = u.get("cache_creation_input_tokens", 0) or 0
+            split = u.get("cache_creation") or {}
+            write_5m = split.get("ephemeral_5m_input_tokens", 0) or 0
+            # no TTL split in the record → Claude Code's default, 1h
+            write_1h = split.get("ephemeral_1h_input_tokens", write - write_5m) or 0
             by_id[mid] = {
                 "model": msg.get("model", "?"),
                 "input": u.get("input_tokens", 0) or 0,
-                "write": u.get("cache_creation_input_tokens", 0) or 0,
+                "write": write,
+                "write_5m": write_5m,
+                "write_1h": write_1h,
                 "read": u.get("cache_read_input_tokens", 0) or 0,
                 "output": u.get("output_tokens", 0) or 0,
                 "ts": rec.get("timestamp", ""),
@@ -90,16 +110,18 @@ def analyze(path, meta):
     if not turns:
         return None
     models = [t["model"] for t in turns]
-    model = max(set(models), key=models.count)
-    kind, base = classify_turn1(turns[0])
+    model = max(sorted(set(models)), key=models.count)   # ties break alphabetically, not by hash seed
+    agent = meta.get("agentType", "session")
+    if agent == "session":
+        kind, base = "root", turns[0]["write"] + turns[0]["read"] + turns[0]["input"]
+    else:
+        kind, base = classify_turn1(turns[0])
     tot = {k: sum(t[k] for t in turns) for k in ("input", "write", "read", "output")}
-    p = price_for(model)
-    usd = None
-    if p:
-        usd = (tot["input"] * p[0] + tot["write"] * p[1] + tot["read"] * p[2] + tot["output"] * p[3]) / 1e6
+    per_turn = [usd_of(t) for t in turns]
+    usd = None if None in per_turn else sum(per_turn)
     return {
         "file": path,
-        "agent": meta.get("agentType", "session"),
+        "agent": agent,
         "description": meta.get("description", ""),
         "model": model,
         "turns": len(turns),
@@ -122,14 +144,15 @@ def meta_of(path):
     return {}
 
 
-def project_dir_for_cwd():
-    return os.path.join(os.path.expanduser("~/.claude/projects"), os.getcwd().replace("/", "-"))
+def project_dir_for(cwd):
+    # Claude Code names the project dir by replacing every non-alphanumeric byte of the cwd with "-"
+    return os.path.join(os.path.expanduser("~/.claude/projects"), re.sub(r"[^A-Za-z0-9-]", "-", cwd))
 
 
 def resolve(args):
     paths = []
     if not args:
-        proj = project_dir_for_cwd()
+        proj = project_dir_for(os.getcwd())
         sessions = sorted(glob.glob(os.path.join(proj, "*.jsonl")), key=os.path.getmtime)
         if not sessions:
             sys.exit("no session transcript under " + proj)
