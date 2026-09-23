@@ -47,9 +47,10 @@ explorer if the caveman plugin is installed.]
 - Optional cost keys, taken from `compounder/scripts/dispatch-cost.py <session>` (reads the
   transcripts' `usage`; never estimates): `"tokens_in"`, `"tokens_cache_write"`,
   `"tokens_cache_read"`, `"tokens_out"`, `"usd_est"` (API list price; on a subscription it is the
-  equivalent, not the bill). Its `turn1` column tells the route's true shape: `fresh` (system +
-  brief), `fork:same-model` (parent cache re-read every turn), `fork:cross-model` (parent context
-  rewritten at cache-write price — the expensive one). Size a brief or plan before dispatch with
+  equivalent, not the bill; 1h cache writes at 2× input — what Claude Code uses). Its `turn1`
+  column tells the route's true shape: `fresh` (system + brief), `fork:same-model` (parent cache
+  re-read every turn), `fork:cross-model` (parent context rewritten at cache-write price — the
+  expensive one); the session's own row reads `root`. Size a brief or plan before dispatch with
   `compounder/scripts/count-tokens.sh --model <executor model> <file>`.
 - `result` comes from the dispatchee's envelope/return; `refuted` = QC struck down the delivery.
 - `rework: true` = the orchestrator (or a more expensive route) had to redo/complete it.
@@ -83,3 +84,11 @@ explorer if the caveman plugin is installed.]
   (transcript opens with the skill body, no `isFork` in meta) — the route is already brief-only;
   a real fork (model inherited) re-reads 138k–216k of parent cache every turn. Rule 4's forensic
   audit now includes the `turn1` column. Plan: `docs/plans/2026-09-17-dispatch-cost-and-token-counting.md`.
+- 2026-09-22 (sessions 4157e1c2 / 7350eef8 / 3cae8abd): first A/B/C of the ORCHESTRATOR on
+  `/compounder:review commit c8432b8` — Fable 5.1, Opus 5.5 (launch day) and Sonnet 5, same 4
+  lenses + tribunal on Sonnet 5. No orchestrator saw more than ~60% of the real defects; the
+  union found 9 (residuals: `docs/plans/2026-09-22-dispatch-cost-residuals.md`). Opus 5.5 found
+  the highest-value one (1h cache writes priced at 1.25× instead of 2× → USD −24%), had the best
+  severity calibration and cost $1.31 vs Fable ~$3.1 and Sonnet $0.73; Sonnet's tribunal refuted
+  nothing (weak). Consequence: review orchestrator default = Opus 5.5; a critical commit gets a
+  second orchestrator and the union. n=1 — not generalised to build/plan routes.
