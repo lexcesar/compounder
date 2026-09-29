@@ -26,7 +26,7 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 - **R6** Defaults that depend on unmeasured claims (second panel pass, review orchestrator) change only after an isonomic retest.
 
 ## Assumptions (to confirm — see Handoff)
-- **A1** Work stacks on `fix/dispatch-cost-review`; the merge/push decision for that branch stays suspended with the user. Nothing here is merged or pushed without an explicit order.
+- **A1** (confirmed 2026-09-29) Work runs in a dedicated worktree on branch `feat/compounder-tuning`, stacked on `fix/dispatch-cost-review`; the primary checkout stays on `main`. The merge/push decision for the fix branch stays suspended with the user. Nothing here is merged or pushed without an explicit order.
 - **A2** Threat model for R1 is the obedient agent making a mistake, not an adversary. A reviewer is not trying to exfiltrate; it reaches for the real script because the brief did not stop it.
 - **A3** Budget for measurement runs is approved per batch, stated in USD at list price before each batch.
 - **A4** The shipped plugin keeps `model: sonnet` (alias). The alias delivered Sonnet 5.5 for free.
