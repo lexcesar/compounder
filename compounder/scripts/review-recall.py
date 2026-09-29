@@ -41,6 +41,7 @@ MARKER = re.compile(r"^(\s*)(\d+[.)]|[-*•]|\|)\s+")
 LABEL = re.compile(r"[*_`]*(cen[aá]rio|scenario|fix|corre[cç][aã]o|realismo|junto|agravante|nota|note"
                    r"|frequ[eê]ncia|a[cç][aã]o|escopo|ressalva|proof|prova|evid[eê]nc|evidence"
                    r"|o que acontece|alcance|suggested)\b", re.I)
+EMPTY = re.compile(r"(none|nada|nenhum\w*|n/?a|0|[-–—])$", re.I)   # "MINOR: none" is not a finding
 TAG_WINDOW = 40      # a level counts when it opens a line; deeper in the text it is commentary
 DEFAULT_LEVEL = {"minor": "MINOR", "suspicion": "SUSPICION", "confirmed": "UNRATED", "refuted": "REFUTED"}
 
@@ -91,7 +92,7 @@ def items_of(report):
             close()
             section, blank = h, False
             rest = line.split(":", 1)[1] if ":" in line else ""
-            if rest.strip(" *_"):
+            if rest.strip(" *_") and not EMPTY.match(rest.strip(" *_.`")):
                 cur, indent = [section, rest], -1      # findings written on the heading line
             continue
         m = MARKER.match(line)
