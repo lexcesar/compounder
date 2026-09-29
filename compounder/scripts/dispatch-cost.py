@@ -10,6 +10,7 @@ Usage:
   dispatch-cost.py <session-id-prefix>  that session (searched in every project dir)
   dispatch-cost.py <transcript.jsonl>...  explicit transcripts
   dispatch-cost.py --json ...           machine-readable output (one object per agent)
+  dispatch-cost.py --log-line ...       one docs/pipeline/dispatches.jsonl object per dispatch
 """
 import glob
 import json
@@ -20,7 +21,8 @@ import sys
 # USD per million tokens: input, cache read, output. API list prices. Cache writes are a
 # multiple of input on every model: 5m TTL = 1.25x, 1h TTL = 2x (Claude Code writes 1h).
 PRICES = {
-    "claude-fable-5": (10.0, 0.25, 50.0),
+    "claude-fable-5-1": (10.0, 0.25, 50.0),
+    "claude-fable-5": (10.0, 1.0, 50.0),
     "claude-opus-5-5": (4.0, 0.2, 20.0),
     "claude-opus-5": (5.0, 0.5, 25.0),
     "claude-opus-4-8": (5.0, 0.5, 25.0),
@@ -31,7 +33,10 @@ PRICES = {
 }
 WRITE_5M, WRITE_1H = 1.25, 2.0
 FRESH_CEILING = 60_000      # tokens: a subagent's system prompt + brief rarely exceeds this
-MISS_DROP = 0.20            # cache_read falling by more than this between turns = miss
+MISS_DROP = 0.20            # cache_read falling by more than this between turns = miss...
+MISS_REWRITE = 0.50         # ...when at least this share of the lost read is written again
+LOG_KEYS = ("date", "session", "task", "type", "route", "model", "result", "rework", "notes",
+            "tokens_in", "tokens_cache_write", "tokens_cache_read", "tokens_out", "usd_est")
 
 
 def price_for(model):
@@ -67,6 +72,10 @@ def turns_of(path):
                 continue
             msg = rec.get("message") or {}
             u = msg.get("usage") or {}
+            if msg.get("model") == "<synthetic>" and not any(
+                    u.get(k) for k in ("input_tokens", "cache_creation_input_tokens",
+                                       "cache_read_input_tokens", "output_tokens")):
+                continue    # harness-written record, no API call behind it
             mid = msg.get("id") or rec.get("uuid")
             if mid not in by_id:
                 order.append(mid)
@@ -100,9 +109,20 @@ def misses(turns):
     flagged = []
     for i in range(1, len(turns)):
         prev, cur = turns[i - 1]["read"], turns[i]["read"]
-        if prev > 0 and cur < prev * (1 - MISS_DROP):
+        # a read that drops and is not written again is compaction, not a miss
+        if prev > 0 and cur < prev * (1 - MISS_DROP) and turns[i]["write"] >= (prev - cur) * MISS_REWRITE:
             flagged.append((i + 1, prev, cur))
     return flagged
+
+
+def log_line(r):
+    """One `docs/pipeline/dispatches.jsonl` object: exact integers, resolved model id.
+    `type` and `result` are the orchestrator's judgment and come out empty."""
+    t = r["tokens"]
+    return dict(zip(LOG_KEYS, (
+        r["date"], r["session"], r["description"], "", r["agent"], r["model"], "", False, "",
+        t["input"], t["write"], t["read"], t["output"],
+        None if r["usd_est"] is None else round(r["usd_est"], 3))))
 
 
 def analyze(path, meta):
@@ -119,8 +139,12 @@ def analyze(path, meta):
     tot = {k: sum(t[k] for t in turns) for k in ("input", "write", "read", "output")}
     per_turn = [usd_of(t) for t in turns]
     usd = None if None in per_turn else sum(per_turn)
+    parts = path.split(os.sep)
+    session = parts[-3] if len(parts) > 2 and parts[-2] == "subagents" else os.path.basename(path)
     return {
         "file": path,
+        "date": turns[0]["ts"][:10],
+        "session": session[:8],
         "agent": agent,
         "description": meta.get("description", ""),
         "model": model,
@@ -180,8 +204,14 @@ def fmt_k(n):
 def main():
     argv = sys.argv[1:]
     as_json = "--json" in argv
-    argv = [a for a in argv if a != "--json"]
+    as_log = "--log-line" in argv
+    argv = [a for a in argv if a not in ("--json", "--log-line")]
     rows = [r for r in (analyze(p, meta_of(p)) for p in resolve(argv)) if r]
+    if as_log:
+        for r in rows:
+            if r["agent"] != "session":
+                print(json.dumps(log_line(r)))
+        return
     if as_json:
         for r in rows:
             print(json.dumps(r))

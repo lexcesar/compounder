@@ -3,6 +3,9 @@
 import importlib.util
 import json
 import os
+import re
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -38,7 +41,12 @@ class PriceFor(unittest.TestCase):
     def test_longest_prefix_wins_regardless_of_table_order(self):
         self.assertEqual(dc.price_for("claude-opus-5-5"), dc.PRICES["claude-opus-5-5"])
         self.assertEqual(dc.price_for("claude-opus-5"), dc.PRICES["claude-opus-5"])
-        self.assertEqual(dc.price_for("claude-fable-5-1"), dc.PRICES["claude-fable-5"])
+        self.assertEqual(dc.price_for("claude-fable-5-1"), dc.PRICES["claude-fable-5-1"])
+        self.assertEqual(dc.price_for("claude-fable-5"), dc.PRICES["claude-fable-5"])
+
+    def test_fable_5_and_5_1_differ_on_cache_read(self):
+        self.assertEqual(dc.price_for("claude-fable-5")[1], 1.0)
+        self.assertEqual(dc.price_for("claude-fable-5-1")[1], 0.25)
 
     def test_unknown_model_is_none(self):
         self.assertIsNone(dc.price_for("<synthetic>"))
@@ -110,10 +118,23 @@ class Analyze(unittest.TestCase):
         expected = 2 * dc.PRICES["claude-sonnet-5"][0] + dc.PRICES["claude-opus-5"][0]
         self.assertAlmostEqual(dc.analyze(p, {})["usd_est"], expected, places=6)
 
-    def test_model_tie_is_deterministic(self):
+    def test_model_tie_is_deterministic_across_hash_seeds(self):
+        # The hash seed is fixed per process, so the tie has to be tried in separate processes.
         p = write_jsonl([rec("m1", "claude-sonnet-5", inp=1), rec("m2", "claude-opus-5", inp=1)])
-        seen = {dc.analyze(p, {})["model"] for _ in range(20)}
+        seen = set()
+        for seed in range(10):
+            out = subprocess.run([sys.executable, SCRIPT, "--json", p], capture_output=True, text=True,
+                                 check=True, env=dict(os.environ, PYTHONHASHSEED=str(seed))).stdout
+            seen.add(json.loads(out.splitlines()[0])["model"])
         self.assertEqual(seen, {"claude-opus-5"})  # ties break alphabetically
+
+    def test_zero_token_synthetic_record_is_not_a_turn(self):
+        p = write_jsonl([rec("m1", "claude-sonnet-5", read=100_000),
+                         rec("m2", "<synthetic>"),
+                         rec("m3", "claude-sonnet-5", read=100_000)])
+        r = dc.analyze(p, {"agentType": "x"})
+        self.assertEqual(r["turns"], 2)
+        self.assertEqual(r["misses"], [])
 
     def test_zero_token_unknown_model_turn_does_not_void_usd(self):
         p = write_jsonl([rec("m1", "<synthetic>"), rec("m2", "claude-sonnet-5", inp=1_000_000)])
@@ -126,8 +147,17 @@ class Analyze(unittest.TestCase):
 
 class Misses(unittest.TestCase):
     def test_drop_over_threshold_is_flagged_and_exact_threshold_is_not(self):
-        turns = [{"read": 100_000}, {"read": 80_000}, {"read": 60_000}]
+        turns = [{"read": 100_000, "write": 0}, {"read": 80_000, "write": 20_000},
+                 {"read": 60_000, "write": 20_000}]
         self.assertEqual(dc.misses(turns), [(3, 80_000, 60_000)])
+
+    def test_read_drop_without_rewrite_is_compaction_not_a_miss(self):
+        turns = [{"read": 100_000, "write": 0}, {"read": 30_000, "write": 2_000}]
+        self.assertEqual(dc.misses(turns), [])
+
+    def test_read_drop_with_rewrite_is_a_miss(self):
+        turns = [{"read": 100_000, "write": 0}, {"read": 30_000, "write": 100_000}]
+        self.assertEqual(dc.misses(turns), [(2, 100_000, 30_000)])
 
 
 class ProjectDir(unittest.TestCase):
@@ -135,6 +165,42 @@ class ProjectDir(unittest.TestCase):
         d = dc.project_dir_for("/Users/x/Projetos/alexcesar.com/portfolio")
         self.assertTrue(d.endswith("/.claude/projects/-Users-x-Projetos-alexcesar-com-portfolio"))
 
+
+class LogLine(unittest.TestCase):
+    def documented_keys(self):
+        routes = os.path.join(HERE, "..", "..", "ROUTES.md")
+        text = open(routes, encoding="utf-8").read()   # a missing ROUTES.md is an error, not a skip
+        section = text[text.index("## Logging duty"):]
+        template = re.search(r"```json\n(\{.*?\})\n```", section, re.S).group(1)
+        keys = set(json.loads(template))
+        keys |= set(re.findall(r'`"(tokens_\w+|usd_est)"`', section))
+        return keys
+
+    def row(self):
+        p = write_jsonl([rec("m1", "claude-sonnet-5-5", inp=16, w1h=17_565, read=134_211, out=1_587)])
+        return dc.analyze(p, {"agentType": "compounder:fork-executor", "description": "toy plan"}), p
+
+    def test_keys_match_what_routes_md_documents(self):
+        r, p = self.row()
+        self.assertEqual(set(dc.log_line(r)), self.documented_keys())
+
+    def test_values_are_exact_and_model_is_the_resolved_id(self):
+        r, p = self.row()
+        line = dc.log_line(r)
+        self.assertEqual((line["tokens_in"], line["tokens_cache_write"], line["tokens_cache_read"],
+                          line["tokens_out"]), (16, 17_565, 134_211, 1_587))
+        self.assertEqual(line["model"], "claude-sonnet-5-5")
+        self.assertEqual(line["route"], "compounder:fork-executor")
+        self.assertEqual(line["task"], "toy plan")
+
+    def test_cli_prints_one_line_per_dispatch_and_skips_the_root_session(self):
+        r, p = self.row()
+        out = subprocess.run([sys.executable, SCRIPT, "--log-line", p], capture_output=True, text=True,
+                             check=True).stdout
+        self.assertEqual(out, "")   # a lone transcript without meta is the root session, not a dispatch
+
+
+SCRIPT = os.path.join(HERE, "dispatch-cost.py")
 
 if __name__ == "__main__":
     unittest.main()

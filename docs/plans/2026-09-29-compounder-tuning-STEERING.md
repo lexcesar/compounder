@@ -25,6 +25,9 @@ Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
 
 - 2026-09-29 04:05 · U3 · partial · (this commit) — script guard done: `count-tokens.sh` exits 4 without `COMPOUNDER_SEND=1`, red-proof by removing the guard. Hook fence not built: scope awaits confirmation (see Questions).
 
+- 2026-09-29 04:10 · U4 · done · (this commit) — `dispatch-cost.py --log-line`, contract test reads the key list out of ROUTES.md; log lines 3–4 corrected to exact values and re-priced (0.138 → 0.177, 0.087 → 0.113). Lines 1–2 keep the alias `sonnet`: July transcripts not looked for.
+- 2026-09-29 04:10 · U5 · done · (this commit) — four code defects closed with a failing test first (synthetic records, Fable 5 cache read, tie test across hash seeds, miss vs compaction). The fifth, key names, is U4. Deviation: U4 and U5 share one commit because both edit `dispatch-cost.py` and hunks were not split.
+
 ## Start prompt for the fresh session    <!-- supervisor maintains -->
 Read `docs/plans/2026-09-29-compounder-tuning-plan.md` and this file. Work in the worktree for branch `feat/compounder-tuning`; never in the primary checkout.
 Units U1, U2, U4 and U5 have no dependency and can start in any order; U1 first by risk.

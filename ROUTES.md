@@ -44,14 +44,20 @@ explorer if the caveman plugin is installed.]
 {"date":"YYYY-MM-DD","session":"<short session id>","task":"1 sentence","type":"<from the table>","route":"<agent/skill>","model":"<used>","result":"complete|partial|blocked|refuted","rework":false,"notes":"optional"}
 ```
 
-- Optional cost keys, taken from `compounder/scripts/dispatch-cost.py <session>` (reads the
-  transcripts' `usage`; never estimates): `"tokens_in"`, `"tokens_cache_write"`,
+- `model` is the id that actually ran (`claude-sonnet-5-5`), never the alias the agent asked for
+  (`sonnet`): an alias moves between Claude Code releases and the log is the only record of what
+  it pointed to that day.
+- Optional cost keys, taken from `compounder/scripts/dispatch-cost.py --log-line <session>` (one
+  ready object per dispatch, exact integers, resolved model; reads the transcripts' `usage`,
+  never estimates — the default table rounds to thousands and is for reading, not for the log):
+  `"tokens_in"`, `"tokens_cache_write"`,
   `"tokens_cache_read"`, `"tokens_out"`, `"usd_est"` (API list price; on a subscription it is the
   equivalent, not the bill; 1h cache writes at 2× input — what Claude Code uses). Its `turn1`
   column tells the route's true shape: `fresh` (system + brief), `fork:same-model` (parent cache
   re-read every turn), `fork:cross-model` (parent context rewritten at cache-write price — the
   expensive one); the session's own row reads `root`. Size a brief or plan before dispatch with
-  `compounder/scripts/count-tokens.sh --model <executor model> <file>`.
+  `COMPOUNDER_SEND=1 compounder/scripts/count-tokens.sh --model <executor model> <file>` (the
+  script sends the file to the API and refuses without that opt-in).
 - `result` comes from the dispatchee's envelope/return; `refuted` = QC struck down the delivery.
 - `rework: true` = the orchestrator (or a more expensive route) had to redo/complete it.
 - Dispatch with no envelope/return = broken route: log it with `result:"blocked"` and say so in `notes`.
@@ -92,3 +98,11 @@ explorer if the caveman plugin is installed.]
   severity calibration and cost $1.31 vs Fable ~$3.1 and Sonnet $0.73; Sonnet's tribunal refuted
   nothing (weak). Consequence: review orchestrator default = Opus 5.5; a critical commit gets a
   second orchestrator and the union. n=1 — not generalised to build/plan routes.
+- 2026-09-29 (tuning plan `docs/plans/2026-09-29-compounder-tuning-plan.md`, U3–U5): the log
+  records the resolved model and exact integers (`dispatch-cost.py --log-line`); lines 3–4 of
+  `dispatches.jsonl` corrected from rounded to exact, and their `usd_est` re-priced with 1h cache
+  writes at 2×. `count-tokens.sh` refuses to send without `COMPOUNDER_SEND=1`: fence probes
+  (`docs/plans/research/2026-09-29-fence-probes.md`) showed that no command-text barrier sees a
+  network call made from inside a script, and that a hook in a plugin agent's frontmatter does
+  not fire. Miss detection now needs the lost read to be written again (a drop alone is
+  compaction); zero-token `<synthetic>` records are not turns; Fable 5 cache read is $1.00.

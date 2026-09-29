@@ -79,6 +79,8 @@ compounder/
 ├── hooks/hooks.json   # intercepts "btw ..." prompts and injects the aside protocol
 └── scripts/
     ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
-    ├── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
-    └── count-tokens.sh    # size a plan/brief with /v1/messages/count_tokens (free, model-specific)
+    ├── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`; `--log-line` for the dispatch log
+    ├── count-tokens.sh    # size a plan/brief with /v1/messages/count_tokens; sends the file, needs COMPOUNDER_SEND=1
+    ├── test_dispatch_cost.py
+    └── test_count_tokens.sh
 ```
