@@ -1,6 +1,6 @@
 #!/bin/bash
 # Count tokens of one or more files with the Claude token counting endpoint (free, model-specific).
-# Usage: count-tokens.sh [--model claude-sonnet-5] <file>...
+# Usage: COMPOUNDER_SEND=1 count-tokens.sh [--model claude-sonnet-5] <file>...
 # Prints "<input_tokens>\t<file>" per file. Key: ANTHROPIC_API_KEY env, else Keychain item of that name.
 set -euo pipefail
 
@@ -13,7 +13,13 @@ while [ $# -gt 0 ]; do
     *) files+=("$1"); shift ;;
   esac
 done
-[ ${#files[@]} -gt 0 ] || { echo "usage: count-tokens.sh [--model M] <file>..." >&2; exit 2; }
+[ ${#files[@]} -gt 0 ] || { echo "usage: COMPOUNDER_SEND=1 count-tokens.sh [--model M] <file>..." >&2; exit 2; }
+
+# This script sends the whole file to api.anthropic.com. It refuses unless the caller opts in,
+# because no command-text fence sees a network call made from inside a script (fence probes,
+# 2026-09-29): an agent that reaches for it by mistake must send nothing.
+[ "${COMPOUNDER_SEND:-}" = "1" ] || {
+  echo "refusing to send file content to api.anthropic.com: set COMPOUNDER_SEND=1 to allow" >&2; exit 4; }
 
 key="${ANTHROPIC_API_KEY:-}"
 if [ -z "$key" ]; then

@@ -41,6 +41,9 @@ Irreversible, external, destructive, or outside the contract:
 - Deleting or overwriting files you didn't create (and the request didn't explicitly order it).
 - `git reset --hard`, `push --force`, rewriting history.
 - Reading/writing secrets; sending project data to external services.
+  (Fence, 2026-09-29: plugin scripts that send data refuse without `COMPOUNDER_SEND=1`. Why a
+  script-level guard: a `deny` on `curl` matches the command an agent types, not the `curl` a
+  script runs as its child — a verifier crossed it that way in a review run.)
 - New production dependency; framework/architecture switch.
 - Real scope change: you discovered the right task is a different one.
 - Evidence contradicts the request's premise (the "bug" is intentional behavior, for example).

@@ -13,16 +13,17 @@ Plan: `docs/plans/2026-09-29-compounder-tuning-plan.md`
 - 2026-09-29 · Measurement runs happen in the clean-room clone only, one fresh session per run. Never accept "apply fixes" or "record to file" inside the clone: either one becomes a spoiler for the next run.
 - 2026-09-29 · State the estimated cost in USD before each batch of runs and wait for approval.
 - 2026-09-29 · Network probes in U1 target `127.0.0.1` only.
-- 2026-09-29 · No AI attribution in commits or PR text.
+- 2026-09-29 · Commits end with the `Claude-Session` line, as the repo history already does (19 of 31 commits). Decided by Alexander after checking the history.
+- 2026-09-29 · Measurement runs are interactive, on the subscription. No headless `claude -p` batches: they bill the `ANTHROPIC_API_KEY` in the environment.
 
 ## Questions for supervisor    <!-- executor appends the blocker, takes the next independent unit — never waits -->
-- 2026-09-29 · U3 scope: ship only the script guard, or also a plugin-level PreToolUse hook that fences every Bash call in sessions where the plugin is installed?
-- 2026-09-29 · Headless runs are billed to the `ANTHROPIC_API_KEY` in the environment, not to the subscription. Keep using headless for measurement batches, or run them interactively?
-- 2026-09-29 · Commit trailer: the directive "No AI attribution" above was written by the executor on inference, not ordered by Alexander. Confirm or drop.
+- 2026-09-29 · U3 scope: script guard shipped. Alexander answered "cerca no plugin"; the executor could not tell whether that means the guard that ships inside the plugin (done) or the session-wide PreToolUse hook. Hook NOT built until confirmed.
 
 ## Execution log    <!-- executor appends, in the same commit as the unit; a unit without its line counts as not done -->
 Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
 - 2026-09-29 03:10 · U1 · partial · (this commit) — 12 cells measured against a local listener; per-agent frontmatter hook does not fire, plugin hooks.json hook fires but is session-wide, wrapper script passes every text-matching barrier. Not determined: whether hook input names the agent (inspection interrupted, not repeated). Probe plugin lived in the session scratchpad, nothing added to `compounder/agents/`. Next: decide U3 scope with Alexander.
+
+- 2026-09-29 04:05 · U3 · partial · (this commit) — script guard done: `count-tokens.sh` exits 4 without `COMPOUNDER_SEND=1`, red-proof by removing the guard. Hook fence not built: scope awaits confirmation (see Questions).
 
 ## Start prompt for the fresh session    <!-- supervisor maintains -->
 Read `docs/plans/2026-09-29-compounder-tuning-plan.md` and this file. Work in the worktree for branch `feat/compounder-tuning`; never in the primary checkout.
