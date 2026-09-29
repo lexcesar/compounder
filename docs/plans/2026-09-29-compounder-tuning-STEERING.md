@@ -28,8 +28,10 @@ Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
 - 2026-09-29 04:10 · U4 · done · (this commit) — `dispatch-cost.py --log-line`, contract test reads the key list out of ROUTES.md; log lines 3–4 corrected to exact values and re-priced (0.138 → 0.177, 0.087 → 0.113). Lines 1–2 keep the alias `sonnet`: July transcripts not looked for.
 - 2026-09-29 04:10 · U5 · done · (this commit) — four code defects closed with a failing test first (synthetic records, Fable 5 cache read, tie test across hash seeds, miss vs compaction). The fifth, key names, is U4. Deviation: U4 and U5 share one commit because both edit `dispatch-cost.py` and hunks were not split.
 
+- 2026-09-29 05:20 · U2 · done · (this commit) — `review-recall.py` (recall, unmatched list, `--agreement`), golden list of 17, `clean-room.sh`. Calibration on five real runs: 8, 6, 12, 5, 11 of 17; severity agreement baseline 62%. Five scorer defects found by the calibration, each fixed test-first. Limit: anchors were written against these same runs; the next batch is the real test. Next: U6 needs three interactive clean-room runs, launched by Alexander.
+
 ## Start prompt for the fresh session    <!-- supervisor maintains -->
 Read `docs/plans/2026-09-29-compounder-tuning-plan.md` and this file. Work in the worktree for branch `feat/compounder-tuning`; never in the primary checkout.
-Units U1, U2, U4 and U5 have no dependency and can start in any order; U1 first by risk.
+U1–U5 are done (U1 and U3 partial, see the log). Next is U6, which needs a batch of three interactive clean-room runs before and after the rubric.
 Standing rules: the Active directives above; failing test before every code change; evidence
 from a command you ran, never from reading code alone.

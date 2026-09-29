@@ -112,7 +112,7 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 - Files: `compounder/skills/review/SKILL.md`, `compounder/agents/adversarial-verifier.md`
 - Change: a rubric section with criteria per level, written by consequence and reach: SEVERE = wrong result or exposure on the normal path; MEDIUM = real defect on a reachable but uncommon path; MINOR = latent, cosmetic or process gap. Absence of tests is a process gap: MINOR by default, MEDIUM when the repo's own rules require them. The orchestrator pastes the rubric into each brief and the verifier returns the level it would assign.
 - Tests: none at code level (prompt text).
-- Verification: three clean-room runs scored with U2. For golden defects found in two or more runs, the same level in at least 80% of cases. Baseline from the six existing runs is computed first and written into the plan before the change.
+- Verification: three clean-room runs scored with U2. For golden defects found in two or more runs, the same level in at least 80% of cases. **Baseline, measured 2026-09-29 on the five runs with a final report: 25 of 40 placements, 62%** (`review-recall.py --agreement`).
 - Risk: the rubric flattens everything to MEDIUM. The check reports the level distribution, not only agreement.
 - Depends on: U2
 
@@ -160,6 +160,14 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 2. **Variance swallows every comparison.** Three runs may not separate configurations. Mitigation: the acceptance rule is fixed before the runs; an inconclusive result keeps the current default and is written down as inconclusive.
 3. **Claude Code changes under the plan.** Alias, hook fields and env variables moved once already. Mitigation: U1's probes stay as a re-runnable note; each batch records the CLI version.
 
+## Deviations recorded during execution
+- **U1** used a throwaway plugin in the session scratchpad, not a probe agent inside `compounder/agents/`. Nothing was added to the plugin. Probes ran headless; from here on runs are interactive (directive in STEERING).
+- **U2** tests use inline report fixtures, not the local transcripts: a suite that depends on one machine's session files is not a suite. The real sessions were scored as a calibration step and recorded in the research note.
+- **U2** gained `--agreement`, which U6 needs for its verification.
+- **U3** delivered the script guard only. D1 option (d) changed shape after U1: the per-agent hook does not fire, and the plugin-level hook is session-wide. It waits for a scope decision.
+- **U4 and U5** share one commit: both edit `dispatch-cost.py`.
+- **Golden list** item G12 replaced "tie test cannot fail" (a defect of the fix branch, absent from the target commit) with "Fable cache read price".
+
 ## Out of scope
 - Merging or pushing any branch; publishing a plugin release.
 - Tuning skills other than `review` (the audit reports on all, applies to one).
@@ -172,10 +180,10 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 - Whether the July transcripts still exist to resolve log lines 1–2 (U4).
 
 ## Done
-- [ ] U1 table written, with the listener log as evidence.
-- [ ] Scorer reproduces the hand-scored series 2 table; all three script suites green.
-- [ ] `count-tokens.sh` refuses without `COMPOUNDER_SEND=1`, proven by test.
-- [ ] Every line appended to `docs/pipeline/dispatches.jsonl` from now on carries a full model id.
+- [x] U1 table written, with the listener log as evidence. (`docs/plans/research/2026-09-29-fence-probes.md`; one question left undetermined)
+- [x] Scorer reproduces the hand-scored series 2 table; all script suites green. (12 and 5 reproduced; Fable 5.1 scored 11 once its run had finished. `docs/plans/research/2026-09-29-recall-calibration.md`)
+- [x] `count-tokens.sh` refuses without `COMPOUNDER_SEND=1`, proven by test.
+- [x] Every line appended to `docs/pipeline/dispatches.jsonl` from now on carries a full model id. (`--log-line`; contract test against `ROUTES.md`)
 - [ ] Rubric in the skill; severity agreement measured before and after, both numbers in this file.
 - [ ] Audit report delivered; each applied prompt change has a before and after recall.
 - [ ] `ROUTES.md` note of 2026-09-22 rewritten from the retest numbers.

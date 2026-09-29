@@ -81,6 +81,7 @@ compounder/
     ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
     ├── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`; `--log-line` for the dispatch log
     ├── count-tokens.sh    # size a plan/brief with /v1/messages/count_tokens; sends the file, needs COMPOUNDER_SEND=1
-    ├── test_dispatch_cost.py
-    └── test_count_tokens.sh
+    ├── review-recall.py   # recall and severity agreement of a review run against a golden list of known defects
+    ├── clean-room.sh      # isolated clone for measurement runs: default branch only, no remote, no spoiler commits
+    └── test_*.py, test_*.sh   # one suite per script; stdlib and stub binaries only, never the network
 ```
