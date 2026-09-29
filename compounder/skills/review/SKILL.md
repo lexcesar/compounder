@@ -11,6 +11,24 @@ Input: `$ARGUMENTS` (token `apply` = beyond reporting, apply safe-class fixes).
 Two stages because reviewer agents have one specific poison: PLAUSIBLE-BUT-FALSE findings.
 The panel finds; the tribunal kills the false ones. Only what survives reaches the user.
 
+## Severity rubric (paste it, verbatim, into every panel and tribunal brief)
+Rate by consequence on the path a user actually takes, never by how the code reads.
+- **SEVERE** — used as documented, the thing gives a wrong result, loses or exposes data, or a
+  gate reports green while measuring nothing.
+- **MEDIUM** — a real, reproduced defect on a path that is reachable but uncommon: it needs an
+  unusual input, environment or sequence.
+- **MINOR** — latent (no real input reaches it today), cosmetic, or a process gap.
+
+Rules for the disputes that recur:
+1. Reach moves the level. A SEVERE-shaped defect that no real input reaches is MEDIUM; say what
+   was measured ("0 of 151 transcripts").
+2. Missing tests are a process gap: MINOR, or MEDIUM when the project's own rules demand tests for
+   this kind of code. One finding for the whole diff, not one per function.
+3. Exposure needs a reader: name who can read it and what they gain. Visible only to the same
+   user is MINOR.
+4. Not reproduced is a suspicion, whatever level it would have had.
+5. The level opens the finding, in brackets.
+
 ## Step 0 — Scope
 No argument: diff of the current branch vs default (`git diff <default>...HEAD` + working tree).
 With argument: whatever it says. Empty diff → say so and stop. Note: N files, ~N lines.
@@ -18,22 +36,26 @@ Giant diff (>~1500 lines): review by area in rounds and say you did that.
 
 ## Step 1 — Panel (parallel)
 Dispatch the 4 reviewers in ONE single message (true parallelism), each with the scope + the goal
-of the change (1 sentence) + format instruction:
+of the change (1 sentence) + the severity rubric + format instruction:
 `correctness-reviewer`, `security-reviewer`, `simplicity-reviewer`, `tests-reviewer`.
 Small diff (<50 lines, no external input surface): correctness + tests alone suffice — say you
 trimmed the panel. No subagent tool: run the 4 lenses yourself, in sequence, one pass per lens
 (don't mix — a single lens at a time is what keeps the eye sharp).
 
 ## Step 2 — Dedup and corroboration (you, no agent)
-Merge findings at the same `file:line`. Corroborated by 2+ reviewers → severity rises 1 level.
+Merge findings at the same `file:line`. Re-rate every merged finding by the rubric: a reviewer's
+level is a proposal. Corroboration by 2+ reviewers says the finding is likely real, not that it is
+worse — it raises the finding in the order, never in the level.
 Discard style findings with no behavior change (not this panel's job).
 
 ## Step 3 — Adversarial tribunal
 Every SEVERE/MEDIUM finding goes to the `adversarial-verifier` (parallel, one per finding; many
 findings → group by file) with the order: REFUTE this — open the code, build the concrete failure
 scenario, hunt for the counterexample. Verdict: CONFIRMED (scenario demonstrated) | REFUTED (dies;
-vanishes from the report) | INCONCLUSIVE (downgraded to "suspicion"). MINOR ones skip the tribunal
-(too cheap to judge — report them as minor as they are).
+vanishes from the report) | INCONCLUSIVE (downgraded to "suspicion"). For each CONFIRMED finding
+the verifier also returns the level the rubric gives it, with the reach it measured; when that
+differs from yours, the report carries the verifier's level and says so. MINOR ones skip the
+tribunal (too cheap to judge — report them as minor as they are).
 
 ## Step 4 — Report
 ```

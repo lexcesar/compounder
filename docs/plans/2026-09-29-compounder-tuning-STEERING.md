@@ -17,6 +17,8 @@ Plan: `docs/plans/2026-09-29-compounder-tuning-plan.md`
 - 2026-09-29 · Measurement runs are interactive, on the subscription. No headless `claude -p` batches: they bill the `ANTHROPIC_API_KEY` in the environment.
 
 ## Questions for supervisor    <!-- executor appends the blocker, takes the next independent unit — never waits -->
+- 2026-09-29 · U6: the rubric drops the rule "corroborated by 2+ reviewers → severity rises 1 level". Reason: corroboration is evidence that a finding is real, not that it is worse. Confirm or restore.
+- 2026-09-29 · U6 "after" runs must load the plugin from the worktree. Whether `claude --plugin-dir` overrides an installed plugin of the same name is not known; first "after" run checks it.
 - 2026-09-29 · U3 scope: script guard shipped. Alexander answered "cerca no plugin"; the executor could not tell whether that means the guard that ships inside the plugin (done) or the session-wide PreToolUse hook. Hook NOT built until confirmed.
 
 ## Execution log    <!-- executor appends, in the same commit as the unit; a unit without its line counts as not done -->
@@ -29,6 +31,8 @@ Line: `YYYY-MM-DD HH:MM · U<N> · done|partial|dropped · <SHA> — <note>`
 - 2026-09-29 04:10 · U5 · done · (this commit) — four code defects closed with a failing test first (synthetic records, Fable 5 cache read, tie test across hash seeds, miss vs compaction). The fifth, key names, is U4. Deviation: U4 and U5 share one commit because both edit `dispatch-cost.py` and hunks were not split.
 
 - 2026-09-29 05:20 · U2 · done · (this commit) — `review-recall.py` (recall, unmatched list, `--agreement`), golden list of 17, `clean-room.sh`. Calibration on five real runs: 8, 6, 12, 5, 11 of 17; severity agreement baseline 62%. Five scorer defects found by the calibration, each fixed test-first. Limit: anchors were written against these same runs; the next batch is the real test. Next: U6 needs three interactive clean-room runs, launched by Alexander.
+
+- 2026-09-29 05:50 · U6 · partial · (this commit) — rubric drafted in the review skill and the verifier return format. NOT measured: needs three clean-room runs before (plugin from `main`) and three after (plugin from this worktree). One behaviour change inside it, to be confirmed by Alexander: corroboration by 2+ reviewers no longer raises the level, only the order. Clean room for the batch: `../ab-room-u6`.
 
 ## Start prompt for the fresh session    <!-- supervisor maintains -->
 Read `docs/plans/2026-09-29-compounder-tuning-plan.md` and this file. Work in the worktree for branch `feat/compounder-tuning`; never in the primary checkout.

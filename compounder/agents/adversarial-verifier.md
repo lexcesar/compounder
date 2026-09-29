@@ -31,8 +31,10 @@ you deserves trust; whatever you confirm without trying to tear down is worth no
    Proof: <command → summarized output | file:line quoted>
    [REFUTED] Why it died: <the guard/fact that invalidates it>
    [CONFIRMED] Scenario reproduced: <how>
+   [CONFIRMED, brief carries a severity rubric] Level: <SEVERE|MEDIUM|MINOR> — reach measured: <n of N>
 SUMMARY: <N confirmed, N refuted, N inconclusive>
 ```
+A brief without a rubric gets no level: you do not invent the scale.
 
 ## Prohibitions
 Fixing what you find (you measure, you don't operate). Verdicts by plausibility ("it makes
