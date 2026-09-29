@@ -132,6 +132,16 @@ class Formats(unittest.TestCase):
                   "eu rebaixei.\n")
         self.assertEqual([(m["id"], m["level"]) for m in rr.score(report, golden())["matched"]], [("G09", "MINOR")])
 
+    def test_report_format_with_lens_count_and_level_divergence_line(self):
+        # format introduced with the severity rubric (review skill, 2026-09-29)
+        report = ("VERDICT: reservations — one defect.\nCONFIRMED (by severity):\n"
+                  "1. [MEDIUM] count-tokens.sh:32 — API key in curl argv | Lenses: 3 | Scenario: ps shows it\n"
+                  "   Level: tribunal MEDIUM, panel SEVERE — visible to the same user only\n"
+                  "MINOR: none\n")
+        s = rr.score(report, golden())
+        self.assertEqual([(m["id"], m["level"]) for m in s["matched"]], [("G06", "MEDIUM")])
+        self.assertEqual(s["unmatched"], [])
+
     def test_a_dollar_amount_is_not_a_cache_read_price(self):
         report = "**CONFIRMED**\n1. [MEDIUM] Empate vira para fable e o estimado cai para US$ 240,25.\n"
         self.assertNotIn("G12", {m["id"] for m in rr.score(report, golden())["matched"]})

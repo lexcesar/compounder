@@ -49,6 +49,7 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 - (c) Guard inside the scripts that talk to the network: `count-tokens.sh` refuses to send unless `COMPOUNDER_SEND=1` is set by the caller. Won for the known path: it travels with the plugin, costs five lines, and fails closed.
 - (d) Per-agent `PreToolUse` hook (frontmatter `hooks`) that rejects Bash commands reaching for the network. Candidate for the general path; whether it fires for plugin subagents is unknown (docs silent) and is settled by U1.
 - Chosen: (c) now, (d) if U1 proves it fires. (c) alone is accepted if (d) fails.
+- **Outcome (2026-09-29):** (c) shipped. (d) is dropped: the per-agent hook does not fire, and a plugin-level hook would fence every Bash call of whoever installs the plugin. Decided by Alexander.
 
 **D2 — How model identity is recorded.**
 - (a) Pin full model ids in agent frontmatter. Lost: gives up free upgrades (A4).
@@ -164,7 +165,8 @@ Six review runs on one frozen commit showed where the plugin is fragile, not whi
 - **U1** used a throwaway plugin in the session scratchpad, not a probe agent inside `compounder/agents/`. Nothing was added to the plugin. Probes ran headless; from here on runs are interactive (directive in STEERING).
 - **U2** tests use inline report fixtures, not the local transcripts: a suite that depends on one machine's session files is not a suite. The real sessions were scored as a calibration step and recorded in the research note.
 - **U2** gained `--agreement`, which U6 needs for its verification.
-- **U3** delivered the script guard only. D1 option (d) changed shape after U1: the per-agent hook does not fire, and the plugin-level hook is session-wide. It waits for a scope decision.
+- **U3** delivered the script guard only, and is closed that way: the per-agent hook does not fire, the plugin-level hook is session-wide, and the session-wide hook was ruled out.
+- **U6** gained four changes approved mid-unit: corroboration buys a tribunal check instead of a level, the report shows lens count and level divergence, and the skill carries an evolution log.
 - **U4 and U5** share one commit: both edit `dispatch-cost.py`.
 - **Golden list** item G12 replaced "tie test cannot fail" (a defect of the fix branch, absent from the target commit) with "Fable cache read price".
 

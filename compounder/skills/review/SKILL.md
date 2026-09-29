@@ -44,24 +44,27 @@ trimmed the panel. No subagent tool: run the 4 lenses yourself, in sequence, one
 
 ## Step 2 — Dedup and corroboration (you, no agent)
 Merge findings at the same `file:line`. Re-rate every merged finding by the rubric: a reviewer's
-level is a proposal. Corroboration by 2+ reviewers says the finding is likely real, not that it is
-worse — it raises the finding in the order, never in the level.
+level is a proposal. Keep, for each finding, how many lenses raised it. Corroboration by 2+ lenses
+says the finding is likely real, not that it is worse: it sends the finding to the tribunal and
+raises it in the order, never in the level.
 Discard style findings with no behavior change (not this panel's job).
 
 ## Step 3 — Adversarial tribunal
-Every SEVERE/MEDIUM finding goes to the `adversarial-verifier` (parallel, one per finding; many
-findings → group by file) with the order: REFUTE this — open the code, build the concrete failure
+Every SEVERE/MEDIUM finding, and every finding raised by 2+ lenses whatever its level, goes to the
+`adversarial-verifier` (parallel, one per finding; many findings → group by file) with the order:
+REFUTE this — open the code, build the concrete failure
 scenario, hunt for the counterexample. Verdict: CONFIRMED (scenario demonstrated) | REFUTED (dies;
 vanishes from the report) | INCONCLUSIVE (downgraded to "suspicion"). For each CONFIRMED finding
 the verifier also returns the level the rubric gives it, with the reach it measured; when that
-differs from yours, the report carries the verifier's level and says so. MINOR ones skip the
-tribunal (too cheap to judge — report them as minor as they are).
+differs from yours, the report carries the verifier's level and says so. A MINOR raised by a
+single lens skips the tribunal (too cheap to judge — report it as minor as it is).
 
 ## Step 4 — Report
 ```
 VERDICT: <approved | reservations | rejected> — 1 sentence
 CONFIRMED (by severity):
-1. [SEVERE] file:line — <defect> | Scenario: <input/state → consequence> | Suggested fix: <1 line>
+1. [SEVERE] file:line — <defect> | Lenses: <N> | Scenario: <input/state → consequence> | Suggested fix: <1 line>
+   Level: tribunal <X>, panel <Y> — <the reach that decided it>      (this line only when they differ)
 SUSPICIONS (inconclusive): <...>
 MINOR: <grouped, 1 line each>
 DISCARDED BY THE TRIBUNAL: <N findings refuted — not problems>
@@ -112,8 +115,9 @@ Engine, by capability (detect and degrade gracefully, as in `/slfg`):
      const fresh = found.filter(f => !seen.has(key(f)))
      if (!fresh.length) { dry++; continue }
      dry = 0; fresh.forEach(f => seen.add(key(f)))
-     minors.push(...fresh.filter(f => f.sev === 'MINOR'))
-     await parallel(fresh.filter(f => f.sev !== 'MINOR').map(f => () =>
+     const judged = f => f.sev !== 'MINOR' || f.lenses >= 2   // corroborated minors are judged too
+     minors.push(...fresh.filter(f => !judged(f)))
+     await parallel(fresh.filter(judged).map(f => () =>
        parallel(['correctness', 'security', 'reproduces'].map(lens => () =>
          agent(refuteBrief(f, lens), { phase: 'Verify', schema: VERDICT })))
          .then(vs => { if (vs.filter(Boolean).filter(v => !v.refuted).length >= 2) confirmed.push(f) })))
@@ -135,3 +139,11 @@ Classify each CONFIRMED finding:
   return it in the list with the why.
 Final report: applied (with green suite) vs returned. Suite broke with a fix → revert THAT fix
 and return the finding with the note.
+
+## Evolution log
+- 2026-09-29: severity rubric added; corroboration stops raising the level. Six runs on one frozen
+  commit rated the same finding SEVERE, MEDIUM and MINOR (agreement 62%), and the one time the
+  +1-level rule fired on three lenses the tribunal undid it. Corroboration is evidence that a
+  finding is real, so it now buys a tribunal check, even for a MINOR, and a place in the order.
+  The report shows both things that used to be invisible: how many lenses raised a finding, and
+  when the tribunal's level differs from the panel's. Draft until three clean-room runs reach 80%.
