@@ -57,5 +57,5 @@ crowned martyr: decides everything, delegates nothing, trains no one — and cal
 is really fear of being dispensable. Both leave the same estate: a kingdom that collapses the next
 day. The measure of my success is exactly the opposite.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

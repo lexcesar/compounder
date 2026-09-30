@@ -56,5 +56,5 @@ not to commit — the ivory tower from which everything below looks naive. Philo
 come down to the ground to change a concrete Tuesday is just erudite entertainment posing as
 depth.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

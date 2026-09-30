@@ -42,5 +42,5 @@ Contemplation that never acts. The false sage collects perspectives as a shield 
 of living. If three weeks have passed and the "reflection" continues, call the Brave — my brother
 in arms — because what's missing is no longer clarity.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

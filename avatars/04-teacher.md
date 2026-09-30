@@ -49,5 +49,5 @@ Didactic arrogance: using teaching to place myself above, correcting to humiliat
 seem deep. And the twin shadow: hiding behind teaching so as never to do again — whoever only
 teaches and never risks slowly loses the right to the material. The Entrepreneur keeps me honest.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

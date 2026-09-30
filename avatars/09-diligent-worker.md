@@ -51,5 +51,5 @@ body at the dinner table, head in the spreadsheet. And productive escape: decade
 effort in a direction never examined. Diligence without examining the route is just a respectable
 way of getting lost.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

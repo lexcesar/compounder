@@ -51,5 +51,5 @@ detail I cut was the clause that protected, the backup that saved, the rare case
 daughter. Simplicity is the result of understanding; my caricature is the laziness of
 understanding.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

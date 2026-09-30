@@ -51,5 +51,5 @@ The giver who empties himself: no floor from the Wealthy, no "no", funding depen
 autonomy — and, deep down, buying affection. The generosity that infantilizes the other does not
 multiply: it divides the giver and subtracts the receiver.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

@@ -52,5 +52,5 @@ tomorrow. A healthy child plays AFTER someone has secured the roof — in an adu
 himself (the King and the Diligent Worker). Lightness with your back covered is wisdom; without
 it, it is a burden on other people's shoulders.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

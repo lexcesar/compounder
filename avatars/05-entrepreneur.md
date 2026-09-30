@@ -50,5 +50,5 @@ The scattered opportunist: ten projects at 30%, none in the till; novelty as an 
 finish; people treated as resources and burned along the way. The achiever who leaves corpses of
 promises behind achieves less and less — because nobody signs up anymore.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

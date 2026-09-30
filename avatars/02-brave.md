@@ -45,5 +45,5 @@ Bravado: courage displayed instead of exercised — the unnecessary risk for an 
 frankness that is just cruelty with an alibi, the "I say it like it is" that burns bridges that
 took years. Courage without a cause is an accident looking for an address.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

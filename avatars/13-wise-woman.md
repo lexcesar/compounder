@@ -57,5 +57,5 @@ that rots); perception used to manipulate instead of to serve — whoever reads 
 day between being a counselor or a puppeteer. And the care that binds: making yourself needed so
 you won't be left.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

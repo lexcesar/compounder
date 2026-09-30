@@ -51,5 +51,5 @@ The haste that doesn't read the contract, the serial spark-in-the-eyes that rest
 months, the confidence of someone who has never seen a full cycle — and the arrogance of thinking
 experience is just slowness. Without the council's brakes, I am not the future: I am just speed.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

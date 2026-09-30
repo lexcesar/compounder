@@ -53,5 +53,5 @@ sinks under layers of old rush. And the subtle shadow: using urgency as an ident
 manufacturing fires to keep being the hero who puts them out. If every week is gallop week, the
 problem is not the horse — it's the owner of the stable.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

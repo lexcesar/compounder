@@ -1,14 +1,14 @@
 # The Council — avatars for the decisions that matter
 
-This folder is a living knowledge base, started by Alexander on 2026-07-06, meant to outlast any
-session, any model — and, if one day it must, the man himself.
+This folder is a living knowledge base, started on 2026-07-06, meant to outlast any
+session, any model — and, if one day it must, its owner.
 
-**For the family, if you are reading this without him:** every file here is a counselor. They are
-not Alexander — they are the voices he chose to keep close when deciding: wisdom, courage,
+**For whoever inherits this base:** every file here is a counselor. They are not the owner —
+they are the voices the owner chose to keep close when deciding: wisdom, courage,
 prudence with money, the child's joy, the king's responsibility. When you face a hard decision,
 open the avatar that speaks to your dilemma (or ask an AI: "read the avatars/ folder and convene
-the council on this"). Above all, read the **"Alexander's notes"** sections — that is where his
-voice lives, in the stories and lessons he recorded. And you can (and should) keep writing in
+the council on this"). Above all, read the **"Owner's notes"** sections — that is where the
+owner's voice lives, in the stories and lessons they recorded. And you can (and should) keep writing in
 them: a family knowledge base grows with every generation.
 
 ## How to use
@@ -17,8 +17,8 @@ them: a family knowledge base grows with every generation.
   hears just one. The plugin ships a generic copy of these files; this folder overrides it.
 - **With no tool at all:** open the file, read "The questions I ask you," and answer them in
   writing. The avatar works on paper just as well as in chat.
-- **To grow the base:** every avatar has an empty "Alexander's notes" section waiting for real
-  stories — the rule is one at a time: what happened, what he decided, what he learned. One real
+- **To grow the base:** every avatar has an empty "Owner's notes" section waiting for real
+  stories — the rule is one at a time: what happened, what was decided, what was learned. One real
   story is worth ten principles.
 
 ## The fifteen

@@ -51,5 +51,5 @@ who can't see". And chronic distraction: a hundred rabbit holes, none dug down t
 without finish (the Diligent Worker) and indignation without building (the Entrepreneur) add up to
 zero — noisily.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->

@@ -52,5 +52,5 @@ Greed and fear dressed up as prudence: life postponed for a retirement that may 
 stinginess with the people you love, the automatic no to every opportunity. Money is a means.
 When it becomes an end, call the Child to ask me what it was I was saving up for, again.
 
-## Alexander's notes
+## Owner's notes
 <!-- Real stories: what happened, what I decided, what I learned. One at a time. -->
