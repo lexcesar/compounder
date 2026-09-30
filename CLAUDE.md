@@ -6,6 +6,9 @@
 1. Read `MEMORY.md` (index; open only the memories relevant to the task).
 2. If `docs/goals/ACTIVE.md` exists, read it — it is the session's governing contract.
 3. Decisions follow `AUTONOMY.md` (green/yellow/red zones).
+4. Before the first shell command, read `permissions.deny` and `permissions.ask` in
+   `.claude/settings.json` (and `settings.local.json`): a listed command is not tried, it is
+   asked for — and never chained on one line with commands that are allowed.
 
 ## Commands
 Never guess commands: confirm in `package.json` / `Makefile` / CI before first use.
