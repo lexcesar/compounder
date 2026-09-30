@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="compounder">
 <meta property="og:title" content="compounder — don’t take the model’s word for it">
-<meta property="og:description" content="Compound engineering for Claude Code with adversarial gates. 11 lean skills, 7 fenced agents, local delivery by default.">
+<meta property="og:description" content="Compound engineering for Claude Code with adversarial gates. Lean skills, fenced agents, local delivery by default.">
 <meta property="og:image" content="https://compounder.alexcesar.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -29,7 +29,7 @@
 	<div class="nav__inner">
 		<a class="nav__brand" href="#top">
 			<svg class="nav__mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="3" height="18"/><rect x="18" y="3" width="3" height="18"/><path d="M8 12h8M13 9l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-			compounder<span class="nav__version">v2.4.1</span>
+			compounder<span class="nav__version">v2.6.0</span>
 		</a>
 		<nav class="nav__links" aria-label="Sections">
 			<a href="#gates">Gates</a>
@@ -110,9 +110,9 @@
 
 <section class="strip">
 	<dl class="stats">
-		<div class="stats__cell"><dt>11</dt><dd>skills, one happy path each</dd></div>
+		<div class="stats__cell"><dt>15</dt><dd>skills, one happy path each</dd></div>
 		<div class="stats__cell"><dt>7</dt><dd>agents, fenced by tools</dd></div>
-		<div class="stats__cell"><dt>84</dt><dd>lines per skill, on average</dd></div>
+		<div class="stats__cell"><dt>75</dt><dd>lines per skill, on average</dd></div>
 		<div class="stats__cell"><dt>0</dt><dd>config files to write</dd></div>
 	</dl>
 </section>
@@ -180,7 +180,7 @@
 <section class="section section--tint" id="pipeline">
 	<div class="section__inner">
 		<p class="eyebrow" data-reveal>The skills</p>
-		<h2 class="section__title" data-reveal>Six on the rail. Five around it. Eleven in total.</h2>
+		<h2 class="section__title" data-reveal>Six on the rail. Nine around it. Fifteen in total.</h2>
 		<p class="section__lede" data-reveal>Run them by hand, one at a time. Or hand the whole rail to <code>/lfg</code> and let the gates decide.</p>
 
 		<ol class="grid" data-reveal>
@@ -195,9 +195,13 @@
 		<ul class="grid grid--aside" data-reveal>
 			<li class="grid__cell"><code class="grid__cmd">/lfg &lt;feature&gt;</code><p class="grid__role">The whole rail, autonomous, gates included. Local delivery.</p></li>
 			<li class="grid__cell"><code class="grid__cmd">/slfg &lt;feature&gt;</code><p class="grid__role">The rail as a swarm: three researchers, the review panel, one verifier per finding — in parallel. Costs 3–10×. Asks before firing.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/work-fork &lt;plan&gt;</code><p class="grid__role">The cheap route: a ready plan executed by a fenced subagent on a smaller model.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/goal &lt;request&gt;</code><p class="grid__role">The request as a contract: acceptance criteria you can check, then the handoff to <code>/plan</code> or <code>/work</code>.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/guardrails</code><p class="grid__role">An interview, then fences in layers: permissions in settings.json, invariants in CLAUDE.md, zones in AUTONOMY.md.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/handoff</code><p class="grid__role">Close a session with work still open: the actual state with evidence, a next step runnable in a minute, the traps.</p></li>
 			<li class="grid__cell"><code class="grid__cmd">/debug &lt;bug&gt;</code><p class="grid__role">Reproduce, competing hypotheses, bisection, fix with a red-green test.</p></li>
 			<li class="grid__cell"><code class="grid__cmd">/btw &lt;message&gt;</code><p class="grid__role">Talk mid-run without derailing it. A hook intercepts the aside, classifies it, schedules it.</p></li>
-			<li class="grid__cell"><code class="grid__cmd">/work-fork &lt;plan&gt;</code><p class="grid__role">The cheap route: a ready plan executed by a fenced subagent on a smaller model.</p></li>
+			<li class="grid__cell"><code class="grid__cmd">/council &lt;decision&gt;</code><p class="grid__role">Four avatars on one decision, one of them a guaranteed contrarian. The tension mapped, the decision handed back.</p></li>
 		</ul>
 	</div>
 </section>
@@ -320,15 +324,15 @@
 		<p class="section__lede" data-reveal>Same philosophy — each unit of work should make the next one easier. Different engineering underneath, because the original targets the lowest common denominator across platforms and assumes the biggest model is doing the work. Most of the work is done by Sonnet.</p>
 
 		<figure class="diagram diagram--paper" data-anim>
-			<svg class="bars" viewBox="0 0 960 250" role="img" aria-label="Skill length in lines. A compound-engineering skill: 400 to 800 lines. A compounder skill: 84 lines on average, 165 at most. The original learning-capture skill: 727 lines. compounder's /compound: 94 lines.">
+			<svg class="bars" viewBox="0 0 960 250" role="img" aria-label="Skill length in lines. A compound-engineering skill: 400 to 800 lines. A compounder skill: 75 lines on average, 165 at most. The original learning-capture skill: 727 lines. compounder's /compound: 94 lines.">
 				<text class="bars__label" x="0" y="44">A SKILL IN COMPOUND-ENGINEERING</text>
 				<rect class="bars__bar bars__bar--range" x="330" y="30" width="620" height="18" style="--i:0"/>
 				<rect class="bars__bar bars__bar--ink" x="330" y="30" width="310" height="18" style="--i:0"/>
 				<text class="bars__value" x="640" y="65">400 – 800 LINES</text>
 
 				<text class="bars__label" x="0" y="106">A SKILL IN COMPOUNDER</text>
-				<rect class="bars__bar bars__bar--gold" x="330" y="92" width="65" height="18" style="--i:1"/>
-				<text class="bars__value" x="404" y="106">84 LINES ON AVERAGE · 165 AT MOST</text>
+				<rect class="bars__bar bars__bar--gold" x="330" y="92" width="58" height="18" style="--i:1"/>
+				<text class="bars__value" x="397" y="106">75 LINES ON AVERAGE · 165 AT MOST</text>
 
 				<text class="bars__label" x="0" y="176">CE-COMPOUND · LEARNING CAPTURE</text>
 				<rect class="bars__bar bars__bar--ink" x="330" y="162" width="563" height="18" style="--i:2"/>

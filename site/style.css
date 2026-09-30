@@ -375,7 +375,7 @@ svg text { font-family: var(--font-body); }
 	display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
 	background: var(--line); border: 1px solid var(--line);
 }
-.grid--aside { margin-top: 1px; border-top: 0; grid-template-columns: repeat(5, 1fr); }
+.grid--aside { margin-top: 1px; border-top: 0; }
 .grid__cell {
 	background: var(--paper); padding: 22px 22px 24px; min-height: 180px;
 	display: flex; flex-direction: column; gap: 10px;
@@ -393,8 +393,7 @@ svg text { font-family: var(--font-body); }
 	color: var(--accent);
 }
 
-@media (max-width: 960px) { .grid--aside { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .grid--aside { grid-template-columns: 1fr; } .grid__cell { min-height: 0; } }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .grid__cell { min-height: 0; } }
 
 /* ---------- diagrams (shared) ---------- */
 
