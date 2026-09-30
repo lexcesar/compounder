@@ -33,6 +33,9 @@ Never guess commands: confirm in `package.json` / `Makefile` / CI before first u
 
 ## Invariants — violation = stop and ask
 - Never read or write secrets (`.env*`, `secrets/`, private keys).
+- Never write personal notes into tracked files. In a public repository `memory/` and
+  `MEMORY.md` hold only the format examples; real memory lives in Claude's auto-memory
+  outside the repository.
 - Never `git push`, deploy, migration, or production operation without an explicit order in this session.
 - Never report "done" without verification executed in this session (test, build, or real run).
 - Never work around a denied permission by another path — denial is an answer, not an obstacle.
