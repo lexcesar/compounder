@@ -128,7 +128,7 @@ If this fails, it will have been because:
 - Routing without a conscious orchestrator (auto-invocation of `work-fork` stays off).
 - Routes for personal agents from outside the kit (cavecrew etc.) — they enter as `[ADJUST]`.
 
-## Deferred to execution — resolved in the real test (2026-07-21, session 45ed8dec)
+## Deferred to execution — resolved in the real test (2026-07-21)
 - Model alias in frontmatter: PROVEN — `model: sonnet` resolved to `claude-sonnet-5`
   (`model` field in the subagent's transcript).
 - `${CLAUDE_SKILL_DIR}` in `context: fork`: PROVEN — substituted BEFORE the body reached the
@@ -143,7 +143,7 @@ If this fails, it will have been because:
 ## Done
 - [x] U1: fork executed the toy plan with a valid envelope and a smaller model — first via an
       equivalent simulation (Agent tool); then validated with the real `/compounder:work-fork`
-      skill on 2026-07-21 (session 45ed8dec, plugin 1.1.1): real fork, sonnet proven, verbatim
+      skill on 2026-07-21 (plugin 1.1.1): real fork, sonnet proven, verbatim
       envelope, tools fence active (line 2 of dispatches.jsonl).
 - [x] `ROUTES.md` at the root with ≤6 types, all pointing to existing agents (litmus via `ls`
       in the execution session, reconfirmed by the tests lens); pointer in CLAUDE.md.

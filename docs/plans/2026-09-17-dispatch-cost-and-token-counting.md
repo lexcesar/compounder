@@ -29,7 +29,7 @@ API's `messages_changed`/expiry). Turn-1 classification:
 - `fresh` — cache_creation ≲ 60k, cache_read ≈ 0 (system + brief)
 - `fork:same-model` — cache_read ≫ cache_creation (parent cache re-used)
 - `fork:cross-model` — cache_creation ≫ 60k and cache_read ≈ 0 (parent context rewritten)
-Verification: run on session `ff1a490e` of site-axia → the two `fork` agents classify
+Verification: run on a real session of another project → the two `fork` agents classify
 `fork:same-model` with inherited ≈215k/137k; explorers classify `fresh`.
 
 ### U2 — `compounder/scripts/count-tokens.sh <file>... [--model M]`
@@ -49,7 +49,7 @@ ROUTES.md evolution record with numbers.
 Add `tokens_in`, `tokens_cache_read`, `tokens_cache_write`, `tokens_out`, `usd_est` as optional
 keys in the logging-duty schema; one line naming `dispatch-cost.py` as the source.
 
-## Result (2026-09-17, session 1896c022 — premise refuted)
+## Result (2026-09-17 — premise refuted)
 Same toy plan, same session, parent context ≈195k at dispatch time:
 
 | Route | turn 1 | API turns | cache write | cache read | output | USD est. |
@@ -59,7 +59,7 @@ Same toy plan, same session, parent context ≈195k at dispatch time:
 
 Route B's transcript starts with the skill body ("Base directory for this skill: …") and
 carries no trace of the parent conversation; its meta has no `isFork`. A real fork
-(`subagent_type: fork`, model inherited — site-axia `ff1a490e`) starts with `<fork-boilerplate>`
+(`subagent_type: fork`, model inherited) starts with `<fork-boilerplate>`
 plus the history and re-reads 138k–216k of cache per turn. So `context: fork` + `agent:` +
 a different `model` spawns a fresh subagent: the route already is the brief-only "sidekick".
 The Problem statement's cross-model rewrite never happens on this route. Nothing to change in

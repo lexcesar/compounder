@@ -25,3 +25,6 @@ target/
 
 # Playwright MCP output
 .playwright-mcp/
+
+# Per-machine dispatch log (schema in ROUTES.md); generated locally, never shared
+docs/pipeline/dispatches.jsonl

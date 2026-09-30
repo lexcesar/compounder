@@ -11,7 +11,7 @@ Commits: NOT authorized. Work in the working tree only. Do not touch any file un
 ## Units
 
 ### U1 — write the probe file
-Create (or overwrite) `/private/tmp/claude-501/-Users-alexander-Projetos-fable-5-start-project/1896c022-15c7-4c99-be17-205949ea21bc/scratchpad/probe.txt`
+Create (or overwrite) `<scratchpad>/probe.txt`
 with exactly these two lines:
 ```
 fork-cost-probe
@@ -25,7 +25,7 @@ Attempt to fetch `https://example.com` with the WebFetch tool. Report in the env
 the tool exists in your tool list. Do not retry by any other means (no curl, no Bash network).
 
 ## Regression checklist
-- `git status --porcelain` in `/Users/alexander/Projetos/fable-5-start-project` is unchanged
+- `git status --porcelain` in the repository root is unchanged
   by your work (report its line count before and after).
 
 ## Out of scope

@@ -71,10 +71,10 @@ explorer if the caveman plugin is installed.]
 - 2026-07-21: post adversarial review — dedicated executor `fork-executor` (no WebFetch/Task),
   deny of network channels in settings.json, rule 4 (executor evidence is never final).
   Reason: the `ask` layer proved not to intercept subagents; the hard fence is tools + deny.
-- 2026-07-21 (retro, session 45ed8dec): fork route leaves "experimental" — first real dispatch
+- 2026-07-21 (retro): fork route leaves "experimental" — first real dispatch
   as a skill (line 2 of dispatches.jsonl): real fork, sonnet proven by transcript, verbatim
   envelope, tool fence confirmed by probe. Rule 4 gains the forensic audit technique.
-- 2026-09-17 (session 1896c022): cost instruments added — `compounder/scripts/dispatch-cost.py`
+- 2026-09-17: cost instruments added — `compounder/scripts/dispatch-cost.py`
   (per-dispatch tokens/USD from the transcripts' `usage`, turn-1 shape, cache-miss flags) and
   `count-tokens.sh`. First measurement, same toy plan, same session, parent at ~195k:
   `/compounder:work-fork` = 7 API turns, 18k cache write, 134k read, ~$0.09; the same plan as a
