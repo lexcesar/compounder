@@ -72,6 +72,9 @@ plan's) → passed: mark done with 1-line evidence; narrate in the chat
   green is one that measures nothing. Prove it fails CLOSED too: run it with its own tool/API/
   input absent (browser off PATH, token missing, fixture gone) — absence must be red or loud,
   never exit 0. A gate that skips silently when its dependency vanishes is a ghost gate.
+- **A run narrowed by file or name filter is evidence only after its report shows the expected
+  tests were selected.** Read the count, not the exit code: a filter that matches nothing, or
+  one the runner silently ignores so the whole suite runs, is not focused evidence.
 - **A gate goes RED and the verdict is "the reference is stale, not the code" → re-freezing is
   a plan deviation, never a reflex.** Four parts, all required: (1) diff the reference and map
   every changed line to an intended change of THIS unit — one unexplained line means the code is
