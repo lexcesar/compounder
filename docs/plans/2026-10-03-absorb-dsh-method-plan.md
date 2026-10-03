@@ -213,7 +213,19 @@ Upstream sources (read at the SHA above; quote by path, never by local clone pat
 Commits: one per unit, conventional, explicit `git add <file>`.
 
 ## U1 result
-<!-- executor fills: final item-7 text, battery hits with verdicts, residual leaks found in the tree -->
+- Tree at 3573914, plan's battery: 0 hits for ids, local paths, `(decision N)`, `this PR`;
+  15 hits for `used to` / `no longer` / `in review` — all keeps (avatar prose, memory-format doc,
+  dust-test rules, an assembly-line plan telling its own history). Residual leaks: none.
+- Positives (6 lines removed by 3573914): the plan's battery caught 4/6. Misses: a short session
+  id in backticks (`` `ff1a490e` ``) and a private project name — neither has a generic pattern.
+  Adding the project name and a backticked-8-hex pattern reaches 6/6, but a backticked short hex
+  also matches commit SHAs. Conclusion: the battery locates candidates; reading decides. Item 7
+  says so.
+- Negatives: 5 dated anchors from `plan`, `work` and `goal` skills ("client 2026-08-21, PR #73"):
+  0 battery hits, and all pass D4 (the claim stands without opening PR #73).
+- Red-proof: a session id + `/private/tmp/` line appended to a scratch copy → reported.
+  Fail-closed: `git grep` outside a repository → `fatal: not a git repository`, exit 128.
+- Item-7 text: as committed in U2.
 
 ## Regression checklist
 - Plugin manifest: `claude plugin validate compounder` → passes (before and after).
