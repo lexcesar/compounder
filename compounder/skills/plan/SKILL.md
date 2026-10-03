@@ -29,7 +29,8 @@ execution. Output: a plan an implementer (you tomorrow, or a Haiku) executes wit
    dossier survives the session that produced it.
 2. Grep the CONSUMERS of what will change — the surprise lives in the callers.
 3. What already exists worth reusing? (a utility, a pattern, a model test to imitate)
-4. Institutional memory: grep `docs/solutions/` for terms from the area; `CONCEPTS.md` for vocabulary.
+4. Institutional memory: grep `docs/solutions/` for terms from the area; `CONCEPTS.md` for vocabulary;
+   `docs/decisions/` for a recorded decision or rejected alternative your option would reopen.
 5. **External knowledge:** an option that introduces an attribute/API/lib the repo has never used →
    read ITS official docs and check platform support (caniuse, version matrix) BEFORE proposing.
    An empirical test in one environment only proves that environment; the docs are what tell you

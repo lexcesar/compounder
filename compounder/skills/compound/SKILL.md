@@ -1,6 +1,6 @@
 ---
 name: compound
-description: Capture the session's learning and file each lesson at the right address (docs/solutions/, CLAUDE.md, memory, CONCEPTS.md). Use after solving something that cost time. Refresh mode to prune the library; explainer mode to turn it into an onboarding artifact.
+description: Capture the session's learning and file each lesson at the right address (docs/solutions/, docs/decisions/, CLAUDE.md, memory, CONCEPTS.md). Use after solving something that cost time. Refresh mode to prune the library; explainer mode to turn it into an onboarding artifact.
 argument-hint: "[learning context | refresh]"
 ---
 
@@ -14,10 +14,17 @@ ADDRESS, the next occurrence costs minutes. The classic mistake is capturing exp
 distills and routes. Cheap enough to run EVERY time something cost time.
 
 ## `refresh` mode (input = "refresh")
-Sweep `docs/solutions/**/*.md`: for each doc, do the cited paths/symbols still exist
-(quick grep)? Is the solution still how the project does it? → Propose per doc: keep / update
-(diff) / retire (move to `docs/solutions/archive/` with a reason note). Apply after ok.
-A library that lies is worse than an empty one.
+Sweep `docs/solutions/**/*.md` and `docs/decisions/*.md`: for each record, do the cited
+paths/symbols still exist (quick grep)? Is it still how the project does it? Then classify by
+FUTURE value — never by age or size:
+- **keep** while it still guides a change: a rejected alternative that remains tempting, a
+  negative guarantee ("X must never…"), an ownership boundary, a reintroduction condition;
+- **update** facts that moved (paths, names, keys) — never the decision itself: a changed
+  decision is a new record that supersedes the old one, both cross-linked;
+- **retire** (move to `<dir>/archive/` with a reason note) when complete and no longer guiding;
+  an archived record is history, never cited as a current rule;
+- **delete** when it only recorded a mechanical change (rename, move, formatting).
+Propose per record, apply after ok. A library that lies is worse than an empty one.
 Then the **enforcement audit** — rules, not just docs, go stale: sweep the rule surface
 (CLAUDE.md "never/always" lines, settings, gates in CI and scripts) and classify each rule that
 matters: HARD (a deny rule, hook, or CI check blocks on its own) or instruction-only. For each
@@ -54,13 +61,17 @@ derivable from the code/git AND (c) you can write "when X, do Y because Z". Fail
 | Stable project rule ("never X here") | `CLAUDE.md` | 1 line: rule + the incident that birthed it (≤1 sentence, dated) when one exists — an anchored rule survives renegotiation; line-test: only goes in if it changes behavior |
 | User preference/style | Memory (`memory/` + index) | Distilled rule + Why + How to apply |
 | Domain term with local meaning | `CONCEPTS.md` (create it if missing) | Term + definition in 1–3 sentences |
+| Decision expensive to reverse, or one that will raise "why did we do it this way?" in 6 months — with the alternatives it beat | `docs/decisions/YYYY-MM-DD-<slug>.md` | The project's `docs/templates/adr.md` if it exists; else `# <decision>`, `Status: accepted \| superseded by <link>`, then Problem / Decision / Rejected alternatives / Consequences |
 | Repeatable multi-step procedure | Patch to an existing skill/command, or proposal for a new one | Proposed diff |
 Solution categories: `bugs/`, `integration/`, `performance/`, `conventions/`, `infra/` (create
 on demand; don't create empty taxonomy).
 
 ## Step 4 — Anti-duplicate (before writing)
-Grep `docs/solutions/` for the lesson's terms. A doc on the subject already exists → UPDATE it
-(and note `updated: YYYY-MM-DD`). Duplicates diverge and start lying.
+Grep `docs/solutions/` and `docs/decisions/` for the lesson's terms. A doc on the subject
+already exists → UPDATE it (and note `updated: YYYY-MM-DD`). Duplicates diverge and start lying.
+The new lesson contradicts or partly supersedes a record on another subject → settle it in this
+same pass: retire the old one, or cross-link both and correct the facts that changed. Never
+leave the contradiction for `refresh` to find.
 
 ## Solution doc (fixed format, ~20 lines — fits in the searcher's head)
 ```markdown
@@ -84,11 +95,14 @@ tags: [<module>, <lib>, <symptom>]
 
 ## Step 5 — Close the loop
 1. Show: lesson → address → proposed text. Apply what's approved (rules that constrain only
-   you: apply directly and announce).
+   you: apply directly and announce). Before showing, run the session-vantage test
+   (`${CLAUDE_PLUGIN_ROOT}/agents/simplicity-reviewer.md`, item 7) on the proposed text: the
+   record outlives this session, and a reader without its transcript must be able to use it.
 2. Compounding only compounds if it gets READ: confirm the consumers exist — this plugin's
-   `/brainstorm`, `/plan`, and `/debug` already grep `docs/solutions/` and `CONCEPTS.md`. If the
-   project's CLAUDE.md doesn't yet mention `docs/solutions/`, propose the discovery line:
-   "Before investigating an error or planning in a new area: grep `docs/solutions/` (solution
-   library) and check `CONCEPTS.md` (vocabulary)."
+   `/brainstorm`, `/plan` and the `researcher` agent grep `docs/solutions/` and `CONCEPTS.md`;
+   `/plan` and `researcher` also read `docs/decisions/`. If the project's CLAUDE.md doesn't yet
+   mention `docs/solutions/`, propose the discovery line: "Before investigating an error or
+   planning in a new area: grep `docs/solutions/` (solution library) and `docs/decisions/`
+   (why things are the way they are), and check `CONCEPTS.md` (vocabulary)."
 3. Recurrence of an already-recorded lesson that was NOT consulted → the problem is discovery,
    not content: improve `title`/`tags` (symptom-oriented) instead of writing another doc.

@@ -18,5 +18,7 @@ Deciders: <who made the call — human(s); the model proposes, it doesn't decide
 - <C>: rejected because <...>
 
 <!-- Rule: an ADR is written when the decision is expensive to reverse or will generate "why did
-     we do it this way?" in 6 months. A trivial decision doesn't become an ADR. ADRs are never
-     edited after acceptance: decision changed → new ADR superseding this one. -->
+     we do it this way?" in 6 months. A trivial decision doesn't become an ADR. The decision is
+     never edited after acceptance: decision changed → new ADR superseding this one, both
+     cross-linked. Facts that moved (paths, names, keys) ARE updated in place — a record with
+     dead references lies. -->
