@@ -88,6 +88,27 @@ without the vaccine, the system trains the team to ignore the reviewer.
 - Isolate the most expensive trap in its own section ("CRITICAL: …"), outside the list of minor
   rules — the 4-hour mistake must not share a paragraph with the 4-minute one.
 
+## Writing model-facing text
+Skills, agent prompts, tool descriptions and their parameters are read by a model on every
+load, so each sentence costs tokens on every run. Law 12 sets the loading order (short always,
+heavy on demand); these rules set what goes in the text. Adapted from deepseek-harness's
+`agent-experience` skill.
+- **Say each fact once.** Not in the tool description AND its system-prompt section, not in a
+  parameter description AND the tool description, not in two skills. The second copy drifts.
+- **Delete constraints the model learns from the result.** "A missing file fails to read" costs
+  tokens and teaches nothing the first error message would not.
+- **Describe behavior, not implementation.** What it does and returns; not the internal
+  mechanism, not the enforcement details.
+- **Put parameter rules on the parameter.** Defaults, ranges, pairing, when-to-set. A
+  description that changes with configuration usually means the varying part is a parameter.
+- **Bound the outputs.** Return a summary plus an id or path to fetch more; mark truncation
+  explicitly. Include a little adjacent context when the next step almost always needs it.
+- **Keep critical constraints before the action they govern.** Permissions, destructive
+  effects and required validation sit where the model reads them before acting.
+- **Count total work, not prompt size.** Trimming context pays only if it causes no extra
+  searches, re-reads or mistakes. Measure first-turn input tokens before and after a change
+  (a token-counting endpoint, or the `usage` block of a transcript) — a guess is not a saving.
+
 ## Relation to the rest of the kit
 This guide is 02-living-memory + 07-feedback-and-evolution applied at TEAM scale and packaged as an
 installable product: memory becomes versioned skills, `/retro` becomes the PR feedback loop,
