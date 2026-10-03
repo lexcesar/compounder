@@ -14,13 +14,14 @@ ADDRESS, the next occurrence costs minutes. The classic mistake is capturing exp
 distills and routes. Cheap enough to run EVERY time something cost time.
 
 ## `refresh` mode (input = "refresh")
-Sweep `docs/solutions/**/*.md` and `docs/decisions/*.md`: for each record, do the cited
-paths/symbols still exist (quick grep)? Is it still how the project does it? Then classify by
-FUTURE value — never by age or size:
+Sweep `docs/solutions/**/*.md` and `docs/decisions/**/*.md`, skipping `archive/`: for each
+record, do the cited paths/symbols still exist (quick grep)? Is it still how the project does
+it? Then classify by FUTURE value — never by age or size:
 - **keep** while it still guides a change: a rejected alternative that remains tempting, a
   negative guarantee ("X must never…"), an ownership boundary, a reintroduction condition;
-- **update** facts that moved (paths, names, keys) — never the decision itself: a changed
-  decision is a new record that supersedes the old one, both cross-linked;
+- **update** what changed — in a decision record only facts that moved (paths, names, keys),
+  never the decision itself: a changed decision is a new record that supersedes the old one,
+  both cross-linked;
 - **retire** (move to `<dir>/archive/` with a reason note) when complete and no longer guiding;
   an archived record is history, never cited as a current rule;
 - **delete** when it only recorded a mechanical change (rename, move, formatting).
@@ -68,7 +69,9 @@ on demand; don't create empty taxonomy).
 
 ## Step 4 — Anti-duplicate (before writing)
 Grep `docs/solutions/` and `docs/decisions/` for the lesson's terms. A doc on the subject
-already exists → UPDATE it (and note `updated: YYYY-MM-DD`). Duplicates diverge and start lying.
+already exists → UPDATE it (and note `updated: YYYY-MM-DD`) — unless it is a decision record
+whose decision changed: that gets a new superseding record (refresh's `update` rule).
+Duplicates diverge and start lying.
 The new lesson contradicts or partly supersedes a record on another subject → settle it in this
 same pass: retire the old one, or cross-link both and correct the facts that changed. Never
 leave the contradiction for `refresh` to find.

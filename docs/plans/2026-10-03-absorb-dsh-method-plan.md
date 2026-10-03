@@ -261,3 +261,30 @@ Commits: one per unit, conventional, explicit `git add <file>`.
   body or the U1 result section.
 - `claude plugin validate compounder` green; U1 battery clean over the diff; regression checklist
   lines 1, 3, 4 checked (line 2 after merge).
+
+## Outcome
+- **R5b dropped, not landed.** U3 A/B on a fixture where a CLI script outside the diff calls the
+  same delete function the new route guards: the existing security-lens text already reported
+  the bypass, with the same severity and attack line. `security-reviewer.md` is unchanged.
+- **R5c dropped.** U2 A/B: the existing simplicity item 5 already flagged the single-consumer
+  method on a shared util, with the right cut.
+- **Deferred, answered:** U3 — yes, the old text catches the alternate caller. U6 —
+  `count-tokens.sh` is not on main; guide 11 names the token-counting endpoint generically.
+- **Deviations:** `/plan` Step 1 reads `docs/decisions/` (without it the new route has no
+  planning-time reader; `researcher` already read it). `/compound` Step 5's consumer list drops
+  `/debug`, which never read `docs/solutions/`. U1's negative samples came from skill bodies
+  (`goal`, `plan`, `work`), not the `plan` evolution log.
+- **Limits of the evidence.** Every A/B ran once per arm, on fixtures written by this plan's
+  author together with the new text; U5's expected outcomes were fixed in this plan before the
+  runs. U5's 3/7 for the old text is largely structural — it has no `docs/decisions/` at all —
+  so it shows the route exists, not a measured improvement rate. U2's "0/2 anchors flagged" is
+  two anchors in one run, not a false-positive rate. U1's "Residual leaks: none" covers what the
+  battery sees: it missed 2/6 known positives (backticked short ids, private names), and it is a
+  pattern list in this plan, not a committed script — "battery clean" in Done is the author's
+  run, reproducible only by re-running the list by hand.
+- **Review fixes (after /review):** `/compound` Step 4 no longer edits a changed decision in
+  place — it routes to refresh's supersede rule; refresh sweeps both trees recursively, skipping
+  `archive/`, and scopes "never the decision itself" to decision records; `adr.md` drops the
+  `ADR-NNNN` numbering — the file path is the record's id.
+- **Open:** post-merge fresh-session load check (regression checklist line 2); `/debug` does not
+  read `docs/solutions/`.
