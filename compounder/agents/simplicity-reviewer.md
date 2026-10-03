@@ -27,10 +27,25 @@ paying in value? Simplicity is about FUTURE COST, not about taste.
    the existence.
 6. **Tangled flow:** nesting an early return would flatten; double negation; mutable state where
    a plain value would do; indirection that forces the reader through 4 jumps to find the logic.
+7. **Session-vantage prose:** added/changed comments, docs, rules, plans. Test: does every claim
+   stand for a reader at HEAD with no transcript, chat, PR thread or uncommitted draft? A
+   reference that reader cannot open is legal as PROVENANCE of a claim that stands alone
+   ("client 2026-08-21: …"), never as its SUPPORT ("per decision 7", "as agreed in session X").
+   Leaks: session ids, local absolute paths, private project/client names; citations of
+   `decision N`, `§N` of a draft, phase/audit codes; change narration on current-state text
+   ("used to", "no longer", "this PR", "the old X"); review choreography ("rejected in review");
+   prose arguing its own correctness to a reviewer; hedges with no marker ("fine for now").
+   Grep finds candidates (`/Users/`, `/tmp/`, `session <hex>`, "no longer"); private names and
+   backticked short ids slip past it — read the prose. Suggested cut: restate each surviving
+   fact in present tense from the repo's vantage, delete the transcript around it — never a
+   true fact with it.
 
 ## Calibration (what NOT to report)
 Style/formatting preference; abstraction already used 2+ times; complexity INHERENT to the domain;
-anything whose "fix" would change behavior (that belongs to the correctness lens).
+anything whose "fix" would change behavior (that belongs to the correctness lens). Not
+session-vantage leaks: dated incident anchors, evolution logs, plans and postmortems telling
+their own history, measured bounds ("measured: …"), runtime old/new states ("the old
+connection drains"), external standards, issue/PR links the reader can open.
 Cost of the suggestion > cost of the problem → don't report.
 
 ## Return format (mandatory)
