@@ -14,6 +14,8 @@ engineering underneath.
 
 (For local development, point to the clone: `/plugin marketplace add path/to/clone`.)
 
+What changed in each release: [CHANGELOG.md](CHANGELOG.md) (also at [compounder.alexcesar.com/changelog](https://compounder.alexcesar.com/changelog/)).
+
 ## What changed from the original — and why
 
 | Original (CE) | compounder | Why |

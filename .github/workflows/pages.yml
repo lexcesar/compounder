@@ -8,7 +8,8 @@ on:
       - "compounder/.claude-plugin/plugin.json"
       - "compounder/skills/**"
       - "compounder/agents/**"
-      - ".github/scripts/stamp-site.sh"
+      - "compounder/CHANGELOG.md"
+      - ".github/scripts/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -29,6 +30,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+      - name: Install cmark-gfm (renders the changelog page)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq cmark-gfm
       - name: Stamp plugin facts into the page
         run: bash .github/scripts/stamp-site.sh
       - uses: actions/configure-pages@v6
