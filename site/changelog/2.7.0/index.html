@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compounder 2.7.0 release notes</title>
+<meta name="description" content="compounder 2.7.0: four method ideas from deepseek-harness tested against the existing text — two shipped, two dropped on evidence, one severe defect caught in review.">
+<link rel="canonical" href="https://compounder.alexcesar.com/changelog/2.7.0/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="compounder">
+<meta property="og:title" content="compounder 2.7.0 — before and after">
+<meta property="og:description" content="Each change with its diff, its reason and the A/B evidence that kept it or dropped it.">
+<meta property="og:image" content="https://compounder.alexcesar.com/og.png">
+<meta property="og:url" content="https://compounder.alexcesar.com/changelog/2.7.0/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../changelog.css">
+<link rel="stylesheet" href="release.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+	<div class="nav__inner">
+		<a class="nav__brand" href="../../">
+			<svg class="nav__mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="3" height="18"/><rect x="18" y="3" width="3" height="18"/><path d="M8 12h8M13 9l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			compounder
+		</a>
+		<nav class="nav__links" aria-label="Release notes">
+			<a href="#changes">Changes</a>
+			<a href="#proof">Proof</a>
+			<a href="#review">Review</a>
+			<a href="#after">After the models</a>
+			<a href="../">Changelog</a>
+		</nav>
+		<div class="nav__actions">
+			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub ↗</a>
+			<a class="btn btn--small" data-mag href="../../#install">Install</a>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+	<div class="cl-hero">
+		<div class="cl-wrap">
+			<p class="eyebrow">Release notes · 2.7.0 · 3 Oct 2026</p>
+			<h1 class="cl-hero__title">Before and after 2.7</h1>
+			<p class="cl-hero__lede">Four method ideas from <a href="https://github.com/deepseek-ai/deepseek-harness">deepseek-harness</a> were tested against the text the compounder already had. Two shipped because they changed what the agent does. Two were dropped because the old text already did the same. The review then caught a severe defect in the new work, fixed before release.</p>
+			<div class="rn-facts">
+				<div class="rn-fact"><span class="rn-fact__v">9</span><span class="rn-fact__k">files</span></div>
+				<div class="rn-fact"><span class="rn-fact__v">+370 −20</span><span class="rn-fact__k">lines</span></div>
+				<div class="rn-fact"><span class="rn-fact__v">2 of 4</span><span class="rn-fact__k">proposed rules dropped</span></div>
+				<div class="rn-fact"><span class="rn-fact__v">5 of 8</span><span class="rn-fact__k">findings upheld in review</span></div>
+			</div>
+		</div>
+	</div>
+
+	<section id="changes" class="rn-section">
+		<div class="cl-wrap">
+			<div class="rn-head">
+				<p class="eyebrow">Change explorer</p>
+				<h2 class="rn-h2">Every passage, before and after</h2>
+				<p class="rn-lede">Pick a change and switch between the old text, the new text and the diff. Next to each one: why it changed, and the evidence that kept it or dropped it. Passages are shown as they shipped in 2.7.0.</p>
+			</div>
+			<div class="rn-explorer">
+				<div class="rn-clist" id="clist" role="tablist" aria-label="Changes"></div>
+				<div class="rn-cpane" id="cpane" role="tabpanel"></div>
+			</div>
+		</div>
+	</section>
+
+	<section id="proof" class="rn-section rn-panel">
+		<div class="cl-wrap rn-sim">
+			<div class="rn-head">
+				<p class="eyebrow">Proof · /compound refresh</p>
+				<h2 class="rn-h2">Same project, two texts</h2>
+				<p class="rn-lede">A test project with 2 solution docs, 4 decision records and a new lesson that contradicts one decision. The expected outcomes were written in the plan before any run. One subagent got the old /compound text, another the new one.</p>
+			</div>
+			<div class="rn-sim__top">
+				<div class="rn-seg" role="group" aria-label="Skill text">
+					<button type="button" id="arm-a" aria-pressed="false">Old text · 2.6</button>
+					<button type="button" id="arm-b" aria-pressed="true">New text · 2.7</button>
+				</div>
+				<div class="rn-score" aria-live="polite">
+					<span class="rn-score__n" id="score">7/7</span>
+					<span class="rn-score__k">outcomes matching the answer key</span>
+				</div>
+			</div>
+			<div>
+				<div class="rn-row__head"><span>Record</span><span>Expected</span><span>What the agent proposed</span></div>
+				<div class="rn-rows" id="rows"></div>
+			</div>
+			<p class="rn-caveat">Limits of this proof: one run per arm, on a project written by the author of the change. Much of the 3/7 is structural, because the old text does not know <code>docs/decisions/</code> exists. It shows the new route exists and is followed; it is not a measured improvement rate.</p>
+		</div>
+	</section>
+
+	<section id="review" class="rn-section">
+		<div class="cl-wrap">
+			<div class="rn-head">
+				<p class="eyebrow">/review · panel and tribunal</p>
+				<h2 class="rn-h2">The work was judged too</h2>
+				<p class="rn-lede">Four lenses reviewed the release in parallel. Every SEVERE or MEDIUM finding went to a verifier whose job is to refute it. Only what survived became a fix.</p>
+			</div>
+			<div class="rn-funnel">
+				<div class="rn-stage"><span class="rn-stage__n">4</span><span class="rn-stage__k">lenses</span><span class="rn-stage__d">correctness, security, simplicity, tests</span></div>
+				<div class="rn-stage"><span class="rn-stage__n">8</span><span class="rn-stage__k">to the tribunal</span><span class="rn-stage__d">1 SEVERE, 1 raised by corroboration, 6 MEDIUM</span></div>
+				<div class="rn-stage"><span class="rn-stage__n">2</span><span class="rn-stage__k">refuted</span><span class="rn-stage__d">plausible, false once the code was opened</span></div>
+				<div class="rn-stage"><span class="rn-stage__n">5</span><span class="rn-stage__k">upheld</span><span class="rn-stage__d">fixed or recorded before release; 1 more kept as a suspicion</span></div>
+			</div>
+			<div class="rn-findings" id="findings"></div>
+		</div>
+	</section>
+
+	<section id="worth" class="rn-section">
+		<div class="cl-wrap">
+			<div class="rn-head">
+				<p class="eyebrow">Was it worth it?</p>
+				<h2 class="rn-h2">What changes for you</h2>
+			</div>
+			<div class="rn-worth">
+				<div class="rn-worth__i">
+					<div class="rn-worth__t">Decisions outlive the plan that made them</div>
+					<p>"Why X and not Y" used to sit in a feature plan's decisions section that nobody read again. It now has its own address (<code>docs/decisions/</code>), <code>/plan</code> checks it before proposing, and refresh knows when a decision was superseded.</p>
+				</div>
+				<div class="rn-worth__i">
+					<div class="rn-worth__t">A public repo stays clean without relying on memory</div>
+					<p>Commit <code>3573914</code> was a manual cleanup of session ids, local paths and a private project name. The simplicity reviewer now catches that class in review: 0 of 2 leaks with the old text, 2 of 2 with the new.</p>
+				</div>
+				<div class="rn-worth__i">
+					<div class="rn-worth__t">The library stops growing in one direction</div>
+					<p>The old refresh only asked whether a cited path still existed. The new one classifies by future value: keep what still guides, archive what is finished, delete what only recorded a rename. A library that lies is worse than an empty one.</p>
+				</div>
+				<div class="rn-worth__i">
+					<div class="rn-worth__t">Two rules did not ship, and that counts as a result</div>
+					<p>The "alternate caller" and "single-consumer API" clauses looked good on paper. The A/B showed the old text already caught both cases. They stayed out, so every load of those agents costs fewer tokens.</p>
+				</div>
+				<div class="rn-worth__i">
+					<div class="rn-worth__t">A severe defect left before release</div>
+					<p>The first version of the new Step 4 told the agent to rewrite a reversed decision in place, erasing the history the change existed to protect. Two lenses found it independently and the tribunal upheld it.</p>
+				</div>
+				<div class="rn-worth__i rn-worth__i--limit">
+					<div class="rn-worth__t">What is not proven yet</div>
+					<p>Each A/B ran once per arm. The <code>/work</code> rule was checked with pytest only. The trade-offs are recorded in the plan's Outcome section, next to the evidence.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="after" class="rn-section rn-panel">
+		<div class="cl-wrap">
+			<div class="rn-head">
+				<p class="eyebrow">The compounder after the models get better</p>
+				<p class="rn-thesis">The better the model, the less the compounder <em>teaches</em> and the more it <em>keeps and measures</em>.</p>
+				<p class="rn-lede">The 2.7 work produced data for this. The old text swept decision records on its own initiative, found the caller outside the diff and the single-consumer method. Rules that only teach what the model already does are dead weight. What no model can read from the code is the project's history, the evidence, and the line between what may be published and what may not.</p>
+			</div>
+			<div class="rn-seg" role="group" aria-label="Comparison">
+				<button type="button" id="cap-solo" aria-pressed="false">Model alone</button>
+				<button type="button" id="cap-with" aria-pressed="true">Model + compounder</button>
+			</div>
+			<div class="rn-caps" id="caps"></div>
+		</div>
+	</section>
+</main>
+
+<footer class="footer">
+	<div class="footer__inner">
+		<p class="footer__line">compounder · MIT · ideas from <a href="https://github.com/deepseek-ai/deepseek-harness">deepseek-ai/deepseek-harness</a> @ 5badb15 (MIT) · plan: <a href="https://github.com/lexcesar/compounder/blob/main/docs/plans/2026-10-03-absorb-dsh-method-plan.md">absorb-dsh-method</a></p>
+		<nav class="footer__links" aria-label="Footer">
+			<a href="../">Changelog</a>
+			<a href="https://github.com/lexcesar/compounder">GitHub ↗</a>
+			<a href="https://alexcesar.com">alexcesar.com ↗</a>
+		</nav>
+	</div>
+</footer>
+
+<div class="cur-ring" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+
+<script type="text/plain" id="d-lens">
+ 6. **Tangled flow:** nesting an early return would flatten; double negation; mutable state where
+    a plain value would do; indirection that forces the reader through 4 jumps to find the logic.
++7. **Session-vantage prose:** added/changed comments, docs, rules, plans. Test: does every claim
++   stand for a reader at HEAD with no transcript, chat, PR thread or uncommitted draft? A
++   reference that reader cannot open is legal as PROVENANCE of a claim that stands alone
++   ("client 2026-08-21: …"), never as its SUPPORT ("per decision 7", "as agreed in session X").
++   Leaks: session ids, local absolute paths, private project/client names; citations of
++   `decision N`, `§N` of a draft, phase/audit codes; change narration on current-state text
++   ("used to", "no longer", "this PR", "the old X"); review choreography ("rejected in review");
++   prose arguing its own correctness to a reviewer; hedges with no marker ("fine for now").
++   Grep finds candidates (`/Users/`, `/tmp/`, `session <hex>`, "no longer"); private names and
++   backticked short ids slip past it — read the prose. Suggested cut: restate each surviving
++   fact in present tense from the repo's vantage, delete the transcript around it — never a
++   true fact with it.
+
+ ## Calibration (what NOT to report)
+ Style/formatting preference; abstraction already used 2+ times; complexity INHERENT to the domain;
+-anything whose "fix" would change behavior (that belongs to the correctness lens).
++anything whose "fix" would change behavior (that belongs to the correctness lens). Not
++session-vantage leaks: dated incident anchors, evolution logs, plans and postmortems telling
++their own history, measured bounds ("measured: …"), runtime old/new states ("the old
++connection drains"), external standards, issue/PR links the reader can open.
+ Cost of the suggestion > cost of the problem → don't report.
+</script>
+
+<script type="text/plain" id="d-route">
+ | User preference/style | Memory (`memory/` + index) | Distilled rule + Why + How to apply |
+ | Domain term with local meaning | `CONCEPTS.md` (create it if missing) | Term + definition in 1–3 sentences |
++| Decision expensive to reverse, or one that will raise "why did we do it this way?" in 6 months — with the alternatives it beat | `docs/decisions/YYYY-MM-DD-<slug>.md` | The project's `docs/templates/adr.md` if it exists; else `# <decision>`, `Status: accepted \| superseded by <link>`, then Problem / Decision / Rejected alternatives / Consequences |
+ | Repeatable multi-step procedure | Patch to an existing skill/command, or proposal for a new one | Proposed diff |
+</script>
+
+<script type="text/plain" id="d-step4">
+ ## Step 4 — Anti-duplicate (before writing)
+-Grep `docs/solutions/` for the lesson's terms. A doc on the subject already exists → UPDATE it
+-(and note `updated: YYYY-MM-DD`). Duplicates diverge and start lying.
++Grep `docs/solutions/` and `docs/decisions/` for the lesson's terms. A doc on the subject
++already exists → UPDATE it (and note `updated: YYYY-MM-DD`) — unless it is a decision record
++whose decision changed: that gets a new superseding record (refresh's `update` rule).
++Duplicates diverge and start lying.
++The new lesson contradicts or partly supersedes a record on another subject → settle it in this
++same pass: retire the old one, or cross-link both and correct the facts that changed. Never
++leave the contradiction for `refresh` to find.
+</script>
+
+<script type="text/plain" id="d-refresh">
+ ## `refresh` mode (input = "refresh")
+-Sweep `docs/solutions/**/*.md`: for each doc, do the cited paths/symbols still exist
+-(quick grep)? Is the solution still how the project does it? → Propose per doc: keep / update
+-(diff) / retire (move to `docs/solutions/archive/` with a reason note). Apply after ok.
+-A library that lies is worse than an empty one.
++Sweep `docs/solutions/**/*.md` and `docs/decisions/**/*.md`, skipping `archive/`: for each
++record, do the cited paths/symbols still exist (quick grep)? Is it still how the project does
++it? Then classify by FUTURE value — never by age or size:
++- **keep** while it still guides a change: a rejected alternative that remains tempting, a
++  negative guarantee ("X must never…"), an ownership boundary, a reintroduction condition;
++- **update** what changed — in a decision record only facts that moved (paths, names, keys),
++  never the decision itself: a changed decision is a new record that supersedes the old one,
++  both cross-linked;
++- **retire** (move to `<dir>/archive/` with a reason note) when complete and no longer guiding;
++  an archived record is history, never cited as a current rule;
++- **delete** when it only recorded a mechanical change (rename, move, formatting).
++Propose per record, apply after ok. A library that lies is worse than an empty one.
+</script>
+
+<script type="text/plain" id="d-step5">
+ ## Step 5 — Close the loop
+ 1. Show: lesson → address → proposed text. Apply what's approved (rules that constrain only
+-   you: apply directly and announce).
++   you: apply directly and announce). Before showing, run the session-vantage test
++   (`${CLAUDE_PLUGIN_ROOT}/agents/simplicity-reviewer.md`, item 7) on the proposed text: the
++   record outlives this session, and a reader without its transcript must be able to use it.
+ 2. Compounding only compounds if it gets READ: confirm the consumers exist — this plugin's
+-   `/brainstorm`, `/plan`, and `/debug` already grep `docs/solutions/` and `CONCEPTS.md`. If the
+-   project's CLAUDE.md doesn't yet mention `docs/solutions/`, propose the discovery line:
+-   "Before investigating an error or planning in a new area: grep `docs/solutions/` (solution
+-   library) and check `CONCEPTS.md` (vocabulary)."
++   `/brainstorm`, `/plan` and the `researcher` agent grep `docs/solutions/` and `CONCEPTS.md`;
++   `/plan` and `researcher` also read `docs/decisions/`. If the project's CLAUDE.md doesn't yet
++   mention `docs/solutions/`, propose the discovery line: "Before investigating an error or
++   planning in a new area: grep `docs/solutions/` (solution library) and `docs/decisions/`
++   (why things are the way they are), and check `CONCEPTS.md` (vocabulary)."
+</script>
+
+<script type="text/plain" id="d-plan">
+ 3. What already exists worth reusing? (a utility, a pattern, a model test to imitate)
+-4. Institutional memory: grep `docs/solutions/` for terms from the area; `CONCEPTS.md` for vocabulary.
++4. Institutional memory: grep `docs/solutions/` for terms from the area; `CONCEPTS.md` for vocabulary;
++   `docs/decisions/` for a recorded decision or rejected alternative your option would reopen.
+ 5. **External knowledge:** an option that introduces an attribute/API/lib the repo has never used →
+</script>
+
+<script type="text/plain" id="d-work">
+   never exit 0. A gate that skips silently when its dependency vanishes is a ghost gate.
++- **A run narrowed by file or name filter is evidence only after its report shows the expected
++  tests were selected.** Read the count, not the exit code: a filter that matches nothing, or
++  one the runner silently ignores so the whole suite runs, is not focused evidence.
+ - **A gate goes RED and the verdict is "the reference is stale, not the code" → re-freezing is
+</script>
+
+<script type="text/plain" id="d-adr">
+-# ADR-NNNN: <decision in 1 sentence>
+-Date: YYYY-MM-DD | Status: proposed | accepted | superseded by ADR-NNNN
++# <decision in 1 sentence>
++Date: YYYY-MM-DD | Status: proposed | accepted | superseded by <link to the newer record's file>
+ Deciders: <who made the call — human(s); the model proposes, it doesn't decide>
+ …
+ <!-- Rule: an ADR is written when the decision is expensive to reverse or will generate "why did
+-     we do it this way?" in 6 months. A trivial decision doesn't become an ADR. ADRs are never
+-     edited after acceptance: decision changed → new ADR superseding this one. -->
++     we do it this way?" in 6 months. A trivial decision doesn't become an ADR. The decision is
++     never edited after acceptance: decision changed → new ADR superseding this one, both
++     cross-linked. Facts that moved (paths, names, keys) ARE updated in place — a record with
++     dead references lies. Save as `docs/decisions/YYYY-MM-DD-<slug>.md`; the file path is the
++     record's id in every cross-link. -->
+</script>
+
+<script type="text/plain" id="d-guide">
+ ## Structural patterns worth imitating
+ …
++## Writing model-facing text
++Skills, agent prompts, tool descriptions and their parameters are read by a model on every
++load, so each sentence costs tokens on every run. Law 12 sets the loading order (short always,
++heavy on demand); these rules set what goes in the text. Adapted from deepseek-harness's
++`agent-experience` skill.
++- **Say each fact once.** Not in the tool description AND its system-prompt section, not in a
++  parameter description AND the tool description, not in two skills. The second copy drifts.
++- **Delete constraints the model learns from the result.** "A missing file fails to read" costs
++  tokens and teaches nothing the first error message would not.
++- **Describe behavior, not implementation.** What it does and returns; not the internal
++  mechanism, not the enforcement details.
++- **Put parameter rules on the parameter.** Defaults, ranges, pairing, when-to-set. A
++  description that changes with configuration usually means the varying part is a parameter.
++- **Bound the outputs.** Return a summary plus an id or path to fetch more; mark truncation
++  explicitly. Include a little adjacent context when the next step almost always needs it.
++- **Keep critical constraints before the action they govern.** Permissions, destructive
++  effects and required validation sit where the model reads them before acting.
++- **Count total work, not prompt size.** Trimming context pays only if it causes no extra
++  searches, re-reads or mistakes. Measure first-turn input tokens before and after a change
++  (a token-counting endpoint, or the `usage` block of a transcript) — a guess is not a saving.
+
+ ## Relation to the rest of the kit
+</script>
+
+<script type="text/plain" id="d-dropped">
+ 3. **Authorization:** does the new endpoint/action check WHO is allowed? Enumerable IDs without
+    an owner check (IDOR)? Role checked on the client but not the server?
+~   Follow each denial to the operation it protects, then list that operation's OTHER callers
+~   (script, job, CLI, internal call, another route) — a check on one path guards nothing on
+~   the others.                                    ← tested in the A/B, not shipped (security-reviewer)
+ …
+ 5. **API bigger than its use (USED symbol, surface too wide):** … Distinct from item 3: here the
+    symbol has a consumer — the excess is the surface, not the existence.
+~   A new public member on a SHARED module (service, registry, util) whose only caller is one
+~   consumer belongs to that consumer.              ← tested in the A/B, not shipped (simplicity-reviewer)
+</script>
+
+<script>
+(function () {
+	var CHANGES = [
+		{ id: 'lens', area: 'Simplicity lens', title: 'Item 7: prose only the session understands', file: 'compounder/agents/simplicity-reviewer.md', kind: 'added', diff: 'd-lens',
+			why: 'The repository is public and agents write a lot of text. A comment, doc or plan that cites "session X", a path on your machine or "rejected in review" does not help the next reader, and sometimes exposes what it should not. The rule adapted from deepseek-harness separates provenance (a dated incident that stands on its own) from support (a reference nobody can open).',
+			ev: [['ok', 'Old text: 0 of 2 leaks. New text: 2 of 2.'], ['ok', 'Neither legitimate anchor (dated incident, evolution log) was flagged.'], ['mid', 'Grep alone found 4 of the 6 real leaks removed in commit 3573914, which is why the rule says to read, not only grep.']],
+			limit: 'One run per arm, on a test project written by the author. Two anchors do not measure a false-positive rate.', fixture: true },
+		{ id: 'route', area: '/compound · Step 3', title: 'A route for decisions and rejected alternatives', file: 'compounder/skills/compound/SKILL.md', kind: 'added', diff: 'd-route',
+			why: '"Why we did it this way" is not in the code and cannot be derived from it. The kit had an ADR template no skill pointed to. Decisions that are expensive to reverse now have an address, a format and a reader: /plan checks them before proposing.',
+			ev: [['ok', 'In the capture test, the new text created the record that supersedes the old decision, cross-linked. The old text created no decision record.'], ['ok', 'docs/templates/adr.md got its first real consumer.']],
+			limit: 'The new text created a decision record and a solution doc for one lesson. Worth watching for ceremony.' },
+		{ id: 'step4', area: '/compound · Step 4', title: 'Contradictions settled at capture; decisions never rewritten', file: 'compounder/skills/compound/SKILL.md', kind: 'fixed', diff: 'd-step4',
+			why: 'When a new lesson contradicts an older record, the moment to settle it is at capture, not months later in refresh. The first version of this change had a severe defect: it said "UPDATE" for a reversed decision on the same subject, erasing its history. The review caught it and the decision carve-out shipped.',
+			ev: [['ok', 'Correctness and simplicity found the defect independently; the tribunal upheld it from the text.'], ['ok', 'Step 4 now points to the refresh rule instead of restating it.']],
+			limit: 'The fix was verified by reading. In the test the new text already handled the case by judgment, so an A/B would not isolate it.' },
+		{ id: 'refresh', area: '/compound · refresh', title: 'Refresh by future value, not by age', file: 'compounder/skills/compound/SKILL.md', kind: 'added', diff: 'd-refresh',
+			why: 'The old refresh only asked whether a cited path still existed. A superseded decision, a record of a mere rename and a rejected alternative everyone tries again all passed the same way. The rubric from deepseek-harness classifies by what a record still guides.',
+			ev: [['ok', 'Old text: 3 of 7 expected outcomes. New text: 7 of 7. See the Proof section.'], ['ok', 'Both trees are swept recursively, skipping archive/ (a minor review finding).']],
+			limit: 'Much of the 3/7 is structural: the old text does not know docs/decisions/. The expected outcomes were fixed in the plan before the runs.' },
+		{ id: 'step5', area: '/compound · Step 5', title: 'The vantage test before writing; the real readers', file: 'compounder/skills/compound/SKILL.md', kind: 'added', diff: 'd-step5',
+			why: 'A record outlives the session that wrote it, so it passes the lens test before it is shown. Along the way, the list of skills that read the library was corrected: /debug never read docs/solutions/, though the text said it did.',
+			ev: [['ok', 'In the capture test the new text replaced "this week" with "the week of 2026-09-28" unprompted.'], ['ok', 'The ${CLAUDE_PLUGIN_ROOT}/agents/… path follows the pattern three skills already use; the tribunal refuted the "dead clause" suspicion.']],
+			limit: 'Making /debug actually read the library stayed out of scope.' },
+		{ id: 'plan', area: '/plan · Step 1', title: 'Planning reads the decisions already made', file: 'compounder/skills/plan/SKILL.md', kind: 'added', diff: 'd-plan',
+			why: 'Without a reader, the new route would repeat the ADR template\'s problem: it exists and nobody reads it. Planning is the moment a rejected alternative tries to come back.',
+			ev: [['mid', 'The researcher agent already read docs/decisions/; /plan was the missing reader.'], ['ok', 'The tribunal refuted "change without evidence": it stands where the neighbouring reading instructions stand.']],
+			limit: 'There was no A/B of /plan with a planted rejected alternative.' },
+		{ id: 'work', area: '/work · Step 2', title: 'A filtered test run counts only if it shows what it selected', file: 'compounder/skills/work/SKILL.md', kind: 'added', diff: 'd-work',
+			why: 'A filter that matches nothing, or one the runner ignores so everything runs, produces a green that proves nothing about the change. The agent now reads the selected-test count.',
+			ev: [['ok', 'pytest 8.4.2 with -k nomatch: "1 deselected", exit code 5.']],
+			limit: 'Checked with pytest only. The ignored-filter case was not reproduced, to avoid installing a dependency.' },
+		{ id: 'adr', area: 'Kit · ADR template', title: 'The file path is the record\'s id', file: 'docs/templates/adr.md', kind: 'fixed', diff: 'd-adr',
+			why: 'The template numbered records ADR-NNNN while /compound names files by date and slug. Nothing said where the number came from, so "superseded by ADR-NNNN" pointed at no file. And an immutable record with dead paths lies.',
+			ev: [['ok', 'MEDIUM finding upheld by the tribunal. No other ADR- reference in the repository.']],
+			limit: '' },
+		{ id: 'guide', area: 'Kit · guide 11', title: 'How to write text a model reads', file: 'docs/mentor/11-convention-systems.md', kind: 'added', diff: 'd-guide',
+			why: 'Every sentence in a skill is paid for in tokens on every load. The rules from deepseek-harness\'s agent-experience skill went in as their own section, not a sixteenth law: the fifteen laws come from another system and keep that attribution.',
+			ev: [['ok', 'Leak grep clean on the new lines. The section cites law 12 instead of restating it.']],
+			limit: 'Guidance text, with no behavior test.' },
+		{ id: 'dropped', area: 'Dropped', title: 'Two tested rules that did not ship', file: 'security-reviewer.md · simplicity-reviewer.md (unchanged)', kind: 'dropped', diff: 'd-dropped',
+			why: 'Both looked good on paper. The A/B showed the old text already caught both cases: a CLI caller outside the diff that skips the owner check, and a method on a shared util with a single consumer. A rule that only teaches what the model already does costs tokens and changes nothing.',
+			ev: [['no', 'Security, old text: reported the bypass with the same severity and attack as the new text.'], ['no', 'Simplicity, old text: flagged the single-consumer method with the right fix.'], ['mid', 'The first security fixture was too easy (the caller sat inside the diff). It was rebuilt before concluding.']],
+			limit: 'One run per arm. With a weaker model running these lenses, the conclusion may change.' }
+	];
+
+	function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+	var KIND = { added: ['Shipped', 'rn-tag--added'], fixed: ['Fixed in review', 'rn-tag--fixed'], dropped: ['Not shipped', 'rn-tag--dropped'] };
+
+	var view = 'diff';
+	var current = CHANGES[0].id;
+	var clist = document.getElementById('clist');
+	CHANGES.forEach(function (c) {
+		var b = el('button', 'rn-citem');
+		b.type = 'button'; b.id = 'tab-' + c.id; b.setAttribute('role', 'tab');
+		b.appendChild(el('span', 'rn-citem__area', c.area));
+		b.appendChild(el('span', 'rn-citem__t', c.title));
+		b.appendChild(el('span', 'rn-tag ' + KIND[c.kind][1], KIND[c.kind][0]));
+		b.addEventListener('click', function () { current = c.id; render(); });
+		clist.appendChild(b);
+	});
+
+	function diffLines(id) {
+		var raw = document.getElementById(id).textContent.replace(/^\n/, '').replace(/\n\s*$/, '');
+		return raw.split('\n').map(function (l) { return { m: l.charAt(0), t: l.slice(1) }; });
+	}
+
+	function codeBlock(lines, mode) {
+		var wrap = el('div', 'rn-code'); var pre = el('pre'); var any = false;
+		lines.forEach(function (l) {
+			var show = mode === 'diff' || l.m === ' ' || l.m === '' || (mode === 'before' && l.m === '-') || (mode === 'after' && l.m === '+');
+			if (!show) return;
+			any = true;
+			var cls = 'rn-ln' + (mode === 'diff' && l.m === '+' ? ' rn-ln--add' : '') + (mode === 'diff' && (l.m === '-' || l.m === '~') ? ' rn-ln--del' : '');
+			var row = el('span', cls);
+			var g = mode === 'diff' ? (l.m === '+' ? '+' : l.m === '-' ? '−' : l.m === '~' ? '×' : '') : '';
+			row.appendChild(el('span', 'rn-ln__g', g));
+			row.appendChild(document.createTextNode(l.t));
+			pre.appendChild(row);
+		});
+		wrap.appendChild(pre);
+		if (!any) wrap.appendChild(el('div', 'rn-empty', 'This passage did not exist before.'));
+		return wrap;
+	}
+
+	var FIXTURE = [
+		['docs/cache.md', 'Verified on session 7f3a…c2 against /Users/…/scratch/run.log.', 'Leak: a session id and a local path as the claim\'s support (ids masked here)', 'no', 'ok'],
+		['src/cache.ts', '// Rejected in review: the LRU version used to leak memory; this cut keeps a plain Map.', 'Leak: review history narrated in current code', 'no', 'ok'],
+		['CLAUDE.md', '- Never retry a 429 without backoff (client 2026-08-21, PR #73: the queue stalled for a day).', 'Legitimate: a dated incident as provenance', 'ok', 'ok'],
+		['CLAUDE.md', '- 2026-08-13: units that create checks name their red-proof. Case: a parity gate ran green…', 'Legitimate: an evolution log line', 'ok', 'ok']
+	];
+
+	function fixtureTable() {
+		var t = el('div', 'rn-fx');
+		var h = el('div', 'rn-fx__row rn-fx__head'); h.appendChild(el('div', '', 'Line in the test project')); h.appendChild(el('div', '', 'Old')); h.appendChild(el('div', '', 'New')); t.appendChild(h);
+		FIXTURE.forEach(function (f) {
+			var r = el('div', 'rn-fx__row');
+			var c = el('div'); c.appendChild(el('div', 'rn-fx__line', f[0] + ': ' + f[1])); c.appendChild(el('div', 'rn-fx__what', f[2])); r.appendChild(c);
+			var legit = f[2].indexOf('Legitimate') === 0;
+			[f[3], f[4]].forEach(function (s) {
+				var label = legit ? (s === 'ok' ? 'not flagged ✓' : 'flagged ✗') : (s === 'ok' ? 'caught ✓' : 'missed ✗');
+				var d = el('div'); d.appendChild(el('span', 'rn-mark ' + (s === 'ok' ? 'rn-mark--ok' : 'rn-mark--no'), label)); r.appendChild(d);
+			});
+			t.appendChild(r);
+		});
+		return t;
+	}
+
+	function render() {
+		var c = CHANGES.filter(function (x) { return x.id === current; })[0];
+		Array.prototype.forEach.call(clist.children, function (b) { b.setAttribute('aria-selected', b.id === 'tab-' + c.id ? 'true' : 'false'); });
+		var p = document.getElementById('cpane'); p.textContent = ''; p.setAttribute('aria-labelledby', 'tab-' + c.id);
+		var head = el('div', 'rn-cpane__head');
+		head.appendChild(el('span', 'rn-tag ' + KIND[c.kind][1], KIND[c.kind][0]));
+		head.appendChild(el('div', 'rn-cpane__t', c.title));
+		head.appendChild(el('div', 'rn-cpane__file', c.file));
+		p.appendChild(head);
+		var seg = el('div', 'rn-seg'); seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Text view');
+		[['before', 'Before'], ['after', 'After'], ['diff', 'Diff']].forEach(function (v) {
+			var b = el('button', '', v[1]); b.type = 'button'; b.setAttribute('aria-pressed', view === v[0] ? 'true' : 'false');
+			b.addEventListener('click', function () { view = v[0]; render(); });
+			seg.appendChild(b);
+		});
+		p.appendChild(seg);
+		p.appendChild(codeBlock(diffLines(c.diff), view));
+		var why = el('div', 'rn-blk'); why.appendChild(el('div', 'rn-blk__k', 'Why')); why.appendChild(el('p', '', c.why)); p.appendChild(why);
+		var evb = el('div', 'rn-blk'); evb.appendChild(el('div', 'rn-blk__k', 'Evidence'));
+		var ul = el('ul', 'rn-ev');
+		c.ev.forEach(function (e) { var li = el('li'); li.appendChild(el('span', 'rn-dot rn-dot--' + e[0])); li.appendChild(el('span', '', e[1])); ul.appendChild(li); });
+		evb.appendChild(ul);
+		if (c.fixture) evb.appendChild(fixtureTable());
+		if (c.limit) evb.appendChild(el('p', 'rn-limit', 'Limit: ' + c.limit));
+		p.appendChild(evb);
+	}
+	render();
+
+	var RECS = [
+		{ id: 'retry-storm.md', kind: 'solution doc', desc: 'Cites src/jobs/retry.ts, which moved to src/queue/', exp: 'update the path', A: ['update the path', 1, 'Fixed the path.'], B: ['update the path', 1, 'Fixed the path and marked it updated.'] },
+		{ id: 'rename-helpers.md', kind: 'solution doc', desc: 'Only records that helpers/ became util/', exp: 'delete', A: ['retire (archive)', 0, 'Would keep a mechanical record forever.'], B: ['delete', 1, 'A mechanical change; git already tells it.'] },
+		{ id: 'jsonl-session-log.md', kind: 'decision', desc: 'Rejected SQLite; the idea comes back every time', exp: 'keep', A: ['keep', 1, 'Kept it, noting it was outside its own scope.'], B: ['keep', 1, 'A rejected alternative that is still tempting.'] },
+		{ id: 'polling-for-events.md', kind: 'decision', desc: 'Superseded by the WebSocket decision, still "accepted"', exp: 'superseded + retire', A: ['status change only', 0, 'Would stay in the active folder, guiding nothing.'], B: ['superseded + retire', 1, 'Marks it, links both, archives it.'] },
+		{ id: 'websocket-events.md', kind: 'decision', desc: 'The current decision, matches src/events.ts', exp: 'keep + back-link', A: ['keep', 1, 'Correct, without the back-link.'], B: ['keep + back-link', 1, 'Correct and linked to the one it replaced.'] },
+		{ id: 'node18-floor.md', kind: 'decision', desc: 'package.json now requires Node 22', exp: 'new record + retire', A: ['amend in place', 0, 'Would edit the decision itself, erasing its history.'], B: ['new record + retire', 1, 'The decision changed: a new record supersedes it.'] },
+		{ id: 'capture: log moves to SQLite', kind: 'new lesson', desc: 'Contradicts the JSONL decision', exp: 'a superseding record', A: ['solution doc + status change', 0, 'No record of the new decision or its alternatives.'], B: ['a superseding record', 1, 'Cross-linked, and it asked for the rejected alternatives instead of inventing them.'] }
+	];
+	var arm = 'B';
+	var rowsEl = document.getElementById('rows');
+	var rowNodes = RECS.map(function (r) {
+		var row = el('div', 'rn-row');
+		var a = el('div'); a.appendChild(el('span', 'rn-row__kind', r.kind)); a.appendChild(el('div', 'rn-row__id', r.id)); a.appendChild(el('div', 'rn-row__desc', r.desc)); row.appendChild(a);
+		var e = el('div', 'rn-row__exp'); e.appendChild(el('span', '', 'Expected')); e.appendChild(document.createTextNode(r.exp)); row.appendChild(e);
+		var v = el('div', 'rn-verdict'); var chip = el('span', 'rn-vchip'); var why = el('span', 'rn-vwhy'); v.appendChild(chip); v.appendChild(why); row.appendChild(v);
+		rowsEl.appendChild(row);
+		return { chip: chip, why: why, r: r };
+	});
+	var scoreEl = document.getElementById('score');
+	var shown = 7;
+	function animateScore(to) {
+		if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { shown = to; scoreEl.textContent = to + '/7'; return; }
+		var from = shown, t0 = null;
+		function step(t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 600); shown = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 4))); scoreEl.textContent = shown + '/7'; if (k < 1) requestAnimationFrame(step); }
+		requestAnimationFrame(step);
+	}
+	function renderArm(first) {
+		var ok = 0;
+		rowNodes.forEach(function (n) {
+			var d = n.r[arm]; ok += d[1];
+			n.chip.className = 'rn-vchip ' + (d[1] ? 'rn-vchip--ok' : 'rn-vchip--no');
+			n.chip.textContent = '';
+			n.chip.appendChild(el('i', '', d[1] ? '✓' : '✗'));
+			n.chip.appendChild(document.createTextNode(d[0]));
+			n.why.textContent = d[2];
+		});
+		document.getElementById('arm-a').setAttribute('aria-pressed', arm === 'A' ? 'true' : 'false');
+		document.getElementById('arm-b').setAttribute('aria-pressed', arm === 'B' ? 'true' : 'false');
+		if (first) { shown = ok; scoreEl.textContent = ok + '/7'; } else animateScore(ok);
+	}
+	document.getElementById('arm-a').addEventListener('click', function () { arm = 'A'; renderArm(); });
+	document.getElementById('arm-b').addEventListener('click', function () { arm = 'B'; renderArm(); });
+	renderArm(true);
+
+	var FIND = [
+		['S', 'Step 4 rewrote a reversed decision on the same subject in place', 'c', 'Upheld · fixed', 'Correctness and simplicity, independently (raised from MEDIUM to SEVERE).', 'The literal text said "UPDATE" for any existing record; the new sentence only covered records on another subject. A changed decision now becomes a new record.'],
+		['M', 'adr.md numbered ADR-NNNN while /compound names files by date and slug', 'c', 'Upheld · fixed', 'Correctness lens.', '"superseded by ADR-NNNN" pointed at no file. The file path became the id.'],
+		['M', 'The plan still listed two dropped requirements as delivered', 'c', 'Upheld · recorded', 'Simplicity lens.', 'The plan gained an Outcome section with each drop and its evidence.'],
+		['M', 'A commit message claimed more than it measured', 'c', 'Upheld · recorded', 'Tests lens.', '"0/2 anchors flagged" came from one run on a fixture written by the author of the change. The release record now states that limit.'],
+		['M', '"No leaks" held only for what grep can see', 'c', 'Upheld with a caveat · recorded', 'Tests lens.', 'The grep missed 2 of 6 known positives and is not a reproducible script. The release record now scopes the claim to what grep can see.'],
+		['M', 'The 3/7 vs 7/7 score in the commit message', 'i', 'Suspicion', 'Tests lens.', 'The expected outcomes were fixed before the runs, which counts in its favour. But much of the 3/7 is structural, and the commit did not say it was one run.'],
+		['S', 'The vantage-test hook in Step 5 would be a dead clause', 'r', 'Refuted', 'Tests lens.', 'The same ${CLAUDE_PLUGIN_ROOT} pattern already works in three skills, item 7 exists at that path, and a failure would surface as an error, not silently.'],
+		['M', 'The new /plan line had no evidence', 'r', 'Refuted', 'Tests lens.', 'It stands where the neighbouring reading instructions stand — none of them had an A/B — and it has a real producer in the new route.']
+	];
+	var fEl = document.getElementById('findings');
+	FIND.forEach(function (f) {
+		var d = el('details', 'rn-fd'); var s = el('summary');
+		s.appendChild(el('span', 'rn-sev rn-sev--' + f[0], f[0] === 'S' ? 'Severe' : 'Medium'));
+		s.appendChild(el('span', 'rn-fd__t', f[1]));
+		s.appendChild(el('span', 'rn-vd rn-vd--' + f[2], f[3]));
+		d.appendChild(s);
+		var body = el('div', 'rn-fd__body');
+		var p1 = el('div'); p1.appendChild(el('b', '', 'Found by: ')); p1.appendChild(document.createTextNode(f[4])); body.appendChild(p1);
+		var p2 = el('div'); p2.appendChild(el('b', '', 'Verifier: ')); p2.appendChild(document.createTextNode(f[5])); body.appendChild(p2);
+		d.appendChild(body); fEl.appendChild(d);
+	});
+
+	var CAPS = [
+		{ t: 'Remember why the project is the way it is', src: 'docs/decisions/ · /plan · refresh',
+			solo: 'The model reads the code and infers what it can. The alternative the team rejected last year is not in the code, so it proposes it again with full confidence.',
+			with: 'The decision and what it beat live in a record /plan reads before proposing. When the decision changes, a new record is born and the old one becomes history, without losing the why.',
+			ev: 'In the 2.7 test, the new text superseded the JSONL decision and asked for the rejected alternatives instead of inventing them.' },
+		{ t: 'Not judging its own work', src: '/review · panel + tribunal',
+			solo: 'A reviewer produces plausible findings. Some are false, and the reader of the report cannot tell which.',
+			with: 'Four lenses find; a verifier tries to refute each finding by opening the code. Only what survives reaches you.',
+			ev: 'In 2.7: 8 findings to the tribunal, 2 refuted, 1 downgraded to a suspicion, 1 severe defect fixed before release.' },
+		{ t: 'Measuring before believing', src: '/work · A/B · prove-it-can-go-red',
+			solo: 'A rule that sounds right goes into the prompt and stays forever, costing tokens, even when the model already did that on its own.',
+			with: 'Each new rule runs against the old text on the same fixture. If it changes nothing, it does not ship. If the plan predicted wrong, the record says so.',
+			ev: '2 of 4 proposed rules were dropped on evidence. The plan predicted the old text would "only check paths"; it went further, and that was written down.' },
+		{ t: 'Knowing what may go public', src: 'Simplicity lens · item 7',
+			solo: 'Agents write a lot, fast, from the session\'s point of view. Ids, paths from your machine and client names leak into commits and docs.',
+			with: 'Every new text passes the test of the later reader with no transcript. A dated incident stays; a reference only the session can open goes.',
+			ev: '0 of 2 leaks with the old text, 2 of 2 with the new. Grep alone caught 4 of 6.' },
+		{ t: 'Spending context where it pays', src: 'Guide 11 · writing model-facing text',
+			solo: 'Each skill grows with every incident. The same fact ends up in three places and drifts.',
+			with: 'One fact, one place. A constraint the model learns from the error goes. A prompt change is measured in first-turn tokens.',
+			ev: 'The review fix replaced a repeated rule with a pointer to the refresh rule.' },
+		{ t: 'Leaving irreversible decisions to you', src: 'AUTONOMY.md · merge ≠ push ≠ deploy',
+			solo: 'A more capable model does more on its own, including what cannot be undone: push, deploy, deleting data.',
+			with: 'Local commits are free. Merge, push and deploy each need an explicit order from you, one at a time.',
+			ev: 'In the 2.7 work the agent committed locally and stopped; merge and push were separate orders from the owner.' }
+	];
+	var mode = 'with';
+	var capsEl = document.getElementById('caps');
+	var capNodes = CAPS.map(function (c) {
+		var row = el('div', 'rn-cap');
+		var l = el('div'); l.appendChild(el('div', 'rn-cap__t', c.t)); l.appendChild(el('div', 'rn-cap__src', c.src)); row.appendChild(l);
+		var r = el('div', 'rn-cap__body'); var st = el('div', 'rn-cap__state'); var tx = el('div', 'rn-cap__txt'); var ev = el('div', 'rn-cap__ev', c.ev);
+		r.appendChild(st); r.appendChild(tx); r.appendChild(ev); row.appendChild(r);
+		capsEl.appendChild(row);
+		return { st: st, tx: tx, ev: ev, c: c };
+	});
+	function renderCaps(first) {
+		document.getElementById('cap-solo').setAttribute('aria-pressed', mode === 'solo' ? 'true' : 'false');
+		document.getElementById('cap-with').setAttribute('aria-pressed', mode === 'with' ? 'true' : 'false');
+		capNodes.forEach(function (n) {
+			function apply() {
+				n.st.className = 'rn-cap__state ' + (mode === 'solo' ? 'rn-cap__state--solo' : 'rn-cap__state--with');
+				n.st.textContent = mode === 'solo' ? 'Model alone' : 'Model + compounder';
+				n.tx.textContent = n.c[mode];
+				n.ev.hidden = mode === 'solo';
+				n.tx.classList.remove('is-swapping');
+			}
+			if (first) { apply(); return; }
+			n.tx.classList.add('is-swapping');
+			setTimeout(apply, 180);
+		});
+	}
+	document.getElementById('cap-solo').addEventListener('click', function () { mode = 'solo'; renderCaps(); });
+	document.getElementById('cap-with').addEventListener('click', function () { mode = 'with'; renderCaps(); });
+	renderCaps(true);
+})();
+</script>
+<script src="../../main.js" defer></script>
+</body>
+</html>
