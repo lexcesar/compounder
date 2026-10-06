@@ -6,6 +6,10 @@ origin: the owner asked for a changelog after reviewing the 2.7 before/after pag
 
 # Changelog: one source in the plugin, rendered on the site
 
+> **As built:** the generator delegates all Markdown parsing to cmark-gfm (D9, end of file). D2 and
+> D8 below, the stdlib-only premise and the U1 subset tests describe the first design, which four
+> adversarial passes refuted; they stay as the record of what was tried.
+
 ## Problem
 The compounder has shipped versions 2.0.0 through 2.7.0 with no changelog. The landing footer's
 "Changelog ↗" (`site/index.html:481`) links to `github.com/lexcesar/compounder/commits/main`, a
@@ -55,13 +59,13 @@ lives only in commit bodies.
 - `CLAUDE.md:39` — "Never `git push`, deploy, migration, or production operation without an explicit order in this session."
 
 ## Decisions
-- **D1 — How the site gets the changelog.** Winner: a stdlib Python generator
+- **D1 — How the site gets the changelog.** *(Generator kept; "stdlib" superseded by D9.)* Winner: a stdlib Python generator
   (`.github/scripts/build-changelog.py`) renders `CHANGELOG.md` into `site/changelog/index.html`
   between two marker comments; `stamp-site.sh` runs it at deploy, so the published page is always
   derived from the source. Lost: fetch-and-parse in the browser — an empty page without JS and a
   second parser to own. Lost: a hand-written HTML page next to the MD — two copies, guaranteed
   drift. Lost: pandoc or a Markdown package on the runner — a new dependency for ~6 constructs.
-- **D2 — The Markdown subset.** The generator accepts only: `# ` title, intro paragraph,
+- **D2 — The Markdown subset.** *(Superseded by D9.)* The generator accepts only: `# ` title, intro paragraph,
   `## [X.Y.Z] — YYYY-MM-DD`, `### Added|Changed|Fixed|Removed`, `- ` bullets (one line each),
   inline `` `code` ``, `**bold**`, `[text](url)`. Anything else fails loudly with the line number.
   Lost: a permissive parser — silently mis-rendered input is the drift D1 exists to prevent.
@@ -177,3 +181,41 @@ lives only in commit bodies.
 - Generator red-proofs and fail-closed proofs recorded; release gate proven red on 2.7.1.
 - Screenshots of `/changelog/` and `/changelog/2.7.0/` at both widths, no horizontal overflow.
 - `claude plugin validate compounder` green; nothing pushed.
+
+## Gate 2 follow-up (owner decision, 2026-10-03)
+Two adversarial passes refuted "nothing outside the subset renders". Injection attacks all died;
+what remained was Markdown the generator does not support but rendered literally. Decision D8:
+**reject, never render literally.** U1 is extended:
+- Line level: `+ ` and `1) ` lists, `---` / `===` / `___` rules and setext underlines, `[x]: url`
+  definitions, fenced code with `~~~`, an empty bullet.
+- Inline: `_x_` / `__x__` emphasis, `~~x~~`, HTML entities, backslash escapes, raw HTML or
+  autolinks (`<` followed by a letter or `/`), bare `http(s)://` URLs, reference links `[a][b]`,
+  Unicode line separators and C1 controls.
+- URLs: host must start with a letter or digit; printable ASCII only; no HTML entities.
+- Tests cover the three guards a mutation run showed untested: empty host, duplicate `###`
+  group, `&` escaped inside `href`.
+Lost: rendering unsupported Markdown as escaped literal text (option 2) — `*x*` failing while
+`_x_` passed would keep the subset inconsistent.
+
+## Re-plan after the third refutation (owner decision, 2026-10-03)
+The D8 blacklist did not converge: a third adversarial pass found 15 more classes GitHub reads
+differently (hard breaks, task lists, short setext underlines, single-tilde strikethrough,
+non-flanking `**`, …) and false rejections of plain prose (`the _id field`, `**`/compound`**`).
+Matching GitHub-flavored Markdown by prohibition means re-implementing its spec.
+
+**D9 — the body is rendered by cmark-gfm, GitHub's reference GFM implementation.** Supersedes
+D2 and D8. `build-changelog.py` parses only the structure — title, intro, `## [X.Y.Z] — YYYY-MM-DD`
+headings (ASCII digits, descending, unique, real dates), `### Added|Changed|Fixed|Removed`, the
+`## Before 2.0.0` section last — and hands every body to `cmark-gfm` (table, strikethrough,
+autolink, tasklist extensions; default safe mode, which drops raw HTML and unsafe links). The
+inline tokenizer and every blacklist are deleted. Missing `cmark-gfm` fails loud.
+Dependency (owner-approved): `brew install cmark-gfm` locally, `apt-get install cmark-gfm` in
+`pages.yml`. Lost: the GitHub `/markdown` API (network at deploy; cannot run locally under the
+`gh api -f` deny rule); a narrowed own-renderer contract (page and GitHub view diverge on corners).
+
+**D9 amendment (fourth verifier pass).** Structure was still detected by a per-line regex while
+cmark decided blocks its own way: setext and 1–3-space-indented headings, a bare `#`, headings in
+quotes or lists slipped through, and `## ` inside fenced code was falsely rejected. Structure now
+comes from cmark-gfm's own parse (`--to xml --sourcepos`): top-level h1 = title, h2 = version or
+origin, h3 = group; any other heading anywhere fails with its source line. Bodies are the source
+line ranges between top-level headings, rendered by cmark-gfm. One parser, no disagreement.

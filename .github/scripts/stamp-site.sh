@@ -33,10 +33,19 @@ stamp() {
 	[ "$marked" -gt 0 ] && [ "$marked" = "$stamped" ] || fail "\"$1\": $marked markers on the page, $stamped carry \"$2\""
 }
 
+# The changelog page is rendered from the plugin's CHANGELOG.md; a version without its entry stops the deploy.
+changelog="$plugin/CHANGELOG.md"
+build="$root/.github/scripts/build-changelog.py"
+tests_log="$(mktemp)"
+python3 "$root/.github/scripts/test_build_changelog.py" >"$tests_log" 2>&1 || { cat "$tests_log" >&2; fail "build-changelog tests fail (output above)"; }
+top="$(python3 "$build" --version "$changelog")" || fail "compounder/CHANGELOG.md does not parse (see the error above)"
+[ "$top" = "$version" ] || fail "CHANGELOG.md tops out at $top, plugin.json says $version — add the [$version] entry"
+python3 "$build" "$changelog" "$root/site/changelog/index.html" || fail "could not render site/changelog/index.html"
+
 stamp version "v$version"
 stamp skills "$skills"
 stamp agents "$agents"
 stamp avg-lines "$avg"
 stamp max-lines "$max"
 
-echo "stamp-site: v$version · $skills skills · $agents agents · $avg lines on average, $max at most"
+echo "stamp-site: v$version · $skills skills · $agents agents · $avg lines on average, $max at most · changelog rendered"
