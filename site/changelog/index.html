@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compounder changelog</title>
+<meta name="description" content="What changed in each release of compounder, the Claude Code plugin for compound engineering with adversarial gates.">
+<link rel="canonical" href="https://compounder.alexcesar.com/changelog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="compounder">
+<meta property="og:title" content="compounder changelog">
+<meta property="og:description" content="What changed in each release, written for the people who use it.">
+<meta property="og:image" content="https://compounder.alexcesar.com/og.png">
+<meta property="og:url" content="https://compounder.alexcesar.com/changelog/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="changelog.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+	<div class="nav__inner">
+		<a class="nav__brand" href="../">
+			<svg class="nav__mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="3" height="18"/><rect x="18" y="3" width="3" height="18"/><path d="M8 12h8M13 9l3 3-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			compounder
+		</a>
+		<nav class="nav__links" aria-label="Site">
+			<a href="../#pipeline">Pipeline</a>
+			<a href="../#agents">Agents</a>
+			<a href="./" aria-current="page">Changelog</a>
+		</nav>
+		<div class="nav__actions">
+			<a class="nav__github" href="https://github.com/lexcesar/compounder">GitHub ↗</a>
+			<a class="btn btn--small" data-mag href="../#install">Install</a>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+	<div class="cl-hero">
+		<div class="cl-wrap">
+			<p class="eyebrow">Changelog</p>
+			<h1 class="cl-hero__title">Release by release</h1>
+			<p class="cl-hero__lede">Every version of the plugin and what it changes when you use it. The newest is on top; 2.7.0 has full release notes with the before-and-after evidence.</p>
+			<a class="btn btn--gold" data-mag href="2.7.0/">2.7.0 release notes →</a>
+		</div>
+	</div>
+
+	<div class="cl-wrap cl-list-wrap">
+		<!-- changelog:start -->
+<div class="cl-intro cl-prose">
+<p>What changed in each release of the compounder plugin, written for the people who use it. Versions follow <a href="https://semver.org/">Semantic Versioning</a>.</p>
+</div>
+<section class="cl-entry" id="v2-7-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-7-0">2.7.0</a></h2><time class="cl-entry__date" datetime="2026-10-03">3 Oct 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li><code>/compound</code> has a home for decisions: a choice that is expensive to reverse, with the alternatives it beat, goes to <code>docs/decisions/</code>, and <code>/plan</code> reads it before proposing an option the project already rejected.</li>
+<li><code>/compound refresh</code> classifies each record by what it still guides — keep, update moved facts, archive, or delete — instead of only checking that cited paths exist.</li>
+<li>The simplicity reviewer flags prose only the authoring session can follow: session ids, local paths, private names, &quot;rejected in review&quot;. Dated incident anchors stay.</li>
+<li><code>/work</code> counts a filtered test run as evidence only after its report shows which tests were selected.</li>
+<li>Guide 11 of the kit gains rules for writing model-facing text: each fact once, and measure first-turn tokens before and after a change.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>A changed decision is never edited in place: it gets a new record that supersedes the old one, and the ADR template uses the file path as the record's id.</li>
+</ul>
+<p><a href="https://compounder.alexcesar.com/changelog/2.7.0/">Release notes</a></p>
+	</div>
+</section>
+<section class="cl-entry" id="v2-6-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-6-0">2.6.0</a></h2><time class="cl-entry__date" datetime="2026-09-17">17 Sep 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li><code>scripts/dispatch-cost.py</code> reads the token usage in Claude Code transcripts and reports, per dispatch, tokens, estimated cost, and whether the subagent started fresh or as a fork of the parent's context.</li>
+<li><code>scripts/count-tokens.sh</code> sizes a plan or brief with the free token-counting endpoint before you hand it to an executor.</li>
+<li>The dispatch log described in <code>ROUTES.md</code> accepts optional cost fields.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-5-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-5-0">2.5.0</a></h2><time class="cl-entry__date" datetime="2026-09-02">2 Sep 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li><code>/compounder:goal</code>, <code>/compounder:handoff</code>, <code>/compounder:guardrails</code> and <code>/compounder:council</code> ship inside the plugin, so projects that install only the plugin get them too.</li>
+<li>Each one bundles its defaults (the council's 15 avatars, the handoff template, the guardrails reference); a project's own copies override them.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>The kit keeps only <code>/retro</code> as a local command.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-4-1">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-4-1">2.4.1</a></h2><time class="cl-entry__date" datetime="2026-08-21">21 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li><code>/plan</code> quotes constraints inherited from documents verbatim with <code>path:line</code> and re-reads them against the default branch the day the plan is written, so a paraphrased note cannot turn into a rule nobody wrote.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-4-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-4-0">2.4.0</a></h2><time class="cl-entry__date" datetime="2026-08-21">21 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>Data that deployed code also reads has a reader to protect: a write that changes its shape needs expand/contract or a merge-time write, plus proof that the default branch still builds against it.</li>
+<li>When you answer by number, <code>/work</code> echoes its reading first. A merge, push or datastore write never rides on a bare &quot;do it&quot;, and each write is its own ask.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li><code>/goal</code> hands off to <code>/compounder:work</code> when a plan exists instead of starting the work itself.</li>
+<li><code>/work</code> reads the repository's PR convention before the first commit: granularity is the repo's rule, not the executor's.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-3-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-3-0">2.3.0</a></h2><time class="cl-entry__date" datetime="2026-08-20">20 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>Plans carry a regression checklist per output target (static build, preview function, deployed URL, feeds), not per feature.</li>
+<li>Writes to a live dataset, database or CMS require a snapshot, a concurrent-writer check, and writes scoped to the unit's own ids.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>Merging into the default branch is a red-zone action — your own PR with green CI included — unless a written standing order names that class of PR.</li>
+<li>Re-freezing a gate's reference is a recorded plan deviation in its own commit, never bundled with code.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-2-1">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-2-1">2.2.1</a></h2><time class="cl-entry__date" datetime="2026-08-19">19 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>When an instruction collides with what a gate measures, the gate wins: <code>/work</code> runs the check, refuses loudly with evidence where the instruction came from, and delivers the instruction's intent by a path that stays green.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-2-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-2-0">2.2.0</a></h2><time class="cl-entry__date" datetime="2026-08-18">18 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>A check must also fail closed: when its own tool, API or input is missing it goes red or loud, never exits 0.</li>
+<li><code>/compound refresh</code> audits enforcement: each &quot;never/always&quot; rule is classified as hard (a deny rule, hook or CI check) or instruction-only.</li>
+<li>The tests reviewer hunts ghost gates and configuration-as-data without a pinning test.</li>
+<li><code>/work</code> follows a <code>human-input.md</code> protocol: claim an item, resolve it, mark it done with a link to the evidence, never reword the human's text.</li>
+<li>STEERING files gain a start prompt for a fresh session, and a finished plan with a human gate offers an acceptance report.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>Units that change a contract regenerate the derived specs behind a CI no-diff gate.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-1-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-1-0">2.1.0</a></h2><time class="cl-entry__date" datetime="2026-08-13">13 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>A unit that creates a check must prove the check can go red before its green is trusted.</li>
+<li>Multi-session plans get a STEERING file: active directives, questions for the supervisor, and a per-unit execution log.</li>
+<li>Research dossiers persist as briefs in <code>docs/plans/research/</code>; executors read them instead of exploring again.</li>
+<li><code>/compound explainer</code> turns the learnings library into an onboarding page: rule, incident, and a quiz.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>Rules recorded in <code>CLAUDE.md</code> carry the dated incident that created them.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry" id="v2-0-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v"><a href="#v2-0-0">2.0.0</a></h2><time class="cl-entry__date" datetime="2026-08-13">13 Aug 2026</time></header>
+	<div class="cl-entry__body cl-prose">
+<h3 class="cl-group__k cl-group__k--changed">Changed</h3>
+<ul>
+<li>The plugin is renamed from composto to compounder, and every skill, agent, command and document is in English: <code>/plano</code> → <code>/plan</code>, <code>/trabalhar</code> → <code>/work</code>, <code>/revisar</code> → <code>/review</code>, <code>/depurar</code> → <code>/debug</code>, <code>/simplificar</code> → <code>/simplify</code>.</li>
+<li>Existing installs must re-add the plugin as <code>compounder@&lt;marketplace&gt;</code>.</li>
+</ul>
+<h3 class="cl-group__k cl-group__k--added">Added</h3>
+<ul>
+<li>MIT license.</li>
+</ul>
+	</div>
+</section>
+<section class="cl-entry cl-entry--origin" id="before-2-0-0">
+	<header class="cl-entry__head"><h2 class="cl-entry__v">Before 2.0.0</h2></header>
+	<div class="cl-entry__body cl-prose">
+<p>From July 2026 the plugin shipped in Portuguese as <strong>composto</strong> (1.x): the brainstorm → plan → work → simplify → review → compound pipeline, the four-lens review panel with an adversarial verifier, the <code>lfg</code> and <code>slfg</code> autopilots, <code>btw</code> asides, and a cheap fork route for execution.</p>
+	</div>
+</section>
+		<!-- changelog:end -->
+	</div>
+</main>
+
+<footer class="footer">
+	<div class="footer__inner">
+		<p class="footer__line">compounder · MIT · Alexander Cesar + Claude Fable 5 · source: <a href="https://github.com/lexcesar/compounder/blob/main/compounder/CHANGELOG.md">compounder/CHANGELOG.md</a></p>
+		<nav class="footer__links" aria-label="Footer">
+			<a href="https://github.com/lexcesar/compounder">GitHub ↗</a>
+			<a href="https://github.com/lexcesar/compounder/blob/main/LICENSE">License ↗</a>
+			<a href="https://alexcesar.com">alexcesar.com ↗</a>
+		</nav>
+	</div>
+</footer>
+
+<div class="cur-ring" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* compounder — changelog
+   Builds on ../style.css: palette and role tokens come from there; the roles below are derived
+   from that palette. Components reference role tokens only. */
+
+:root {
+	--cl-add: var(--confirm-ink);
+	--cl-change: var(--accent);
+	--cl-fix: var(--ink);
+	--cl-remove: var(--refute-ink);
+}
+
+.cl-wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+
+/* ---------- changelog hero ---------- */
+
+.cl-hero { border-bottom: 1px solid var(--line); padding-block: clamp(48px, 7vw, 96px) clamp(36px, 5vw, 56px); }
+.cl-hero .cl-wrap { display: grid; gap: 20px; justify-items: start; }
+.cl-hero__title {
+	font-family: var(--font-display); font-weight: 800; font-stretch: 112%; text-transform: uppercase;
+	font-size: clamp(2.4rem, 7vw, 5.2rem); line-height: 0.94; letter-spacing: -0.02em; text-wrap: balance;
+}
+.cl-hero__lede { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--muted-1); max-width: 62ch; }
+
+/* ---------- entries (rendered from compounder/CHANGELOG.md) ---------- */
+
+.cl-list-wrap { padding-block: clamp(32px, 5vw, 64px) clamp(56px, 8vw, 112px); }
+.cl-intro { color: var(--muted-1); padding-bottom: 28px; }
+.cl-intro + .cl-entry { border-top: 1px solid var(--line-light); }
+.cl-entry {
+	display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 24px 48px;
+	padding-block: 36px; border-bottom: 1px solid var(--line-light);
+	scroll-margin-top: 80px;
+}
+.cl-entry__head { display: grid; gap: 6px; align-content: start; position: sticky; top: 84px; }
+.cl-entry__v { font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.cl-entry__v a { text-decoration: none; }
+.cl-entry__v a:hover { color: var(--accent); }
+.cl-entry__date { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-2); }
+.cl-entry__body { min-width: 0; }
+.cl-group__k { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.cl-group__k--added { color: var(--cl-add); }
+.cl-group__k--changed { color: var(--cl-change); }
+.cl-group__k--fixed { color: var(--cl-fix); }
+.cl-group__k--removed { color: var(--cl-remove); }
+.cl-entry--origin .cl-entry__v { font-size: 1.25rem; color: var(--muted-1); }
+.cl-entry--origin .cl-entry__body { color: var(--muted-1); }
+
+/* Markdown rendered by cmark-gfm carries no classes, so its elements are styled inside .cl-prose. */
+.cl-prose > * + * { margin-top: 14px; }
+.cl-prose > h3 + ul, .cl-prose > h3 + p { margin-top: 10px; }
+.cl-prose > ul + h3, .cl-prose > p + h3 { margin-top: 26px; }
+.cl-prose p, .cl-prose li { max-width: 72ch; }
+.cl-prose ul { list-style: none; padding: 0; display: grid; gap: 10px; }
+.cl-prose ul ul { margin-top: 10px; }
+.cl-prose li { position: relative; padding-left: 20px; }
+.cl-prose li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 8px; height: 2px; background: var(--ink); }
+.cl-prose a { text-underline-offset: 3px; }
+.cl-entry:target .cl-entry__v { color: var(--accent); }
+
+@media (max-width: 720px) {
+	.cl-entry { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+	.cl-entry__head { position: static; grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 14px; }
+}
