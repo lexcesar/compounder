@@ -1,0 +1,42 @@
+name: Check plugin
+
+# Every PR into main or release runs what the plugin directory's Validate can be checked
+# against locally, the btw hook's behavior, and the changelog build the site deploy needs.
+# A PR into release must also raise the plugin version: one directory release, one version.
+
+on:
+  pull_request:
+    branches: [main, release]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Plugin directory checks, strict
+        run: npx --yes @anthropic-ai/claude-code@2.1.312 plugin validate ./compounder --profile directory --strict
+      - name: btw hook behavior
+        run: bash .github/scripts/test-btw-hook.sh
+      - name: Install cmark-gfm (renders the changelog page)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq cmark-gfm
+      - name: Changelog parser tests
+        run: python3 -I .github/scripts/test_build_changelog.py
+      - name: Site stamp dry run
+        run: bash .github/scripts/stamp-site.sh
+      - name: A release PR raises the version
+        if: github.base_ref == 'release'
+        run: |
+          head=$(jq -er .version compounder/.claude-plugin/plugin.json)
+          base=$(git show origin/release:compounder/.claude-plugin/plugin.json | jq -er .version)
+          echo "release is at $base; this PR brings $head"
+          [ "$head" != "$base" ] || { echo "::error::raise version in compounder/.claude-plugin/plugin.json before releasing"; exit 1; }
+          if git rev-parse -q --verify "refs/tags/v$head" >/dev/null; then echo "::error::tag v$head already exists"; exit 1; fi

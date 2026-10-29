@@ -27,10 +27,6 @@
       "Bash(gh api * --input*)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(git reset --hard:*)",
-      "Bash(rm -r:*)",
-      "Bash(rm -rf:*)",
       "Bash(npm publish:*)",
       "Bash(npx prisma migrate:*)"
     ],

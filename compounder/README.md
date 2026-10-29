@@ -11,7 +11,7 @@ engineering underneath.
 /plugin install compounder --marketplace lexcesar/compounder
 ```
 
-(Two steps on older Claude Code: `/plugin marketplace add lexcesar/compounder`, then `/plugin install compounder`. For local development, point to the clone: `/plugin marketplace add path/to/clone`.)
+(Two steps on older Claude Code: `/plugin marketplace add lexcesar/compounder`, then `/plugin install compounder`. The marketplace installs the latest release. To try a local clone, start Claude Code with `claude --plugin-dir path/to/clone/compounder`.)
 
 What changed in each release: [CHANGELOG.md](CHANGELOG.md) (also at [compounder.alexcesar.com/changelog](https://compounder.alexcesar.com/changelog/)).
 
@@ -70,6 +70,14 @@ Recommended line in the project's CLAUDE.md:
 > classify (parallelize now / do next / record in BTW.md), and only abandon the current task
 > if the message explicitly says to stop.
 
+## What it runs, writes, and sends
+
+- **Network:** nothing. No script, hook, or skill in the plugin contacts a server, and nothing reads a credential.
+- **Hook:** on every prompt, `scripts/btw-hook.sh` checks locally whether the prompt starts with "btw". If it does, it prints one line that points Claude at the `btw` skill. Otherwise it prints nothing. It never blocks a prompt.
+- **Script on request:** `scripts/dispatch-cost.py` runs only when you call it. It reads Claude Code's local transcripts under `~/.claude/projects/` to report token use per dispatch, and writes nothing.
+- **Files the skills write, all inside your project:** Markdown under `docs/plans/`, `docs/solutions/`, `docs/decisions/`, `docs/goals/` and `docs/handoffs/`; `BTW.md`, `CONCEPTS.md` and the project's `memory/` with its `MEMORY.md` index; rule lines in `CLAUDE.md` from `/compound`; and one HTML page, `docs/onboarding/explainer.html`, from `/compound explainer`.
+- **Permissions:** `/guardrails` proposes changes to the project's `.claude/settings.json` permissions, `CLAUDE.md` and `AUTONOMY.md`. It shows every diff first and applies nothing until you approve it. No other skill touches permission settings.
+
 ## Anatomy
 
 ```
@@ -77,7 +85,7 @@ compounder/
 ├── .claude-plugin/plugin.json
 ├── skills/            # 15 lean skills (~100 lines each); council/ bundles the 15 avatars
 ├── agents/            # researcher, 4 reviewers, adversarial-verifier, fork-executor
-├── hooks/hooks.json   # intercepts "btw ..." prompts and injects the aside protocol
+├── hooks/hooks.json   # on prompts that start with "btw", points Claude at the btw skill
 └── scripts/
     ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
     └── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
