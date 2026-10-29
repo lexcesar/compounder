@@ -5,7 +5,7 @@ What changed in each release of the compounder plugin, written for the people wh
 ## [2.7.3] — 2026-10-28
 ### Changed
 - The `btw` hook prints one line that points at the `btw` skill, which already holds the full protocol. The line names no file, so the plugin directory's validator has nothing outside the plugin to chase.
-- `hooks.json` calls the script by its plain path under `${CLAUDE_PLUGIN_ROOT}`, and the script runs under `sh`.
+- `hooks.json` calls the script in exec form, its path under `${CLAUDE_PLUGIN_ROOT}` with an empty `args`, so no shell splits a path that contains a space. The script runs under `sh`.
 
 ## [2.7.2] — 2026-10-28
 ### Changed
