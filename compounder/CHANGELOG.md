@@ -6,6 +6,8 @@ What changed in each release of the compounder plugin, written for the people wh
 ### Changed
 - The README says in one place what the plugin runs, writes, and sends: no network and no credentials, the `btw` hook, the cost script that only reads transcripts, the files the skills write, and `/guardrails` changing permissions only after you approve the diff.
 - The README's anatomy describes the hook as it works since 2.7.3: one line that points at the `btw` skill.
+- The plugin shows as `lexcesar/compounder` in listings, so it isn't mistaken for a plugin with a similar name. Commands keep the `/compounder:` prefix.
+- This repository's marketplace installs from the `release` branch, the same one the plugin directory follows, so unreleased work on `main` no longer reaches installs.
 
 ## [2.7.3] — 2026-10-28
 ### Changed

@@ -1,8 +1,10 @@
 # Releasing compounder
 
 Two branches matter. `main` is where work lands and where the site deploys from. `release` is what
-the Claude plugin directory follows: a commit reaches the directory only when it is merged into
-`release`. Every release also gets a `vX.Y.Z` tag on that merge commit.
+users get: the Claude plugin directory follows it, and this repository's own marketplace fetches the
+plugin from it (`git-subdir` source with `ref: release` in `.claude-plugin/marketplace.json`). A
+commit reaches users only when it is merged into `release`. Every release also gets a `vX.Y.Z` tag
+on that merge commit. To try unreleased work locally, run `claude --plugin-dir ./compounder`.
 
 ## Everyday change
 
