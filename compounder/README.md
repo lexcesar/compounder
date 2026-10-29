@@ -8,11 +8,10 @@ engineering underneath.
 ## Installation
 
 ```
-/plugin marketplace add lexcesar/compounder
-/plugin install compounder
+/plugin install compounder --marketplace lexcesar/compounder
 ```
 
-(For local development, point to the clone: `/plugin marketplace add path/to/clone`.)
+(Two steps on older Claude Code: `/plugin marketplace add lexcesar/compounder`, then `/plugin install compounder`. For local development, point to the clone: `/plugin marketplace add path/to/clone`.)
 
 What changed in each release: [CHANGELOG.md](CHANGELOG.md) (also at [compounder.alexcesar.com/changelog](https://compounder.alexcesar.com/changelog/)).
 
@@ -81,6 +80,5 @@ compounder/
 ├── hooks/hooks.json   # intercepts "btw ..." prompts and injects the aside protocol
 └── scripts/
     ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
-    ├── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
-    └── count-tokens.sh    # size a plan/brief with /v1/messages/count_tokens (free, model-specific)
+    └── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
 ```

@@ -2,6 +2,13 @@
 
 What changed in each release of the compounder plugin, written for the people who use it. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.7.1] — 2026-10-28
+### Changed
+- The `btw` hook is plain shell: it matches the prompt with `grep` and prints the protocol with `printf`, so the plugin directory's validator can follow it without a reviewer. Same behavior, same fail-open exit.
+- `plugin.json` names the homepage and repository, and the plugin ships a listing icon.
+### Removed
+- `scripts/count-tokens.sh`: it read `ANTHROPIC_API_KEY` from the environment or Keychain and sent it to the API, which the plugin directory holds for review. Size a brief with the token-counting endpoint directly.
+
 ## [2.7.0] — 2026-10-03
 ### Added
 - `/compound` has a home for decisions: a choice that is expensive to reverse, with the alternatives it beat, goes to `docs/decisions/`, and `/plan` reads it before proposing an option the project already rejected.

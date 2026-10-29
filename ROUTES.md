@@ -49,8 +49,8 @@ explorer if the caveman plugin is installed.]
   `"tokens_cache_read"`, `"tokens_out"`, `"usd_est"` (API list price; on a subscription it is the
   equivalent, not the bill). Its `turn1` column tells the route's true shape: `fresh` (system +
   brief), `fork:same-model` (parent cache re-read every turn), `fork:cross-model` (parent context
-  rewritten at cache-write price — the expensive one). Size a brief or plan before dispatch with
-  `compounder/scripts/count-tokens.sh --model <executor model> <file>`.
+  rewritten at cache-write price — the expensive one). Size a brief or plan before dispatch with the
+  token-counting endpoint (`/v1/messages/count_tokens`, free, model-specific).
 - `result` comes from the dispatchee's envelope/return; `refuted` = QC struck down the delivery.
 - `rework: true` = the orchestrator (or a more expensive route) had to redo/complete it.
 - Dispatch with no envelope/return = broken route: log it with `result:"blocked"` and say so in `notes`.
@@ -76,7 +76,7 @@ explorer if the caveman plugin is installed.]
   envelope, tool fence confirmed by probe. Rule 4 gains the forensic audit technique.
 - 2026-09-17: cost instruments added — `compounder/scripts/dispatch-cost.py`
   (per-dispatch tokens/USD from the transcripts' `usage`, turn-1 shape, cache-miss flags) and
-  `count-tokens.sh`. First measurement, same toy plan, same session, parent at ~195k:
+  `count-tokens.sh` (removed in 2.7.1: it read the API key from the machine). First measurement, same toy plan, same session, parent at ~195k:
   `/compounder:work-fork` = 7 API turns, 18k cache write, 134k read, ~$0.09; the same plan as a
   fresh `Agent(compounder:fork-executor)` brief = 8 turns, 26k write, 162k read, ~$0.14.
   Finding: `context: fork` + `agent:` + `model: sonnet` does NOT inherit the parent conversation
