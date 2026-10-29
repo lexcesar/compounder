@@ -2,6 +2,10 @@
 
 What changed in each release of the compounder plugin, written for the people who use it. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.7.2] — 2026-10-28
+### Changed
+- The `btw` hook matches the prompt with fixed strings instead of a regular expression, so the plugin directory's validator can follow the script itself. Same matches, same fail-open exit.
+
 ## [2.7.1] — 2026-10-28
 ### Changed
 - The `btw` hook is plain shell: it matches the prompt with `grep` and prints the protocol with `printf`, so the plugin directory's validator can follow it without a reviewer. Same behavior, same fail-open exit.
