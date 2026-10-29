@@ -4,12 +4,13 @@
     "name": "Alexander Cesar"
   },
   "metadata": {
-    "description": "Local marketplace for the starter kit — contains the compounder plugin",
+    "description": "Marketplace for the compounder plugin. Installs the latest release from the release branch.",
     "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "compounder",
+      "displayName": "lexcesar/compounder",
       "description": "Compound engineering v2: brainstorm→plan→work→review→compound pipeline with optional swarm (/slfg), asides (/btw) and adversarial verification",
       "author": {
         "name": "Alexander Cesar + Claude Fable 5"
@@ -21,7 +22,12 @@
         "swarm",
         "knowledge-management"
       ],
-      "source": "./compounder"
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/lexcesar/compounder.git",
+        "path": "compounder",
+        "ref": "release"
+      }
     }
   ]
 }

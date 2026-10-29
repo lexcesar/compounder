@@ -11,7 +11,7 @@ engineering underneath.
 /plugin install compounder --marketplace lexcesar/compounder
 ```
 
-(Two steps on older Claude Code: `/plugin marketplace add lexcesar/compounder`, then `/plugin install compounder`. For local development, point to the clone: `/plugin marketplace add path/to/clone`.)
+(Two steps on older Claude Code: `/plugin marketplace add lexcesar/compounder`, then `/plugin install compounder`. The marketplace installs the latest release. To try a local clone, start Claude Code with `claude --plugin-dir path/to/clone/compounder`.)
 
 What changed in each release: [CHANGELOG.md](CHANGELOG.md) (also at [compounder.alexcesar.com/changelog](https://compounder.alexcesar.com/changelog/)).
 

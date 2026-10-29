@@ -26,10 +26,10 @@ jobs:
         run: npx --yes @anthropic-ai/claude-code@2.1.312 plugin validate ./compounder --profile directory --strict
       - name: btw hook behavior
         run: bash .github/scripts/test-btw-hook.sh
-      - name: Changelog parser tests
-        run: python3 -I .github/scripts/test_build_changelog.py
       - name: Install cmark-gfm (renders the changelog page)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq cmark-gfm
+      - name: Changelog parser tests
+        run: python3 -I .github/scripts/test_build_changelog.py
       - name: Site stamp dry run
         run: bash .github/scripts/stamp-site.sh
       - name: A release PR raises the version
