@@ -2,6 +2,11 @@
 
 What changed in each release of the compounder plugin, written for the people who use it. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.7.4] — 2026-10-29
+### Changed
+- The README says in one place what the plugin runs, writes, and sends: no network and no credentials, the `btw` hook, the cost script that only reads transcripts, the files the skills write, and `/guardrails` changing permissions only after you approve the diff.
+- The README's anatomy describes the hook as it works since 2.7.3: one line that points at the `btw` skill.
+
 ## [2.7.3] — 2026-10-28
 ### Changed
 - The `btw` hook prints one line that points at the `btw` skill, which already holds the full protocol. The line names no file, so the plugin directory's validator has nothing outside the plugin to chase.
