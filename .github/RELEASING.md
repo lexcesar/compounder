@@ -9,12 +9,13 @@ on that merge commit. To try unreleased work locally, run `claude --plugin-dir .
 ## Everyday change
 
 1. Branch from `main` and open a PR into `main`. The **Check plugin** workflow runs the directory
-   checks that work offline (`claude plugin validate --profile directory --strict`), the btw hook
-   cases, the changelog tests and a site stamp dry run.
+   checks that work offline (`claude plugin validate --profile directory --strict`), a check that
+   the plugin ships no hook, script or `#!` file, the changelog tests and a site stamp dry run.
 2. If the PR touches `compounder/`, also run the directory's own Validate on the PR branch: in
    claude.ai/directory/manage, Submit new → Plugin bundle → Source, path `compounder`, Branch or tag
    = the PR branch → Validate, then Start over without saving. The portal runs checks the CLI does
-   not, such as whether it can follow the hook's script.
+   not, such as the frontmatter keys it accepts from plugins that are not from a Verified
+   organization.
 3. Merge. Nothing reaches the directory yet.
 
 ## Release

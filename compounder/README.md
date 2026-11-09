@@ -25,7 +25,7 @@ What changed in each release: [CHANGELOG.md](CHANGELOG.md) (also at [compounder.
 | `/slfg` removed | **`/slfg` resurrected** — a swarm with research fan-out, a reviewer panel, and adversarial verification in parallel; degrades gracefully when only the subagent tool is available | It was the feature that was worth the price; today's platform can take it |
 | Push/PR by default on autopilot | **Local by default** — local commit only if authorized; push/PR only with `send:pr` or an explicit order | An autopilot that publishes on its own violates the reversible/irreversible rule (AUTONOMY.md) |
 | 727-line `ce-compound`, multi-agent to write one doc | `/compound` distills and ROUTES: technical solution → `docs/solutions/`; decision + the alternatives it beat → `docs/decisions/`; project rule → CLAUDE.md; preference → memory; vocabulary → CONCEPTS.md; ephemeral → trash | The value is in the distillation and the right address, not in the ceremony; expensive capture = skipped capture |
-| No aside mechanism | **`/btw`** + interception hook: speak mid-work without derailing anything | Talking during execution is how humans work; formalizing the aside unlocks real parallelism |
+| No aside mechanism | **`/btw`**: speak mid-work without derailing anything | Talking during execution is how humans work; formalizing the aside unlocks real parallelism |
 | Its own YAML config, headless modes by flag | Convention over configuration: `docs/plans/`, `docs/solutions/`, `BTW.md`, `CONCEPTS.md`; headless = the caller's decision | Less surface to break and fewer tokens to load |
 
 What was **preserved** from the original, because it is excellent: the brainstorm → plan → work →
@@ -72,9 +72,7 @@ Recommended line in the project's CLAUDE.md:
 
 ## What it runs, writes, and sends
 
-- **Network:** nothing. No script, hook, or skill in the plugin contacts a server, and nothing reads a credential.
-- **Hook:** on every prompt, `scripts/btw-hook.sh` checks locally whether the prompt starts with "btw". If it does, it prints one line that points Claude at the `btw` skill. Otherwise it prints nothing. It never blocks a prompt.
-- **Script on request:** `scripts/dispatch-cost.py` runs only when you call it. It reads Claude Code's local transcripts under `~/.claude/projects/` to report token use per dispatch, and writes nothing.
+- **Code:** none. The plugin is Markdown and JSON only: no hook, no script, no program. Nothing in it contacts a server or reads a credential.
 - **Files the skills write, all inside your project:** Markdown under `docs/plans/`, `docs/solutions/`, `docs/decisions/`, `docs/goals/` and `docs/handoffs/`; `BTW.md`, `CONCEPTS.md` and the project's `memory/` with its `MEMORY.md` index; rule lines in `CLAUDE.md` from `/compound`; and one HTML page, `docs/onboarding/explainer.html`, from `/compound explainer`.
 - **Permissions:** `/guardrails` proposes changes to the project's `.claude/settings.json` permissions, `CLAUDE.md` and `AUTONOMY.md`. It shows every diff first and applies nothing until you approve it. No other skill touches permission settings.
 
@@ -84,9 +82,5 @@ Recommended line in the project's CLAUDE.md:
 compounder/
 ├── .claude-plugin/plugin.json
 ├── skills/            # 15 lean skills (~100 lines each); council/ bundles the 15 avatars
-├── agents/            # researcher, 4 reviewers, adversarial-verifier, fork-executor
-├── hooks/hooks.json   # on prompts that start with "btw", points Claude at the btw skill
-└── scripts/
-    ├── btw-hook.sh        # UserPromptSubmit hook behind /btw
-    └── dispatch-cost.py   # per-dispatch tokens/USD + fork-vs-fresh shape, read from transcripts' `usage`
+└── agents/            # researcher, 4 reviewers, adversarial-verifier, fork-executor
 ```
