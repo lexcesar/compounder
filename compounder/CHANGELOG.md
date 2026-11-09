@@ -2,6 +2,14 @@
 
 What changed in each release of the compounder plugin, written for the people who use it. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.7.5] — 2026-11-09
+### Changed
+- The plugin ships no code: only Markdown, JSON and its icon. The plugin directory accepts hooks and scripts only from Verified organizations, and refused 2.7.4 for them.
+- `/work-fork` tells the session to dispatch the `fork-executor` agent instead of naming it in the skill's frontmatter. Same tool fence, same Sonnet model, same envelope; the session spends one more turn to dispatch and relay it.
+### Removed
+- The `btw` hook. `/compounder:btw` still works when you call it, and the skill still applies when a message arrives mid-task, but a prompt that starts with "btw" is no longer routed to it automatically.
+- `scripts/dispatch-cost.py`. It stays in this repository under `tools/`, for working on the plugin; installs no longer get it.
+
 ## [2.7.4] — 2026-10-29
 ### Changed
 - The README says in one place what the plugin runs, writes, and sends: no network and no credentials, the `btw` hook, the cost script that only reads transcripts, the files the skills write, and `/guardrails` changing permissions only after you approve the diff.
